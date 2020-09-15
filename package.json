@@ -1,0 +1,13 @@
+{
+  "name": "dockhand-lite",
+  "version": "0.0.1",
+  "author": "BoxBoat",
+  "scripts": {
+    "build": "tsc",
+    "cmd": "tsc && node dist/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {}
+}
