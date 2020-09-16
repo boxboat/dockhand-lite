@@ -1,2 +1,11 @@
+*-debug.log
+*-error.log
+/.idea
+/.nyc_output
 /dist
+/dockhand-lite-*.tgz
+/lib
 /node_modules
+/oclif.manifest.json
+/package
+/tmp
