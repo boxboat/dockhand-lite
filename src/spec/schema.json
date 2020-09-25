@@ -1,0 +1,501 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "IArtifactPublishEvents": {
+            "properties": {
+                "artifactRepoKey": {
+                    "type": "string"
+                },
+                "artifactType": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "eventRegex": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IArtifactType": {
+            "properties": {
+                "artifactType": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IArtifacts": {
+            "properties": {
+                "artifacts": {
+                    "$ref": "#/definitions/Map<string,string[]>"
+                }
+            },
+            "type": "object"
+        },
+        "IBuild": {
+            "properties": {
+                "artifactPublishEvents": {
+                    "items": {
+                        "$ref": "#/definitions/IArtifactPublishEvents"
+                    },
+                    "type": "array"
+                },
+                "artifacts": {
+                    "$ref": "#/definitions/Map<string,string[]>"
+                },
+                "ciProvider": {
+                    "$ref": "#/definitions/IGitLabCiProvider"
+                },
+                "defaultBranch": {
+                    "type": "string"
+                },
+                "dependencies": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventOverrides"
+                            },
+                            {
+                                "$ref": "#/definitions/ITrigger"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updateMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IFileUpdateMethod"
+                        },
+                        {
+                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "IBuildVersions": {
+            "properties": {
+                "imageRepoMap": {
+                    "$ref": "#/definitions/Map<string,string>"
+                },
+                "imageVersionMap": {
+                    "$ref": "#/definitions/Map<string,IImageVersion>"
+                },
+                "repoVersionMap": {
+                    "$ref": "#/definitions/Map<string,IRepoVersion>"
+                }
+            },
+            "type": "object"
+        },
+        "IDeploy": {
+            "properties": {
+                "artifactPublishEvents": {
+                    "items": {
+                        "$ref": "#/definitions/IArtifactPublishEvents"
+                    },
+                    "type": "array"
+                },
+                "artifacts": {
+                    "$ref": "#/definitions/Map<string,string[]>"
+                },
+                "ciProvider": {
+                    "$ref": "#/definitions/IGitLabCiProvider"
+                },
+                "defaultBranch": {
+                    "type": "string"
+                },
+                "deploymentMap": {
+                    "$ref": "#/definitions/Map<string,IDeployment>"
+                },
+                "eventOverrides": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updateMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IFileUpdateMethod"
+                        },
+                        {
+                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "IEvent": {
+            "properties": {
+                "event": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IEventFallback": {
+            "properties": {
+                "eventFallback": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IEventOverride": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/IArtifacts"
+                },
+                {
+                    "$ref": "#/definitions/IEvent"
+                },
+                {
+                    "$ref": "#/definitions/IEventFallback"
+                }
+            ]
+        },
+        "IEventOverrides": {
+            "properties": {
+                "eventOverrides": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "IEventRegex": {
+            "properties": {
+                "eventRegex": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IFile": {
+            "properties": {
+                "branch": {
+                    "type": "string"
+                },
+                "fileNameTemplate": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IFileUpdateMethod": {
+            "properties": {
+                "orphanBranch": {
+                    "$ref": "#/definitions/IFile"
+                }
+            },
+            "type": "object"
+        },
+        "IGitConnection": {
+            "properties": {
+                "authorEmail": {
+                    "type": "string"
+                },
+                "authorName": {
+                    "type": "string"
+                },
+                "remoteHost": {
+                    "type": "string"
+                },
+                "remotePathPrefix": {
+                    "type": "string"
+                },
+                "sshKeyFile": {
+                    "type": "string"
+                },
+                "sshUser": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IGitConnectionRepo": {
+            "properties": {
+                "gitConnectionKey": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "ref": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IGitLab": {
+            "properties": {
+                "ciFile": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IGitLabCiProvider": {
+            "properties": {
+                "gitLab": {
+                    "$ref": "#/definitions/IGitLab"
+                }
+            },
+            "type": "object"
+        },
+        "IGlobalConfig": {
+            "properties": {
+                "artifactRepoMap": {
+                    "$ref": "#/definitions/Map<string,any>"
+                },
+                "buildVersionsRepo": {
+                    "$ref": "#/definitions/IGitConnectionRepo"
+                },
+                "environmentMap": {
+                    "$ref": "#/definitions/Map<string,any>"
+                },
+                "gitConnectionMap": {
+                    "$ref": "#/definitions/IGitConnection"
+                },
+                "repo": {
+                    "$ref": "#/definitions/IRepoConfig"
+                }
+            },
+            "type": "object"
+        },
+        "IImageRepo": {
+            "type": "string"
+        },
+        "IImageVersion": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "IOrphanBranch": {
+            "properties": {
+                "branchNameTemplate": {
+                    "type": "string"
+                },
+                "imageVersionsFile": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IOrphanBranchUpdateMethod": {
+            "properties": {
+                "orphanBranch": {
+                    "$ref": "#/definitions/IOrphanBranch"
+                }
+            },
+            "type": "object"
+        },
+        "IPromote": {
+            "properties": {
+                "artifactPublishEvents": {
+                    "items": {
+                        "$ref": "#/definitions/IArtifactPublishEvents"
+                    },
+                    "type": "array"
+                },
+                "artifacts": {
+                    "$ref": "#/definitions/Map<string,string[]>"
+                },
+                "baseVersion": {
+                    "type": "string"
+                },
+                "ciProvider": {
+                    "$ref": "#/definitions/IGitLabCiProvider"
+                },
+                "defaultBranch": {
+                    "type": "string"
+                },
+                "gitTagDisable": {
+                    "type": "boolean"
+                },
+                "gitTagPrefix": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "promotionMap": {
+                    "$ref": "#/definitions/Map<string,IPromotion>"
+                },
+                "updateMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IFileUpdateMethod"
+                        },
+                        {
+                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "IRepoConfig": {
+            "properties": {
+                "build": {
+                    "$ref": "#/definitions/IBuild"
+                },
+                "deploy": {
+                    "$ref": "#/definitions/IDeploy"
+                },
+                "promote": {
+                    "$ref": "#/definitions/IPromote"
+                }
+            },
+            "type": "object"
+        },
+        "IRepoVersion": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "ITrigger": {
+            "properties": {
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerBranch": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,IDeployment>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,IImageVersion>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,IPromotion>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,IRepoVersion>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,any>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,string>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Map<string,string[]>": {
+            "properties": {
+                "__@toStringTag": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
+

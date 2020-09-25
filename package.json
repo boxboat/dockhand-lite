@@ -10,6 +10,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "ajv": "^6.12.5",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -19,11 +20,16 @@
     "@types/mocha": "^5",
     "@types/node": "^10",
     "chai": "^4",
+    "eslint": "^7.9",
+    "eslint-config-oclif": "^3.1",
+    "eslint-config-oclif-typescript": "^0.2",
     "globby": "^10",
     "mocha": "^5",
     "nyc": "^14",
+    "oclif": "^1.16.1",
     "ts-node": "^8",
-    "typescript": "^3.3"
+    "typescript": "^3.3",
+    "typescript-json-schema": "^0.43.0"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -38,7 +44,7 @@
   "keywords": [
     "oclif"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
@@ -49,7 +55,12 @@
   },
   "repository": "https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite",
   "scripts": {
+    "cli": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme && ./bin/run",
+    "eslint-fix": "eslint . --ext .ts --config .eslintrc --fix",
+    "generate-schema": "node ./node_modules/typescript-json-schema/bin/typescript-json-schema 'src/spec/**/*.ts' '*' -o src/spec/schema.json",
+    "oclif": "oclif",
     "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
