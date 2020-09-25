@@ -6,7 +6,7 @@ dockhand-lite
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/dockhand-lite.svg)](https://npmjs.org/package/dockhand-lite)
 [![Downloads/week](https://img.shields.io/npm/dw/dockhand-lite.svg)](https://npmjs.org/package/dockhand-lite)
-[![License](https://img.shields.io/npm/l/dockhand-lite.svg)](https://github.com/git@gitlab.com:boxboat/dockhand/gitlab-poc/dockhand-lite.git/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/dockhand-lite.svg)](https://github.com/https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -28,28 +28,43 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`dockhand-lite hello [FILE]`](#dockhand-lite-hello-file)
+* [`dockhand-lite build:list-dependencies ARTIFACTTYPE`](#dockhand-lite-buildlist-dependencies-artifacttype)
+* [`dockhand-lite build:list-publish ARTIFACTTYPE`](#dockhand-lite-buildlist-publish-artifacttype)
 * [`dockhand-lite help [COMMAND]`](#dockhand-lite-help-command)
 
-## `dockhand-lite hello [FILE]`
+## `dockhand-lite build:list-dependencies ARTIFACTTYPE`
 
-describe the command here
+list of artifacts that are dependencies
 
 ```
 USAGE
-  $ dockhand-lite hello [FILE]
+  $ dockhand-lite build:list-dependencies ARTIFACTTYPE
+
+ARGUMENTS
+  ARTIFACTTYPE  artifact type
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ dockhand-lite hello
-  hello world from ./src/hello.ts!
+  -h, --help  show CLI help
 ```
 
-_See code: [src/commands/hello.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/hello.ts)_
+_See code: [src/commands/build/list-dependencies.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
+
+## `dockhand-lite build:list-publish ARTIFACTTYPE`
+
+list of artifacts that should be published
+
+```
+USAGE
+  $ dockhand-lite build:list-publish ARTIFACTTYPE
+
+ARGUMENTS
+  ARTIFACTTYPE  artifact type
+
+OPTIONS
+  -h, --help  show CLI help
+```
+
+_See code: [src/commands/build/list-publish.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
 
 ## `dockhand-lite help [COMMAND]`
 
