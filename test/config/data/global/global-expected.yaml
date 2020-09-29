@@ -1,0 +1,24 @@
+artifactRepoMap:
+  dev: dev
+  stage: stage
+buildVersionsRepo:
+  gitConnectionKey: gitHub
+  path: build-versions
+environmentMap:
+  dev: dev
+  stage: stage
+gitConnectionMap:
+  gitHub:
+    authorEmail: test
+    authorName: test
+    remoteHost: github.com
+    remotePathPrefix: boxboat
+    sshUser: git
+    sshKeyFile: "~/.ssh/id_rsa"
+repo:
+  common:
+    artifacts:
+      docker:
+        - docker/docker1
+      helm:
+        - helm/helm1

@@ -1,0 +1,27 @@
+common:
+  artifacts:
+    docker:
+      - docker/test1
+    helm:
+      - helm/test1
+build:
+  dependencies:
+    artifacts:
+      docker:
+        - docker/test2
+      helm:
+        - helm/test2
+promote:
+  artifacts:
+    docker:
+      - docker/test1
+    helm:
+      - helm/test2
+    npm:
+      - npm/test1
+deploy:
+  artifacts:
+    docker:
+      - docker/test3
+    helm:
+      - helm/test3

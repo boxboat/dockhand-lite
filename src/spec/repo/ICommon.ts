@@ -2,7 +2,7 @@ import {IArtifacts, IArtifactType} from '../base/IArtifacts'
 import {IEvent, IEventRegex} from '../base/IEvent'
 
 export interface ICommon extends IArtifacts {
-  artifactPublishEvents: Array<IArtifactPublishEvents>;
+  artifactPublishEvents: IArtifactPublishEvents[];
   ciProvider: IGitLabCiProvider;
   defaultBranch: string;
   name: string;
