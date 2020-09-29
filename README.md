@@ -28,23 +28,23 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`dockhand-lite build:list-dependencies ARTIFACTTYPE`](#dockhand-lite-buildlist-dependencies-artifacttype)
+* [`dockhand-lite build:list-dependencies`](#dockhand-lite-buildlist-dependencies)
 * [`dockhand-lite build:list-publish ARTIFACTTYPE`](#dockhand-lite-buildlist-publish-artifacttype)
 * [`dockhand-lite help [COMMAND]`](#dockhand-lite-help-command)
 
-## `dockhand-lite build:list-dependencies ARTIFACTTYPE`
+## `dockhand-lite build:list-dependencies`
 
 list of artifacts that are dependencies
 
 ```
 USAGE
-  $ dockhand-lite build:list-dependencies ARTIFACTTYPE
-
-ARGUMENTS
-  ARTIFACTTYPE  artifact type
+  $ dockhand-lite build:list-dependencies
 
 OPTIONS
-  -h, --help  show CLI help
+  -c, --repoConfig=repoConfig      (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig  (required) global config json or yaml file
+  -h, --help                       show CLI help
+  -t, --artifactType=artifactType  artifact type
 ```
 
 _See code: [src/commands/build/list-dependencies.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
@@ -61,7 +61,9 @@ ARGUMENTS
   ARTIFACTTYPE  artifact type
 
 OPTIONS
-  -h, --help  show CLI help
+  -c, --repoConfig=repoConfig      (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig  (required) global config json or yaml file
+  -h, --help                       show CLI help
 ```
 
 _See code: [src/commands/build/list-publish.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_

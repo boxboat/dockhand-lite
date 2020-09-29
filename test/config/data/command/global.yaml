@@ -1,0 +1,11 @@
+buildVersionsRepo:
+  gitConnectionKey: gitHub
+  path: build-versions
+gitConnectionMap:
+  gitHub:
+    authorEmail: test
+    authorName: test
+    remoteHost: github.com
+    remotePathPrefix: boxboat
+    sshUser: git
+    sshKeyFile: '~/.ssh/id_rsa'

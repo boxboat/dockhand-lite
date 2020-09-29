@@ -1,21 +1,20 @@
-import {Command, flags} from '@oclif/command'
+import {Command} from '@oclif/command'
+import {artifactTypeFlag, configFlags, helpFlag} from '../../flags'
+import {parseConfigAsync} from '../../config'
 
-export default class BuildShouldPull extends Command {
+export default class BuildListDependencies extends Command {
   static description = 'list of artifacts that are dependencies'
 
-  static flags = {
-    help: flags.help({char: 'h'}),
-  }
-
-  static args = [
-    {name: 'artifactType', required: true, description: 'artifact type'},
-  ]
+  static flags = Object.assign({}, artifactTypeFlag, configFlags, helpFlag)
 
   // should print
   // artifactRepoKey <tab> artifactName <tab> artifactVersion
   async run() {
-    const {args, flags} = this.parse(BuildShouldPull)
+    const {flags} = this.parse(BuildListDependencies)
+    const config = await parseConfigAsync(flags.globalConfig, flags.repoConfig)
 
-    this.log(`artifactType: ${args.artifactType}`)
+    this.log(config.global.repo?.common?.name)
+    this.log(config.repo.common?.name)
+    this.log(`artifactType: ${flags.artifactType}`)
   }
 }
