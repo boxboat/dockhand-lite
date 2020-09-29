@@ -52,26 +52,23 @@
                     "type": "string"
                 },
                 "dependencies": {
-                    "items": {
-                        "allOf": [
-                            {
-                                "$ref": "#/definitions/IArtifacts"
-                            },
-                            {
-                                "$ref": "#/definitions/IEvent"
-                            },
-                            {
-                                "$ref": "#/definitions/IEventFallback"
-                            },
-                            {
-                                "$ref": "#/definitions/IEventOverrides"
-                            },
-                            {
-                                "$ref": "#/definitions/ITrigger"
-                            }
-                        ]
-                    },
-                    "type": "array"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/IArtifacts"
+                        },
+                        {
+                            "$ref": "#/definitions/IEvent"
+                        },
+                        {
+                            "$ref": "#/definitions/IEventFallback"
+                        },
+                        {
+                            "$ref": "#/definitions/IOverrides"
+                        },
+                        {
+                            "$ref": "#/definitions/ITrigger"
+                        }
+                    ]
                 },
                 "name": {
                     "type": "string"
@@ -103,6 +100,39 @@
             },
             "type": "object"
         },
+        "ICommon": {
+            "properties": {
+                "artifactPublishEvents": {
+                    "items": {
+                        "$ref": "#/definitions/IArtifactPublishEvents"
+                    },
+                    "type": "array"
+                },
+                "artifacts": {
+                    "$ref": "#/definitions/Map<string,string[]>"
+                },
+                "ciProvider": {
+                    "$ref": "#/definitions/IGitLabCiProvider"
+                },
+                "defaultBranch": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updateMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/IFileUpdateMethod"
+                        },
+                        {
+                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
         "IDeploy": {
             "properties": {
                 "artifactPublishEvents": {
@@ -123,7 +153,10 @@
                 "deploymentMap": {
                     "$ref": "#/definitions/Map<string,IDeployment>"
                 },
-                "eventOverrides": {
+                "name": {
+                    "type": "string"
+                },
+                "overrides": {
                     "items": {
                         "allOf": [
                             {
@@ -134,13 +167,13 @@
                             },
                             {
                                 "$ref": "#/definitions/IEventFallback"
+                            },
+                            {
+                                "$ref": "#/definitions/ITrigger"
                             }
                         ]
                     },
                     "type": "array"
-                },
-                "name": {
-                    "type": "string"
                 },
                 "updateMethod": {
                     "anyOf": [
@@ -167,40 +200,6 @@
             "properties": {
                 "eventFallback": {
                     "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "IEventOverride": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/IArtifacts"
-                },
-                {
-                    "$ref": "#/definitions/IEvent"
-                },
-                {
-                    "$ref": "#/definitions/IEventFallback"
-                }
-            ]
-        },
-        "IEventOverrides": {
-            "properties": {
-                "eventOverrides": {
-                    "items": {
-                        "allOf": [
-                            {
-                                "$ref": "#/definitions/IArtifacts"
-                            },
-                            {
-                                "$ref": "#/definitions/IEvent"
-                            },
-                            {
-                                "$ref": "#/definitions/IEventFallback"
-                            }
-                        ]
-                    },
-                    "type": "array"
                 }
             },
             "type": "object"
@@ -338,6 +337,46 @@
             },
             "type": "object"
         },
+        "IOverride": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/IArtifacts"
+                },
+                {
+                    "$ref": "#/definitions/IEvent"
+                },
+                {
+                    "$ref": "#/definitions/IEventFallback"
+                },
+                {
+                    "$ref": "#/definitions/ITrigger"
+                }
+            ]
+        },
+        "IOverrides": {
+            "properties": {
+                "overrides": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            },
+                            {
+                                "$ref": "#/definitions/ITrigger"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
         "IPromote": {
             "properties": {
                 "artifactPublishEvents": {
@@ -387,6 +426,9 @@
             "properties": {
                 "build": {
                     "$ref": "#/definitions/IBuild"
+                },
+                "common": {
+                    "$ref": "#/definitions/ICommon"
                 },
                 "deploy": {
                     "$ref": "#/definitions/IDeploy"

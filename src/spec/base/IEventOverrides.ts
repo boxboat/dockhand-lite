@@ -1,8 +1,9 @@
 import {IArtifacts} from './IArtifacts'
 import {IEvent, IEventFallback} from './IEvent'
+import {ITrigger} from './ITrigger'
 
-export interface IEventOverrides {
-  eventOverrides: Array<IEventOverride>;
+export interface IOverrides {
+  overrides: IOverride[];
 }
 
-type IEventOverride = IArtifacts & IEvent & IEventFallback
+type IOverride = IArtifacts & IEvent & IEventFallback & ITrigger

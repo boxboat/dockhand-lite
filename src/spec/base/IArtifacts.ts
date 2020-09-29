@@ -1,5 +1,5 @@
 export interface IArtifacts {
-  artifacts: Map<string, Array<string>>;
+  artifacts: Map<string, string[]>;
 }
 
 export interface IArtifactType {

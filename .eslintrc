@@ -4,8 +4,9 @@
     "oclif-typescript"
   ],
   "rules": {
-    "no-useless-constructor": "off",
     "@typescript-eslint/interface-name-prefix": "off",
+    "no-await-in-loop": "off",
+    "no-useless-constructor": "off",
     "unicorn/filename-case": "off"
   }
 }

@@ -1,0 +1,19 @@
+{
+  "promote": {
+    "artifacts": {
+      "npm": [
+        "npm/test1"
+      ]
+    }
+  },
+  "deploy": {
+    "artifacts": {
+      "docker": [
+        "docker/test3"
+      ],
+      "helm": [
+        "helm/test3"
+      ]
+    }
+  }
+}
