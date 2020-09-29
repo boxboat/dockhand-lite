@@ -1,0 +1,9 @@
+common:
+  artifacts:
+    docker:
+      - docker/test1
+build:
+  dependencies:
+    artifacts:
+      docker:
+        - docker/test2
