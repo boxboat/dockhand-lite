@@ -4,9 +4,7 @@ dockhand-lite
 
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/dockhand-lite.svg)](https://npmjs.org/package/dockhand-lite)
-[![Downloads/week](https://img.shields.io/npm/dw/dockhand-lite.svg)](https://npmjs.org/package/dockhand-lite)
-[![License](https://img.shields.io/npm/l/dockhand-lite.svg)](https://github.com/https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/master/package.json)
+![main](https://github.com/boxboat/dockhand-lite/workflows/main/badge.svg)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -47,7 +45,7 @@ OPTIONS
   -t, --artifactType=artifactType  artifact type
 ```
 
-_See code: [src/commands/build/list-dependencies.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
+_See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
 
 ## `dockhand-lite build:list-publish ARTIFACTTYPE`
 
@@ -66,7 +64,7 @@ OPTIONS
   -h, --help                       show CLI help
 ```
 
-_See code: [src/commands/build/list-publish.ts](https://gitlab.com/boxboat/dockhand/gitlab-poc/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
+_See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
 
 ## `dockhand-lite help [COMMAND]`
 
