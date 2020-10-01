@@ -1,29 +1,30 @@
-import {IGlobalConfig} from '../spec/global/IGlobalConfig'
-import {IRepoConfig} from '../spec/repo/IRepoConfig'
+import {IRepoConfigFile, IRepoConfig} from '../spec/repo/IRepoConfig'
 import {cloneDeep, merge} from 'lodash'
 import {parseConfigsAsync} from './ConfigReader'
 
-function repoConfigMerge(...configs: IRepoConfig[]): IRepoConfig {
+function repoConfigMerge(...configs: IRepoConfigFile[]): IRepoConfigFile {
   const base = {
+    common: {},
     build: {},
     promote: {},
     deploy: {},
-  } as IRepoConfig
+  } as IRepoConfigFile
 
   for (const config of configs) {
     merge(base, config)
   }
 
-  if (base.common) {
-    merge(cloneDeep(base.common), base.build)
-    merge(cloneDeep(base.common), base.promote)
-    merge(cloneDeep(base.common), base.deploy)
-  }
+  merge(cloneDeep(base.common), base.build)
+  merge(cloneDeep(base.common), base.promote)
+  merge(cloneDeep(base.common), base.deploy)
 
   return base
 }
 
-export async function parseRepoConfigAsync(globalConfig: IGlobalConfig, configFiles: string[]): Promise<IRepoConfig> {
-  const configs = await parseConfigsAsync<IRepoConfig>('#/definitions/IRepoConfig', configFiles)
-  return repoConfigMerge(globalConfig.repo, ...configs)
+export async function parseRepoConfigAsync(globalRepo: IRepoConfigFile, configFiles: string[]) {
+  const configs = await parseConfigsAsync<IRepoConfigFile>('#/definitions/IRepoConfigFile', configFiles)
+  const repoFile = repoConfigMerge(globalRepo, ...configs)
+  const repo = repoFile as IRepoConfig
+  delete (repo as any).common
+  return repo
 }

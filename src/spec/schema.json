@@ -297,9 +297,26 @@
                 },
                 "gitConnectionMap": {
                     "$ref": "#/definitions/IGitConnection"
+                }
+            },
+            "type": "object"
+        },
+        "IGlobalConfigFile": {
+            "properties": {
+                "artifactRepoMap": {
+                    "$ref": "#/definitions/Map<string,any>"
+                },
+                "buildVersionsRepo": {
+                    "$ref": "#/definitions/IGitConnectionRepo"
+                },
+                "environmentMap": {
+                    "$ref": "#/definitions/Map<string,any>"
+                },
+                "gitConnectionMap": {
+                    "$ref": "#/definitions/IGitConnection"
                 },
                 "repo": {
-                    "$ref": "#/definitions/IRepoConfig"
+                    "$ref": "#/definitions/IRepoConfigFile"
                 }
             },
             "type": "object"
@@ -422,7 +439,7 @@
             },
             "type": "object"
         },
-        "IRepoConfig": {
+        "IRepoConfigFile": {
             "properties": {
                 "build": {
                     "$ref": "#/definitions/IBuild"

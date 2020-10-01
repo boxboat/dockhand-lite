@@ -1,9 +1,16 @@
-import {IGlobalConfig} from '../spec/global/IGlobalConfig'
+import {IGlobalConfig, IGlobalConfigFile} from '../spec/global/IGlobalConfig'
 import {merge} from 'lodash'
 import {parseConfigsAsync} from './ConfigReader'
 
-function globalConfigMerge(...configs: IGlobalConfig[]): IGlobalConfig {
-  const base = {} as IGlobalConfig
+function globalConfigMerge(...configs: IGlobalConfigFile[]): IGlobalConfigFile {
+  const base = {
+    repo: {
+      common: {},
+      build: {},
+      promote: {},
+      deploy: {},
+    },
+  } as IGlobalConfigFile
 
   for (const config of configs) {
     merge(base, config)
@@ -12,7 +19,11 @@ function globalConfigMerge(...configs: IGlobalConfig[]): IGlobalConfig {
   return base
 }
 
-export async function parseGlobalConfigAsync(configFiles: string[]): Promise<IGlobalConfig> {
-  const configs = await parseConfigsAsync<IGlobalConfig>('#/definitions/IGlobalConfig', configFiles)
-  return globalConfigMerge(...configs)
+export async function parseGlobalConfigAsync(configFiles: string[]) {
+  const configs = await parseConfigsAsync<IGlobalConfigFile>('#/definitions/IGlobalConfigFile', configFiles)
+  const globalFile = globalConfigMerge(...configs)
+  const globalRepo = globalFile.repo
+  const global = globalFile as IGlobalConfig
+  delete (global as any).repo
+  return {global, globalRepo}
 }

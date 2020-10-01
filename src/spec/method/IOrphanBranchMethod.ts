@@ -1,8 +1,8 @@
 interface IOrphanBranchUpdateMethod {
-  orphanBranch: IOrphanBranch;
+  orphanBranch: IOrphanBranch | undefined;
 }
 
 interface IOrphanBranch {
-  branchNameTemplate: string;
-  imageVersionsFile: string;
+  branchNameTemplate: string | undefined;
+  imageVersionsFile: string | undefined;
 }

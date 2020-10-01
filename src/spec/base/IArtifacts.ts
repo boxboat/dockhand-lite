@@ -1,7 +1,7 @@
 export interface IArtifacts {
-  artifacts: Map<string, string[]>;
+  artifacts: Map<string, string[]> | undefined;
 }
 
 export interface IArtifactType {
-  artifactType: string;
+  artifactType: string | undefined;
 }

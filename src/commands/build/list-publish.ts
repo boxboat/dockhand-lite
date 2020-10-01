@@ -11,10 +11,10 @@ export default class BuildListPublish extends Command {
   // artifactRepoKey <tab> artifactName <tab> artifactVersion
   async run() {
     const {flags} = this.parse(BuildListPublish)
-    const config = await parseConfigAsync(flags.globalConfig, flags.repoConfig)
+    const {global, build} = await parseConfigAsync(flags.globalConfig, flags.repoConfig)
 
-    this.log(config.global.repo?.common?.name)
-    this.log(config.repo.common?.name)
+    this.log(build.name)
+    this.log(global.environmentMap?.get('test'))
     this.log(`artifactType: ${flags.artifactType}`)
   }
 }

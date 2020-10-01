@@ -1,8 +1,8 @@
 interface IFileUpdateMethod {
-  orphanBranch: IFile;
+  orphanBranch: IFile | undefined;
 }
 
 interface IFile {
-  branch: string;
-  fileNameTemplate: string;
+  branch: string | undefined;
+  fileNameTemplate: string | undefined;
 }

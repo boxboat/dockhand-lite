@@ -6,12 +6,12 @@ import {ICommon} from './ICommon'
 type IDeployBase = ICommon & IOverrides
 
 export interface IDeploy extends IDeployBase {
-  deploymentMap: Map<string, IDeployment>;
+  deploymentMap: Map<string, IDeployment> | undefined;
 }
 
 type IDeploymentBase = IEvent & IEventFallback & IEventRegex & IOverrides & ITrigger
 
 export interface IDeployment extends IDeploymentBase {
-  environmentKey: string;
-  group: string;
+  environmentKey: string | undefined;
+  group: string | undefined;
 }
