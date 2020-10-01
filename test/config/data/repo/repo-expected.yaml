@@ -1,9 +1,3 @@
-common:
-  artifacts:
-    docker:
-      - docker/test1
-    helm:
-      - helm/test1
 build:
   dependencies:
     artifacts:

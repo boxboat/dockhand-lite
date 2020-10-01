@@ -58,7 +58,8 @@
   },
   "repository": "https://github.com/boxboat/dockhand-lite",
   "scripts": {
-    "cli": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme && ./bin/run",
+    "build": "tsc -b",
+    "cli": "rm -f oclif.manifest.json && ./bin/run",
     "eslint-fix": "eslint . --ext .ts --config .eslintrc --fix",
     "generate-schema": "node ./node_modules/typescript-json-schema/bin/typescript-json-schema 'src/spec/**/*.ts' '*' -o src/spec/schema.json",
     "oclif": "oclif",

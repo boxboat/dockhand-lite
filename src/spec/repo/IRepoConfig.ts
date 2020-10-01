@@ -4,8 +4,11 @@ import {IDeploy} from './IDeploy'
 import {IPromote} from './IPromote'
 
 export interface IRepoConfig {
-  common: ICommon;
   build: IBuild;
-  deploy: IDeploy;
   promote: IPromote;
+  deploy: IDeploy;
+}
+
+export interface IRepoConfigFile extends IRepoConfig {
+  common: ICommon;
 }

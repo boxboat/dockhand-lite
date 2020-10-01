@@ -1,7 +1,7 @@
 interface IGitLabCiProvider {
-  gitLab: IGitLab;
+  gitLab: IGitLab | undefined;
 }
 
 interface IGitLab {
-  ciFile: string;
+  ciFile: string | undefined;
 }

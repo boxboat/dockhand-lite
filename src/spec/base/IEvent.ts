@@ -1,11 +1,11 @@
 export interface IEvent {
-  event: string;
+  event: string | undefined;
 }
 
 export interface IEventFallback {
-  eventFallback: string;
+  eventFallback: string | undefined;
 }
 
 export interface IEventRegex {
-  eventRegex: string;
+  eventRegex: string | undefined;
 }
