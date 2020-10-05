@@ -1,0 +1,32 @@
+buildVersionsRepo:
+  gitConnectionKey: local
+  path: build-versions.git
+gitConnectionMap:
+  local:
+    authorName: dockhand
+    authorEmail: dockhand@example.com
+    pathPrefix: test/git/data/repos
+repo:
+  common:
+    artifactPublishEvents:
+      - artifactType: docker
+        event: commit/master
+        artifactRepoKey: default
+      - artifactType: docker
+        eventRegex: tag/.*
+        artifactRepoKey: default
+  promote:
+    promotionMap:
+      stage:
+        event: commit/master
+        promoteToEvent: tag/rc
+      prod:
+        event: tag/rc
+        promoteToEvent: tag/release
+  deploy:
+    dev:
+      event: commit/master
+    stage:
+      event: tag/rc
+    prod:
+      event: tag/release

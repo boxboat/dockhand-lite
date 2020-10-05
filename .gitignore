@@ -8,6 +8,7 @@
 /oclif.manifest.json
 /package
 /package-lock.json
+/repos
 /tmp
 node_modules
 

@@ -1,6 +1,6 @@
 import {IRepoConfigFile, IRepoConfig} from '../spec/repo/IRepoConfig'
 import {cloneDeep, merge} from 'lodash'
-import {parseConfigsAsync} from './ConfigReader'
+import {parseMultiConfigAsync} from './ConfigReader'
 
 function repoConfigMerge(...configs: IRepoConfigFile[]): IRepoConfigFile {
   const base = {
@@ -22,7 +22,7 @@ function repoConfigMerge(...configs: IRepoConfigFile[]): IRepoConfigFile {
 }
 
 export async function parseRepoConfigAsync(globalRepo: IRepoConfigFile, configFiles: string[]) {
-  const configs = await parseConfigsAsync<IRepoConfigFile>('#/definitions/IRepoConfigFile', configFiles)
+  const configs = await parseMultiConfigAsync<IRepoConfigFile>('#/definitions/IRepoConfigFile', configFiles)
   const repoFile = repoConfigMerge(globalRepo, ...configs)
   const repo = repoFile as IRepoConfig
   delete (repo as any).common

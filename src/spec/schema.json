@@ -1,6 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
+        "IArtifactData": {
+            "properties": {
+                "commitMap": {
+                    "$ref": "#/definitions/Record<string,string>"
+                },
+                "releaseMap": {
+                    "$ref": "#/definitions/Record<string,string[]>"
+                }
+            },
+            "type": "object"
+        },
         "IArtifactPublishEvents": {
             "properties": {
                 "artifactRepoKey": {
@@ -29,7 +40,7 @@
         "IArtifacts": {
             "properties": {
                 "artifacts": {
-                    "$ref": "#/definitions/Map<string,string[]>"
+                    "$ref": "#/definitions/Record<string,string[]>"
                 }
             },
             "type": "object"
@@ -43,7 +54,7 @@
                     "type": "array"
                 },
                 "artifacts": {
-                    "$ref": "#/definitions/Map<string,string[]>"
+                    "$ref": "#/definitions/Record<string,string[]>"
                 },
                 "ciProvider": {
                     "$ref": "#/definitions/IGitLabCiProvider"
@@ -88,16 +99,16 @@
         },
         "IBuildVersions": {
             "properties": {
-                "imageRepoMap": {
-                    "$ref": "#/definitions/Map<string,string>"
+                "artifacts": {
+                    "$ref": "#/definitions/Record<string,IArtifactData>"
                 },
-                "imageVersionMap": {
-                    "$ref": "#/definitions/Map<string,IImageVersion>"
-                },
-                "repoVersionMap": {
-                    "$ref": "#/definitions/Map<string,IRepoVersion>"
+                "repos": {
+                    "$ref": "#/definitions/Record<string,IRepoData>"
                 }
             },
+            "type": "object"
+        },
+        "ICommitVersionMap": {
             "type": "object"
         },
         "ICommon": {
@@ -109,7 +120,7 @@
                     "type": "array"
                 },
                 "artifacts": {
-                    "$ref": "#/definitions/Map<string,string[]>"
+                    "$ref": "#/definitions/Record<string,string[]>"
                 },
                 "ciProvider": {
                     "$ref": "#/definitions/IGitLabCiProvider"
@@ -142,7 +153,7 @@
                     "type": "array"
                 },
                 "artifacts": {
-                    "$ref": "#/definitions/Map<string,string[]>"
+                    "$ref": "#/definitions/Record<string,string[]>"
                 },
                 "ciProvider": {
                     "$ref": "#/definitions/IGitLabCiProvider"
@@ -151,7 +162,7 @@
                     "type": "string"
                 },
                 "deploymentMap": {
-                    "$ref": "#/definitions/Map<string,IDeployment>"
+                    "$ref": "#/definitions/Record<string,IDeployment>"
                 },
                 "name": {
                     "type": "string"
@@ -239,10 +250,10 @@
                 "authorName": {
                     "type": "string"
                 },
-                "remoteHost": {
+                "pathPrefix": {
                     "type": "string"
                 },
-                "remotePathPrefix": {
+                "remoteHost": {
                     "type": "string"
                 },
                 "sshKeyFile": {
@@ -287,16 +298,16 @@
         "IGlobalConfig": {
             "properties": {
                 "artifactRepoMap": {
-                    "$ref": "#/definitions/Map<string,any>"
+                    "$ref": "#/definitions/Record<string,any>"
                 },
                 "buildVersionsRepo": {
                     "$ref": "#/definitions/IGitConnectionRepo"
                 },
                 "environmentMap": {
-                    "$ref": "#/definitions/Map<string,any>"
+                    "$ref": "#/definitions/Record<string,any>"
                 },
                 "gitConnectionMap": {
-                    "$ref": "#/definitions/IGitConnection"
+                    "$ref": "#/definitions/Record<string,IGitConnection>"
                 }
             },
             "type": "object"
@@ -304,33 +315,19 @@
         "IGlobalConfigFile": {
             "properties": {
                 "artifactRepoMap": {
-                    "$ref": "#/definitions/Map<string,any>"
+                    "$ref": "#/definitions/Record<string,any>"
                 },
                 "buildVersionsRepo": {
                     "$ref": "#/definitions/IGitConnectionRepo"
                 },
                 "environmentMap": {
-                    "$ref": "#/definitions/Map<string,any>"
+                    "$ref": "#/definitions/Record<string,any>"
                 },
                 "gitConnectionMap": {
-                    "$ref": "#/definitions/IGitConnection"
+                    "$ref": "#/definitions/Record<string,IGitConnection>"
                 },
                 "repo": {
                     "$ref": "#/definitions/IRepoConfigFile"
-                }
-            },
-            "type": "object"
-        },
-        "IImageRepo": {
-            "type": "string"
-        },
-        "IImageVersion": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
                 }
             },
             "type": "object"
@@ -403,10 +400,7 @@
                     "type": "array"
                 },
                 "artifacts": {
-                    "$ref": "#/definitions/Map<string,string[]>"
-                },
-                "baseVersion": {
-                    "type": "string"
+                    "$ref": "#/definitions/Record<string,string[]>"
                 },
                 "ciProvider": {
                     "$ref": "#/definitions/IGitLabCiProvider"
@@ -424,7 +418,7 @@
                     "type": "string"
                 },
                 "promotionMap": {
-                    "$ref": "#/definitions/Map<string,IPromotion>"
+                    "$ref": "#/definitions/Record<string,IPromotion>"
                 },
                 "updateMethod": {
                     "anyOf": [
@@ -437,6 +431,9 @@
                     ]
                 }
             },
+            "type": "object"
+        },
+        "IReleaseVersionMap": {
             "type": "object"
         },
         "IRepoConfigFile": {
@@ -456,15 +453,15 @@
             },
             "type": "object"
         },
-        "IRepoVersion": {
+        "IRepoData": {
             "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
+                "tagPrefixMap": {
+                    "$ref": "#/definitions/Record<string,Record<string,string[]>>"
                 }
             },
+            "type": "object"
+        },
+        "ITagPrefixMap": {
             "type": "object"
         },
         "ITrigger": {
@@ -478,81 +475,34 @@
             },
             "type": "object"
         },
-        "Map<string,IDeployment>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,IArtifactData>": {
+            "description": "Construct a type with a set of properties K of type T",
             "type": "object"
         },
-        "Map<string,IImageVersion>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,IDeployment>": {
             "type": "object"
         },
-        "Map<string,IPromotion>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,IGitConnection>": {
             "type": "object"
         },
-        "Map<string,IRepoVersion>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,IPromotion>": {
+            "description": "Construct a type with a set of properties K of type T",
             "type": "object"
         },
-        "Map<string,any>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,IRepoData>": {
+            "description": "Construct a type with a set of properties K of type T",
             "type": "object"
         },
-        "Map<string,string>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,Record<string,string[]>>": {
             "type": "object"
         },
-        "Map<string,string[]>": {
-            "properties": {
-                "__@toStringTag": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "number"
-                }
-            },
+        "Record<string,any>": {
+            "type": "object"
+        },
+        "Record<string,string>": {
+            "type": "object"
+        },
+        "Record<string,string[]>": {
             "type": "object"
         }
     }

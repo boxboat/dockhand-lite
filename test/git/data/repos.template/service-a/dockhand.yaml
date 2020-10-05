@@ -1,0 +1,4 @@
+common:
+  artifacts:
+    docker:
+      - service-a

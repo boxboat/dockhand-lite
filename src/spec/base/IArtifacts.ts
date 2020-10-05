@@ -1,5 +1,5 @@
 export interface IArtifacts {
-  artifacts: Map<string, string[]> | undefined;
+  artifacts: Record<string, string[]> | undefined;
 }
 
 export interface IArtifactType {

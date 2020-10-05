@@ -6,7 +6,7 @@ import {ICommon} from './ICommon'
 type IDeployBase = ICommon & IOverrides
 
 export interface IDeploy extends IDeployBase {
-  deploymentMap: Map<string, IDeployment> | undefined;
+  deploymentMap: Record<string, IDeployment> | undefined;
 }
 
 type IDeploymentBase = IEvent & IEventFallback & IEventRegex & IOverrides & ITrigger

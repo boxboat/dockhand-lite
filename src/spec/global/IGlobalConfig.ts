@@ -1,10 +1,10 @@
 import {IRepoConfigFile} from '../repo/IRepoConfig'
 
 export interface IGlobalConfig {
-  artifactRepoMap: Map<string, any> | undefined;
+  artifactRepoMap: Record<string, any> | undefined;
   buildVersionsRepo: IGitConnectionRepo | undefined;
-  environmentMap: Map<string, any> | undefined;
-  gitConnectionMap: IGitConnection | undefined;
+  environmentMap: Record<string, any> | undefined;
+  gitConnectionMap: Record<string, IGitConnection> | undefined;
 }
 
 export interface IGlobalConfigFile extends IGlobalConfig {
@@ -12,12 +12,12 @@ export interface IGlobalConfigFile extends IGlobalConfig {
 }
 
 export interface IGitConnection {
-  authorEmail: string | undefined;
-  authorName: string | undefined;
-  remoteHost: string | undefined;
-  remotePathPrefix: string | undefined;
-  sshUser: string | undefined;
-  sshKeyFile: string | undefined;
+  authorEmail: string;
+  authorName: string;
+  pathPrefix: string;
+  remoteHost: string;
+  sshUser: string;
+  sshKeyFile: string;
 }
 
 export interface IGitConnectionRepo {
