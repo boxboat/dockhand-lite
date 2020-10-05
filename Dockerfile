@@ -1,17 +1,17 @@
 FROM node:12-alpine AS build
 
-RUN mkdir /dockhand-lite \
-    && chown node:node /dockhand-lite
+RUN mkdir /dhl \
+    && chown node:node /dhl
 
 USER node:node
-WORKDIR /dockhand-lite
+WORKDIR /dhl
 
-COPY --chown=node:node package.json /dockhand-lite/package.json
-COPY --chown=node:node yarn.lock /dockhand-lite/yarn.lock
+COPY --chown=node:node package.json /dhl/package.json
+COPY --chown=node:node yarn.lock /dhl/yarn.lock
 
 RUN yarn install
 
-COPY --chown=node:node . /dockhand-lite/
+COPY --chown=node:node . /dhl/
 
 RUN yarn pack \
     && yarn install --production \
@@ -23,16 +23,12 @@ FROM node:12-alpine
 RUN apk add --no-cache \
         curl \
         git \
-    && USER=node \
-    && GROUP=node \
-    && curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5/fixuid-0.5-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - \
-    && chown root:root /usr/local/bin/fixuid \
-    && chmod 4755 /usr/local/bin/fixuid \
-    && mkdir -p /etc/fixuid \
-    && printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+    && mkdir /workspace \
+    && chown node:node /workspace
 
 ENV NODE_ENV=production
 USER node:node
-ENTRYPOINT ["/dockhand-lite/bin/run"]
+ENTRYPOINT ["/dhl/bin/run"]
+WORKDIR /workspace
 
-COPY --from=build --chown=node:node /dockhand-lite/package /dockhand-lite
+COPY --from=build --chown=node:node /dhl/package /dhl

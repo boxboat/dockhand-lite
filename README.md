@@ -14,29 +14,29 @@ dockhand-lite
 <!-- usage -->
 ```sh-session
 $ npm install -g dockhand-lite
-$ dockhand-lite COMMAND
+$ dhl COMMAND
 running command...
-$ dockhand-lite (-v|--version|version)
+$ dhl (-v|--version|version)
 dockhand-lite/0.0.1 linux-x64 node-v12.18.4
-$ dockhand-lite --help [COMMAND]
+$ dhl --help [COMMAND]
 USAGE
-  $ dockhand-lite COMMAND
+  $ dhl COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`dockhand-lite build:list-dependencies`](#dockhand-lite-buildlist-dependencies)
-* [`dockhand-lite build:list-publish ARTIFACTTYPE`](#dockhand-lite-buildlist-publish-artifacttype)
-* [`dockhand-lite help [COMMAND]`](#dockhand-lite-help-command)
+* [`dhl build:list-dependencies`](#dhl-buildlist-dependencies)
+* [`dhl build:list-publish`](#dhl-buildlist-publish)
+* [`dhl help [COMMAND]`](#dhl-help-command)
 
-## `dockhand-lite build:list-dependencies`
+## `dhl build:list-dependencies`
 
 list of artifacts that are dependencies
 
 ```
 USAGE
-  $ dockhand-lite build:list-dependencies
+  $ dhl build:list-dependencies
 
 OPTIONS
   -c, --repoConfig=repoConfig      (required) repo config json or yaml file
@@ -47,32 +47,30 @@ OPTIONS
 
 _See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
 
-## `dockhand-lite build:list-publish ARTIFACTTYPE`
+## `dhl build:list-publish`
 
 list of artifacts that should be published
 
 ```
 USAGE
-  $ dockhand-lite build:list-publish ARTIFACTTYPE
-
-ARGUMENTS
-  ARTIFACTTYPE  artifact type
+  $ dhl build:list-publish
 
 OPTIONS
   -c, --repoConfig=repoConfig      (required) repo config json or yaml file
   -g, --globalConfig=globalConfig  (required) global config json or yaml file
   -h, --help                       show CLI help
+  -t, --artifactType=artifactType  artifact type
 ```
 
 _See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
 
-## `dockhand-lite help [COMMAND]`
+## `dhl help [COMMAND]`
 
-display help for dockhand-lite
+display help for dhl
 
 ```
 USAGE
-  $ dockhand-lite help [COMMAND]
+  $ dhl help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for

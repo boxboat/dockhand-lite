@@ -1,10 +1,7 @@
 import Ajv from 'ajv'
-import fs from 'fs'
-import util from 'util'
 import YAML from 'js-yaml'
 import path from 'path'
-
-const readFile = util.promisify(fs.readFile)
+import {readFileAsync} from '../utils/fs'
 
 let ajvInit = false
 const ajv = new Ajv()
@@ -12,20 +9,20 @@ const ajv = new Ajv()
 async function initAjvAsync() {
   if (!ajvInit) {
     ajvInit = true
-    const schema = await readFile(path.join(__dirname, '..', 'spec', 'schema.json'), 'utf8')
+    const schema = await readFileAsync(path.join(__dirname, '..', 'spec', 'schema.json'), 'utf8')
     ajv.addSchema(JSON.parse(schema), 'default')
   }
 }
 
 async function loadYamlAsync<T>(configFile: string): Promise<T> {
-  return YAML.load(await readFile(configFile, 'utf8')) as T
+  return (YAML.safeLoad(await readFileAsync(configFile, 'utf8')) as any) as T
 }
 
 async function loadJsonAsync<T>(configFile: string): Promise<T> {
-  return JSON.parse(await readFile(configFile, 'utf8')) as T
+  return JSON.parse(await readFileAsync(configFile, 'utf8')) as T
 }
 
-export async function parseConfigsAsync<T>(schemaRef: string, configFiles: string[]): Promise<T[]> {
+export async function parseMultiConfigAsync<T>(schemaRef: string, configFiles: string[]): Promise<T[]> {
   const initAjvPromise = initAjvAsync()
   const configPromiseMap = new Map<string, Promise<T>>()
   const configs = new Array<T>()
@@ -51,4 +48,8 @@ export async function parseConfigsAsync<T>(schemaRef: string, configFiles: strin
   }
 
   return configs
+}
+
+export async function parseSingleConfigAsync<T>(schemaRef: string, file: string): Promise<T> {
+  return (await parseMultiConfigAsync<T>(schemaRef, [file]))[0]
 }

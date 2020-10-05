@@ -1,11 +1,19 @@
 export interface IBuildVersions {
-  imageRepoMap: Map<string, IImageRepo>;        // image : repo
-  imageVersionMap: Map<string, IImageVersion>;  // event : Map<image:version>
-  repoVersionMap: Map<string, IRepoVersion>;    // repo  : Map<tagPrefix:version>
+  artifacts: Record<string, IArtifactData>;
+  repos: Record<string, IRepoData>;
 }
 
-type IImageRepo = string
+export interface IArtifactData {
+  commitMap: ICommitVersionMap;
+  releaseMap: IReleaseVersionMap;
+}
 
-type IImageVersion = Map<string, string>
+export interface IRepoData {
+  tagPrefixMap: ITagPrefixMap;
+}
 
-type IRepoVersion = Map<string, string>
+export type ICommitVersionMap = Record<string, string>         // branch      : version
+
+export type IReleaseVersionMap = Record<string, string[]>      // releaseType : versions
+
+export type ITagPrefixMap = Record<string, IReleaseVersionMap> // tagPrefix   : IReleaseVersionMap

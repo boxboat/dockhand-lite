@@ -13,6 +13,7 @@
     "ajv": "^6.12.5",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.20",
+    "semver": "^7.3.2",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -51,7 +52,7 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "dockhand-lite",
+    "bin": "dhl",
     "plugins": [
       "@oclif/plugin-help"
     ]
@@ -63,10 +64,11 @@
     "eslint-fix": "eslint . --ext .ts --config .eslintrc --fix",
     "generate-schema": "node ./node_modules/typescript-json-schema/bin/typescript-json-schema 'src/spec/**/*.ts' '*' -o src/spec/schema.json",
     "oclif": "oclif",
-    "postpack": "rm -f oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && mkdir -p lib/spec && cp src/spec/schema.json lib/spec && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "pretest": "bash ./test/setup.sh >/dev/null 2>&1",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && cp src/spec/schema.json lib/spec && oclif-dev manifest && oclif-dev readme",
+    "postpack": "rm -f oclif.manifest.json",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"

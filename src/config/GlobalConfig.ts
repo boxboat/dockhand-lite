@@ -1,6 +1,6 @@
 import {IGlobalConfig, IGlobalConfigFile} from '../spec/global/IGlobalConfig'
 import {merge} from 'lodash'
-import {parseConfigsAsync} from './ConfigReader'
+import {parseMultiConfigAsync} from './ConfigReader'
 
 function globalConfigMerge(...configs: IGlobalConfigFile[]): IGlobalConfigFile {
   const base = {
@@ -20,7 +20,7 @@ function globalConfigMerge(...configs: IGlobalConfigFile[]): IGlobalConfigFile {
 }
 
 export async function parseGlobalConfigAsync(configFiles: string[]) {
-  const configs = await parseConfigsAsync<IGlobalConfigFile>('#/definitions/IGlobalConfigFile', configFiles)
+  const configs = await parseMultiConfigAsync<IGlobalConfigFile>('#/definitions/IGlobalConfigFile', configFiles)
   const globalFile = globalConfigMerge(...configs)
   const globalRepo = globalFile.repo
   const global = globalFile as IGlobalConfig
