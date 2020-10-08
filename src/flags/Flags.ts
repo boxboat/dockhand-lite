@@ -1,5 +1,13 @@
 import {flags} from '@oclif/command'
 
+export const artifactNameOptionalFlag = {
+  artifactName: flags.string({
+    name: 'artifactName',
+    description: 'artifact name',
+    env: 'DHL_ARTIFACT_NAME',
+  }),
+}
+
 export const artifactTypeOptionalFlag = {
   artifactType: flags.string({
     name: 'artifactType',
@@ -17,9 +25,10 @@ export const eventOptionalFlag = {
 }
 
 export const eventRequiredFlag = {
-  event: Object.assign({
+  event: {
+    ...eventOptionalFlag.event,
     required: true,
-  }, eventOptionalFlag.event),
+  },
 }
 
 export const globalFlags = {

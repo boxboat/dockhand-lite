@@ -15,5 +15,8 @@ export type Config = {
 export async function parseConfigAsync(globalConfig: string[], repoConfig: string[]): Promise<Config> {
   const {global, globalRepo} = await parseGlobalConfigAsync(globalConfig)
   const repo = await parseRepoConfigAsync(globalRepo, repoConfig)
-  return Object.assign({}, {global}, repo)
+  return {
+    global,
+    ...repo,
+  }
 }
