@@ -18,7 +18,7 @@ export class Build {
     this.outputType = outputType
   }
 
-  public async listDependenciesAsync(filterArtifactType: string | undefined): Promise<IArtifact[]> {
+  public async listDependenciesAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined): Promise<IArtifact[]> {
     if (!this.buildConfig.dependencies) {
       console.error('warning: build.dependencies is not set')
       return []
@@ -30,11 +30,11 @@ export class Build {
     const buildVersions = new BuildVersions(this.globalConfig)
     await buildVersions.initAsync()
 
-    const resolver = new Resolver(this.buildConfig.dependencies, filterArtifactType)
+    const resolver = new Resolver(this.buildConfig.dependencies, filterArtifactType, filterArtifactName)
     return resolver.resolveAsync(this.buildConfig.artifactPublishEvents, buildVersions)
   }
 
-  public async listPublishAsync(filterArtifactType: string | undefined, event: string | undefined): Promise<IArtifact[]> {
+  public async listPublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, event: string | undefined): Promise<IArtifact[]> {
     if (!this.buildConfig.artifacts) {
       console.error('warning: build.artifacts is not set')
       return []
@@ -64,6 +64,9 @@ export class Build {
       }
       if (artifactNames) {
         for (const artifactName of artifactNames) {
+          if (filterArtifactName && artifactName !== filterArtifactName) {
+            continue
+          }
           for (const repoKey of artifactPublishRepoKeys(this.buildConfig.artifactPublishEvents, artifactType, event)) {
             artifacts.push({
               name: artifactName,
@@ -80,9 +83,9 @@ export class Build {
     return artifacts
   }
 
-  public async completePublishAsync(filterArtifactType: string | undefined, event: string | undefined): Promise<IArtifact[]> {
+  public async completePublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, event: string | undefined): Promise<IArtifact[]> {
     const artifactSet = new Set<string>()
-    const artifacts = await this.listPublishAsync(filterArtifactType, event)
+    const artifacts = await this.listPublishAsync(filterArtifactType, filterArtifactName, event)
 
     const buildVersions = new BuildVersions(this.globalConfig)
     await buildVersions.initAsync()

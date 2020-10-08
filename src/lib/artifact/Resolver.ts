@@ -42,7 +42,7 @@ export function artifactPublishRepoKeys(artifactPublishEvents: IArtifactPublishE
 export class Resolver {
   private resolveArtifactsMap = new Map<string, IResolverArtifact>()
 
-  constructor(conf: IArtifactsResolver, filterArtifactType: string | undefined) {
+  constructor(conf: IArtifactsResolver, filterArtifactType: string | undefined, filterArtifactName: string | undefined) {
     const resolverBases: IArtifactsResolverBase[] = [conf]
     if (conf.overrides) {
       resolverBases.push(...conf.overrides)
@@ -56,6 +56,9 @@ export class Resolver {
           }
           if (artifactNames) {
             for (const artifactName of artifactNames) {
+              if (filterArtifactName && artifactName !== filterArtifactName) {
+                continue
+              }
               this.resolveArtifactsMap.set(`${artifactType}/${artifactName}`, {
                 name: artifactName,
                 type: artifactType,

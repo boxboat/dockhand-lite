@@ -39,7 +39,7 @@ export class GitRepo {
       GIT_AUTHOR_EMAIL: gc.authorEmail,
       GIT_COMMITTER_NAME: gc.authorName,
       GIT_COMMITTER_EMAIL: gc.authorEmail,
-    } as any
+    } as Record<string, string>
     if (gc.remoteHost && gc.remoteProtocol === 'ssh') {
       let keyArg = ''
       if (gc.sshKeyFile || gc.sshKeyFileEnvVar) {
@@ -49,7 +49,10 @@ export class GitRepo {
     }
     return execFileAsync('git', args, {
       cwd: this.dir,
-      env: Object.assign({}, process.env, env),
+      env: {
+        ...process.env,
+        ...env,
+      },
     })
   }
 
