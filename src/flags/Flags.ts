@@ -31,12 +31,16 @@ export const globalFlags = {
     description: 'global config json or yaml file',
     env: 'DHL_GLOBAL_CONFIG',
     required: true,
+    multiple: true,
+    singleValue: true,
   }),
   repoConfig: flags.string({
     char: 'c',
     description: 'repo config json or yaml file',
     env: 'DHL_REPO_CONFIG',
     required: true,
+    multiple: true,
+    singleValue: true,
   }),
   outputType: flags.string({
     char: 'o',

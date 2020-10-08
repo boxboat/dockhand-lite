@@ -19,6 +19,9 @@ repo:
         event: commit/master
         artifactRepoKey: default
       - artifactType: docker
+        event: commit/develop
+        artifactRepoKey: default
+      - artifactType: docker
         eventRegex: tag/.*
         artifactRepoKey: default
   promote:

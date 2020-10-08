@@ -79,4 +79,31 @@ export class Build {
 
     return artifacts
   }
+
+  public async completePublishAsync(filterArtifactType: string | undefined, event: string | undefined): Promise<IArtifact[]> {
+    const artifactSet = new Set<string>()
+    const artifacts = await this.listPublishAsync(filterArtifactType, event)
+
+    const buildVersions = new BuildVersions(this.globalConfig)
+    await buildVersions.initAsync()
+
+    const promises: Promise<void>[] = []
+    for (const artifact of artifacts) {
+      const key = `${artifact.type}/${artifact.name}`
+      if (artifactSet.has(key)) {
+        continue
+      }
+      promises.push((async () => {
+        const artifactData = await buildVersions.getArtifactDataAsync(artifact.type, artifact.name)
+        const eventKey = artifact.event.substr('commit/'.length)
+        artifactData.commitMap[eventKey] = artifact.version
+      })())
+    }
+
+    await Promise.all(promises)
+    if (await buildVersions.saveAsync()) {
+      await buildVersions.gitRepo.commitAndPushAsync('update build versions')
+    }
+    return artifacts
+  }
 }
