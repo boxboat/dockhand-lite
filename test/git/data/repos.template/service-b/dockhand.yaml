@@ -2,3 +2,9 @@ common:
   artifacts:
     docker:
       - service-b
+build:
+  dependencies:
+    artifacts:
+      docker:
+        - service-a
+    event: tag/release

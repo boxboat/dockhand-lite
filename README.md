@@ -39,10 +39,11 @@ USAGE
   $ dhl build:list-dependencies
 
 OPTIONS
-  -c, --repoConfig=repoConfig      (required) repo config json or yaml file
-  -g, --globalConfig=globalConfig  (required) global config json or yaml file
-  -h, --help                       show CLI help
-  -t, --artifactType=artifactType  artifact type
+  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig   (required) global config json or yaml file
+  -h, --help                        show CLI help
+  -o, --outputType=table|json|yaml  [default: json] output format
+  --artifactType=artifactType       artifact type
 ```
 
 _See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
@@ -56,10 +57,12 @@ USAGE
   $ dhl build:list-publish
 
 OPTIONS
-  -c, --repoConfig=repoConfig      (required) repo config json or yaml file
-  -g, --globalConfig=globalConfig  (required) global config json or yaml file
-  -h, --help                       show CLI help
-  -t, --artifactType=artifactType  artifact type
+  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig   (required) global config json or yaml file
+  -h, --help                        show CLI help
+  -o, --outputType=table|json|yaml  [default: json] output format
+  --artifactType=artifactType       artifact type
+  --event=event                     event
 ```
 
 _See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_

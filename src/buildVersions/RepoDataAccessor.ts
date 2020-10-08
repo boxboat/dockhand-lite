@@ -1,5 +1,5 @@
 import {IRepoData} from '../spec/buildVersions/IBuildVersions'
-import {BuildVersions} from '.'
+import {BuildVersions} from './BuildVersions'
 import {DataAccessor} from './DataAccessor'
 
 export class RepoDataAccessor extends DataAccessor<IRepoData> {

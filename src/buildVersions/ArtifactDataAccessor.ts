@@ -1,5 +1,5 @@
 import {IArtifactData} from '../spec/buildVersions/IBuildVersions'
-import {BuildVersions} from '.'
+import {BuildVersions} from './BuildVersions'
 import {DataAccessor} from './DataAccessor'
 
 export class ArtifactDataAccessor extends DataAccessor<IArtifactData> {
@@ -24,7 +24,7 @@ export class ArtifactDataAccessor extends DataAccessor<IArtifactData> {
   protected initData(): IArtifactData {
     return {
       commitMap: {},
-      releaseMap: {},
+      tagMap: {},
     }
   }
 }

@@ -1,7 +1,7 @@
 import {cloneDeep, isEqual} from 'lodash'
 import {parseSingleConfigAsync} from '../config/ConfigReader'
 import {existsAsync, writeYamlAsync} from '../utils/fs'
-import {BuildVersions} from '.'
+import {BuildVersions} from './BuildVersions'
 import path from 'path'
 import {IDataAccessor} from './IDataAccessor'
 

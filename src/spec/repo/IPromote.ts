@@ -1,4 +1,4 @@
-import {IEvent} from '../base/IEvent'
+import {IArtifactsResolver} from '../base/IArtifacts'
 import {ICommon} from './ICommon'
 
 export interface IPromote extends ICommon {
@@ -7,6 +7,6 @@ export interface IPromote extends ICommon {
   promotionMap: Record<string, IPromotion>;
 }
 
-export interface IPromotion extends IEvent {
+export interface IPromotion extends IArtifactsResolver {
   promoteToEvent: string | undefined;
 }

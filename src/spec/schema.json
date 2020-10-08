@@ -45,6 +45,56 @@
             },
             "type": "object"
         },
+        "IArtifactsResolver": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/IArtifacts"
+                },
+                {
+                    "$ref": "#/definitions/IEvent"
+                },
+                {
+                    "$ref": "#/definitions/IEventFallback"
+                },
+                {
+                    "$ref": "#/definitions/IArtifactsResolverOverrides"
+                }
+            ]
+        },
+        "IArtifactsResolverBase": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/IArtifacts"
+                },
+                {
+                    "$ref": "#/definitions/IEvent"
+                },
+                {
+                    "$ref": "#/definitions/IEventFallback"
+                }
+            ]
+        },
+        "IArtifactsResolverOverrides": {
+            "properties": {
+                "overrides": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
         "IBuild": {
             "properties": {
                 "artifactPublishEvents": {
@@ -74,7 +124,7 @@
                             "$ref": "#/definitions/IEventFallback"
                         },
                         {
-                            "$ref": "#/definitions/IOverrides"
+                            "$ref": "#/definitions/IArtifactsResolverOverrides"
                         },
                         {
                             "$ref": "#/definitions/ITrigger"
@@ -178,9 +228,6 @@
                             },
                             {
                                 "$ref": "#/definitions/IEventFallback"
-                            },
-                            {
-                                "$ref": "#/definitions/ITrigger"
                             }
                         ]
                     },
@@ -210,14 +257,6 @@
         "IEventFallback": {
             "properties": {
                 "eventFallback": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "IEventRegex": {
-            "properties": {
-                "eventRegex": {
                     "type": "string"
                 }
             },
@@ -347,46 +386,6 @@
             "properties": {
                 "orphanBranch": {
                     "$ref": "#/definitions/IOrphanBranch"
-                }
-            },
-            "type": "object"
-        },
-        "IOverride": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/IArtifacts"
-                },
-                {
-                    "$ref": "#/definitions/IEvent"
-                },
-                {
-                    "$ref": "#/definitions/IEventFallback"
-                },
-                {
-                    "$ref": "#/definitions/ITrigger"
-                }
-            ]
-        },
-        "IOverrides": {
-            "properties": {
-                "overrides": {
-                    "items": {
-                        "allOf": [
-                            {
-                                "$ref": "#/definitions/IArtifacts"
-                            },
-                            {
-                                "$ref": "#/definitions/IEvent"
-                            },
-                            {
-                                "$ref": "#/definitions/IEventFallback"
-                            },
-                            {
-                                "$ref": "#/definitions/ITrigger"
-                            }
-                        ]
-                    },
-                    "type": "array"
                 }
             },
             "type": "object"
