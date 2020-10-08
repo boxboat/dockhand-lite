@@ -5,7 +5,9 @@
 /dist
 /dockhand-lite-*.tgz
 /lib
-/node_modules
 /oclif.manifest.json
 /package
+/package-lock.json
+/repos
 /tmp
+node_modules

@@ -1,34 +1,41 @@
+# build image
 FROM node:12-alpine AS build
 
-RUN mkdir /dhl \
-    && chown node:node /dhl
+RUN apk add --no-cache \
+        git \
+    && mkdir /opt/dhl \
+    && chown node:node /opt/dhl
 
 USER node:node
-WORKDIR /dhl
+WORKDIR /opt/dhl
 
-COPY --chown=node:node package.json /dhl/package.json
-COPY --chown=node:node yarn.lock /dhl/yarn.lock
+COPY --chown=node:node package.json /opt/dhl/package.json
+COPY --chown=node:node yarn.lock /opt/dhl/yarn.lock
 
 RUN yarn install
 
-COPY --chown=node:node . /dhl/
+COPY --chown=node:node . /opt/dhl
 
 RUN yarn pack \
     && yarn install --production \
     && tar -xzf dockhand-lite-*.tgz \
     && mv node_modules package
 
+# final image
 FROM node:12-alpine
 
 RUN apk add --no-cache \
         curl \
         git \
+        jq \
     && mkdir /workspace \
     && chown node:node /workspace
 
+COPY --from=build --chown=node:node /opt/dhl/package /opt/dhl
+
+RUN ln -s /opt/dhl/bin/run /usr/local/bin/dhl
+
 ENV NODE_ENV=production
 USER node:node
-ENTRYPOINT ["/dhl/bin/run"]
+ENTRYPOINT ["dhl"]
 WORKDIR /workspace
-
-COPY --from=build --chown=node:node /dhl/package /dhl
