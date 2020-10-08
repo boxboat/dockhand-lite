@@ -32,7 +32,7 @@ export class GitRepo {
     return gitConnection
   }
 
-  private gitAsync(...args: string[]) {
+  private async gitNoLogAsync(...args: string[]) {
     const gc = this.gitConnection()
     const env = {
       GIT_AUTHOR_NAME: gc.authorName,
@@ -47,6 +47,16 @@ export class GitRepo {
       cwd: this.dir,
       env: Object.assign({}, process.env, env),
     })
+  }
+
+  private async gitAsync(...args: string[]) {
+    try {
+      return await this.gitNoLogAsync(...args)
+    } catch (error) {
+      console.error(error.stdout)
+      console.error(error.stderr)
+      throw error
+    }
   }
 
   private async cloneAsync() {
@@ -78,21 +88,22 @@ export class GitRepo {
   }
 
   public async commitAndPushAsync(message: string, retries = 3, maxSleepSeconds = 5) {
-    for (let i = 0; i < retries; i++) {
-      await this.gitAsync('add', '--all')
-      await this.gitAsync('commit', '-m', message)
-      try {
-        await this.gitAsync('push')
-        break
-      } catch (error) {
-        await this.gitAsync('reset', 'HEAD~1')
+    if ((await this.gitAsync('status', '--porcelain')).stdout.trim() !== '')
+      for (let i = 0; i < retries; i++) {
         await this.gitAsync('add', '--all')
-        await this.gitAsync('stash')
-        await this.gitAsync('pull')
-        await this.gitAsync('stash', 'pop')
-        await sleepAsync(randBetween(1, maxSleepSeconds * 1000))
+        await this.gitAsync('commit', '-m', message)
+        try {
+          await this.gitAsync('push')
+          break
+        } catch (error) {
+          await this.gitAsync('reset', 'HEAD~1')
+          await this.gitAsync('add', '--all')
+          await this.gitAsync('stash')
+          await this.gitAsync('pull')
+          await this.gitAsync('stash', 'pop')
+          await sleepAsync(randBetween(1, maxSleepSeconds * 1000))
+        }
       }
-    }
   }
 
   public async isBranchTipAsync() {

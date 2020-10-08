@@ -12,8 +12,8 @@ export type Config = {
   deploy: IDeploy;
 }
 
-export async function parseConfigAsync(globalConfigStr: string, repoConfigStr: string): Promise<Config> {
-  const {global, globalRepo} = await parseGlobalConfigAsync(globalConfigStr.split(','))
-  const repo = await parseRepoConfigAsync(globalRepo, repoConfigStr.split(','))
+export async function parseConfigAsync(globalConfig: string[], repoConfig: string[]): Promise<Config> {
+  const {global, globalRepo} = await parseGlobalConfigAsync(globalConfig)
+  const repo = await parseRepoConfigAsync(globalRepo, repoConfig)
   return Object.assign({}, {global}, repo)
 }
