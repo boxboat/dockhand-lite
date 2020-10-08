@@ -6,6 +6,7 @@ gitConnectionMap:
     authorEmail: test
     authorName: test
     remoteHost: github.com
-    remotePathPrefix: boxboat
-    sshUser: git
-    sshKeyFile: '~/.ssh/id_rsa'
+    remoteUser: git
+    remoteProtocol: ssh
+    sshKeyFile: "~/.ssh/id_rsa"
+    pathPrefix: boxboat

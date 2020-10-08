@@ -6,7 +6,7 @@
                 "commitMap": {
                     "$ref": "#/definitions/Record<string,string>"
                 },
-                "releaseMap": {
+                "tagMap": {
                     "$ref": "#/definitions/Record<string,string[]>"
                 }
             },
@@ -295,10 +295,19 @@
                 "remoteHost": {
                     "type": "string"
                 },
+                "remotePasswordEnvVar": {
+                    "type": "string"
+                },
+                "remoteProtocol": {
+                    "type": "string"
+                },
+                "remoteUser": {
+                    "type": "string"
+                },
                 "sshKeyFile": {
                     "type": "string"
                 },
-                "sshUser": {
+                "sshKeyFileEnvVar": {
                     "type": "string"
                 }
             },
@@ -432,9 +441,6 @@
             },
             "type": "object"
         },
-        "IReleaseVersionMap": {
-            "type": "object"
-        },
         "IRepoConfigFile": {
             "properties": {
                 "build": {
@@ -461,6 +467,9 @@
             "type": "object"
         },
         "ITagPrefixMap": {
+            "type": "object"
+        },
+        "ITagVersionMap": {
             "type": "object"
         },
         "ITrigger": {

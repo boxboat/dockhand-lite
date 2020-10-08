@@ -16,8 +16,11 @@ export interface IGitConnection {
   authorName: string;
   pathPrefix: string;
   remoteHost: string;
-  sshUser: string;
+  remoteProtocol: string;
+  remoteUser: string;
+  remotePasswordEnvVar: string;
   sshKeyFile: string;
+  sshKeyFileEnvVar: string;
 }
 
 export interface IGitConnectionRepo {

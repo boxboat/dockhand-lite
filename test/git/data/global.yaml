@@ -10,8 +10,9 @@ gitConnectionMap:
     authorName: dockhand
     authorEmail: dockhand@example.com
     remoteHost: github.com
+    remoteProtocol: ssh
+    remoteUser: git
     pathPrefix: boxboat
-    sshUser: git
 repo:
   common:
     artifactPublishEvents:
