@@ -5,7 +5,7 @@ export interface IBuildVersions {
 
 export interface IArtifactData {
   commitMap: ICommitVersionMap;
-  releaseMap: IReleaseVersionMap;
+  tagMap: ITagVersionMap;
 }
 
 export interface IRepoData {
@@ -14,6 +14,6 @@ export interface IRepoData {
 
 export type ICommitVersionMap = Record<string, string>         // branch      : version
 
-export type IReleaseVersionMap = Record<string, string[]>      // releaseType : versions
+export type ITagVersionMap = Record<string, string[]>      // releaseType : versions
 
-export type ITagPrefixMap = Record<string, IReleaseVersionMap> // tagPrefix   : IReleaseVersionMap
+export type ITagPrefixMap = Record<string, ITagVersionMap> // tagPrefix   : IReleaseVersionMap

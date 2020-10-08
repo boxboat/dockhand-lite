@@ -1,20 +1,19 @@
 import {Command} from '@oclif/command'
-import {artifactTypeFlag, configFlags, helpFlag} from '../../flags'
-import {parseConfigAsync} from '../../config'
+import {artifactTypeOptionalFlag, globalFlags} from '../../flags/Flags'
+import {parseConfigAsync} from '../../config/Config'
+import {Build} from '../../lib/build/Build'
+import {output} from '../../utils/utils'
 
 export default class BuildListDependencies extends Command {
   static description = 'list of artifacts that are dependencies'
 
-  static flags = Object.assign({}, artifactTypeFlag, configFlags, helpFlag)
+  static flags = Object.assign({}, globalFlags, artifactTypeOptionalFlag)
 
-  // should print
-  // artifactRepoKey <tab> artifactName <tab> artifactVersion
   async run() {
     const {flags} = this.parse(BuildListDependencies)
-    const {global, build} = await parseConfigAsync(flags.globalConfig, flags.repoConfig)
-
-    this.log(build.name)
-    this.log(global.environmentMap?.get('test'))
-    this.log(`artifactType: ${flags.artifactType}`)
+    const config = await parseConfigAsync(flags.globalConfig, flags.repoConfig)
+    const build = new Build(config.global, config.build, flags.outputType)
+    const data = await build.listDependenciesAsync(flags.artifactType)
+    output(flags.outputType, data)
   }
 }

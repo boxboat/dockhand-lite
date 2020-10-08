@@ -6,6 +6,12 @@ gitConnectionMap:
     authorName: dockhand
     authorEmail: dockhand@example.com
     pathPrefix: test/git/data/repos
+  gitHub:
+    authorName: dockhand
+    authorEmail: dockhand@example.com
+    remoteHost: github.com
+    pathPrefix: boxboat
+    sshUser: git
 repo:
   common:
     artifactPublishEvents:

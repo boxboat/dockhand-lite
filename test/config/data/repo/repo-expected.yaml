@@ -1,4 +1,9 @@
 build:
+  artifacts:
+    docker:
+      - docker/test1
+    helm:
+      - helm/test1
   dependencies:
     artifacts:
       docker:

@@ -1,9 +1,9 @@
 commitMap:
-  commit/master: build-aaaaaaaaaaaa
+  master: build-aaaaaaaaaaaa
 tagMap:
   rc:
-    - 1.0.0-rc1
-    - 1.0.0-rc2
+    - 1.0.0-rc.1
+    - 1.0.2-rc.1
   release:
     - "1.0.0"
     - "1.0.1"

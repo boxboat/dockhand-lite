@@ -10,13 +10,10 @@ function repoConfigMerge(...configs: IRepoConfigFile[]): IRepoConfigFile {
     deploy: {},
   } as IRepoConfigFile
 
-  for (const config of configs) {
-    merge(base, config)
-  }
-
-  merge(cloneDeep(base.common), base.build)
-  merge(cloneDeep(base.common), base.promote)
-  merge(cloneDeep(base.common), base.deploy)
+  merge(base, ...configs)
+  base.build = merge(cloneDeep(base.common), base.build)
+  base.promote = merge(cloneDeep(base.common), base.promote)
+  base.deploy = merge(cloneDeep(base.common), base.deploy)
 
   return base
 }

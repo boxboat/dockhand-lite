@@ -1,11 +1,8 @@
 import {IGlobalConfig, IGitConnectionRepo, IGitConnection} from '../spec/global/IGlobalConfig'
-import {promisify} from 'util'
-import {execFile} from 'child_process'
+import {execFileAsync} from '../utils/child_process'
 import {existsAsync, mkdirAsync} from '../utils/fs'
-import {randBetween, sleepAsync} from '../utils'
+import {randBetween, sleepAsync} from '../utils/utils'
 import path from 'path'
-
-const execFileAsync = promisify(execFile)
 
 export class GitRepo {
   private globalConfig: IGlobalConfig
@@ -14,13 +11,17 @@ export class GitRepo {
 
   public dir: Readonly<string>
 
-  constructor(globalConfig: IGlobalConfig, gitConnectionRepo: IGitConnectionRepo) {
+  constructor(globalConfig: IGlobalConfig, gitConnectionRepo: IGitConnectionRepo, dir?: string) {
     this.globalConfig = globalConfig
     this.gitConnectionRepo = gitConnectionRepo
-    this.dir = path.join(__dirname, '..', '..', 'repos',
-      gitConnectionRepo.gitConnectionKey ?? '',
-      ...(gitConnectionRepo.path ?? '')?.split('/'))
-    .replace(/\.git$/, '')
+    if (dir) {
+      this.dir = dir
+    } else {
+      this.dir = path.join(__dirname, '..', '..', 'repos',
+        gitConnectionRepo.gitConnectionKey ?? '',
+        ...(gitConnectionRepo.path ?? '')?.split('/'))
+      .replace(/\.git$/, '')
+    }
   }
 
   private gitConnection(): IGitConnection {
@@ -40,7 +41,7 @@ export class GitRepo {
       GIT_COMMITTER_EMAIL: gc.authorEmail,
     } as any
     if (gc.remoteHost) {
-      env.GIT_SSH_COMMAND = `ssh -i ${gc.sshKeyFile} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no`
+      env.GIT_SSH_COMMAND = `ssh -i "${gc.sshKeyFile}" -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no"`
     }
     return execFileAsync('git', args, {
       cwd: this.dir,
@@ -56,9 +57,11 @@ export class GitRepo {
       args.push(`--branch=${this.gitConnectionRepo.ref}`)
     }
     args.push('--depth=1')
-    const remoteUserHost = gc.remoteHost ? `${gc.sshUser}@${gc.remoteHost}:` : ''
-    const pathPrefix = gc.pathPrefix ? gc.pathPrefix.replace(/\/$/, '') + '/' : ''
-    args.push(`${remoteUserHost}${pathPrefix}${this.gitConnectionRepo.path}`)
+    const pathPrefix = gc.pathPrefix ? gc.pathPrefix.replace(/(\/|\\)$/, '') : ''
+    const repoPath = gc.remoteHost ?
+      `${gc.sshUser}@${gc.remoteHost}:${pathPrefix}/${this.gitConnectionRepo.path}` :
+      path.resolve(`${pathPrefix}${path.sep}${this.gitConnectionRepo.path}`)
+    args.push(repoPath)
     args.push('.')
     await this.gitAsync(...args)
   }
@@ -99,7 +102,62 @@ export class GitRepo {
     return local === remote
   }
 
+  public async hashAsync() {
+    return (await this.gitAsync('rev-parse', 'HEAD')).stdout.trim()
+  }
+
+  public async hashShortAsync() {
+    return (await this.hashAsync()).substr(0, 12)
+  }
+
+  public async branchNameAsync() {
+    return (await this.gitAsync('rev-parse', '--abbrev-ref', 'HEAD')).stdout.trim()
+  }
+
   public async destroyAsync() {
     return execFileAsync('rm', ['-rf', this.dir])
   }
+}
+
+export async function detectGitRepoAsync(globalConfig: IGlobalConfig, dir: string): Promise<GitRepo> {
+  if (!globalConfig.gitConnectionMap) {
+    throw new Error('gitConnectionMap does not exist')
+  }
+
+  const remote = (await execFileAsync('git', ['remote'], {
+    cwd: dir,
+    env: process.env,
+  })).stdout.split(/\r\n|\r|\n/)[0].trim()
+  const url = (await execFileAsync('git', ['remote', 'get-url', remote], {
+    cwd: dir,
+    env: process.env,
+  })).stdout.trim()
+
+  let segments = url.split('@')
+  let hostPath = segments.splice(-1)[0]
+  segments = hostPath.split('://')
+  hostPath = segments.splice(-1)[0]
+
+  for (const [key, gc] of Object.entries(globalConfig.gitConnectionMap)) {
+    let pathOnly = hostPath
+    if (gc.remoteHost) {
+      if (!hostPath.startsWith(gc.remoteHost)) {
+        continue
+      }
+      pathOnly = hostPath.substr(gc.remoteHost.length + 1)
+    }
+    if (gc.pathPrefix) {
+      const pathPrefix = gc.pathPrefix.replace(/(\/|\\)$/, '') + (gc.remoteHost ? '/' : path.sep)
+      if (!pathOnly.startsWith(pathPrefix)) {
+        continue
+      }
+      pathOnly = pathOnly.substr(pathPrefix.length)
+    }
+    return new GitRepo(globalConfig, {
+      gitConnectionKey: key,
+      path: pathOnly,
+    } as IGitConnectionRepo, '.')
+  }
+
+  throw new Error(`cannot find matching entry in gitConnectionMap for remote url '${url}'`)
 }
