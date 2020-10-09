@@ -4,14 +4,5 @@
   },
   "environmentMap": {
     "dev": "dev"
-  },
-  "repo": {
-    "common": {
-      "artifacts": {
-        "helm": [
-          "helm/helm1"
-        ]
-      }
-    }
   }
 }

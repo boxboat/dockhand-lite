@@ -246,6 +246,83 @@
             },
             "type": "object"
         },
+        "IDeployBase": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/ICommon"
+                },
+                {
+                    "$ref": "#/definitions/IArtifactsResolverOverrides"
+                }
+            ]
+        },
+        "IDeployment": {
+            "properties": {
+                "artifacts": {
+                    "$ref": "#/definitions/Record<string,string[]>"
+                },
+                "environmentKey": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "eventFallback": {
+                    "type": "string"
+                },
+                "eventRegex": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "string"
+                },
+                "overrides": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerBranch": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IDeploymentBase": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/IArtifacts"
+                },
+                {
+                    "$ref": "#/definitions/IEvent"
+                },
+                {
+                    "$ref": "#/definitions/IEventFallback"
+                },
+                {
+                    "$ref": "#/definitions/IArtifactsResolverOverrides"
+                },
+                {
+                    "$ref": "#/definitions/IEventRegex"
+                },
+                {
+                    "$ref": "#/definitions/ITrigger"
+                }
+            ]
+        },
         "IEvent": {
             "properties": {
                 "event": {
@@ -257,6 +334,14 @@
         "IEventFallback": {
             "properties": {
                 "eventFallback": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IEventRegex": {
+            "properties": {
+                "eventRegex": {
                     "type": "string"
                 }
             },
@@ -360,26 +445,6 @@
             },
             "type": "object"
         },
-        "IGlobalConfigFile": {
-            "properties": {
-                "artifactRepoMap": {
-                    "$ref": "#/definitions/Record<string,any>"
-                },
-                "buildVersionsRepo": {
-                    "$ref": "#/definitions/IGitConnectionRepo"
-                },
-                "environmentMap": {
-                    "$ref": "#/definitions/Record<string,any>"
-                },
-                "gitConnectionMap": {
-                    "$ref": "#/definitions/Record<string,IGitConnection>"
-                },
-                "repo": {
-                    "$ref": "#/definitions/IRepoConfigFile"
-                }
-            },
-            "type": "object"
-        },
         "IOrphanBranch": {
             "properties": {
                 "branchNameTemplate": {
@@ -441,7 +506,40 @@
             },
             "type": "object"
         },
-        "IRepoConfigFile": {
+        "IPromotion": {
+            "properties": {
+                "artifacts": {
+                    "$ref": "#/definitions/Record<string,string[]>"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "eventFallback": {
+                    "type": "string"
+                },
+                "overrides": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "$ref": "#/definitions/IArtifacts"
+                            },
+                            {
+                                "$ref": "#/definitions/IEvent"
+                            },
+                            {
+                                "$ref": "#/definitions/IEventFallback"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "promoteToEvent": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IRepoConfig": {
             "properties": {
                 "build": {
                     "$ref": "#/definitions/IBuild"

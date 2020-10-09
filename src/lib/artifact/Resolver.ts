@@ -1,4 +1,4 @@
-import {IArtifact} from './IArtifact'
+import {IArtifact} from './Artifact'
 import {BuildVersions} from '../../buildVersions/BuildVersions'
 import {IArtifactsResolver, IArtifactsResolverBase} from '../../spec/base/IArtifacts'
 import {IArtifactData} from '../../spec/buildVersions/IBuildVersions'

@@ -1,0 +1,27 @@
+common:
+  artifactPublishEvents:
+    - artifactType: docker
+      event: commit/master
+      artifactRepoKey: default
+    - artifactType: docker
+      event: commit/develop
+      artifactRepoKey: default
+    - artifactType: docker
+      eventRegex: tag/.*
+      artifactRepoKey: default
+promote:
+  promotionMap:
+    stage:
+      event: commit/master
+      promoteToEvent: tag/rc
+    prod:
+      event: tag/rc
+      promoteToEvent: tag/release
+deploy:
+  deploymentMap:
+    dev:
+      event: commit/master
+    stage:
+      event: tag/rc
+    prod:
+      event: tag/release

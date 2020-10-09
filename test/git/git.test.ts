@@ -5,7 +5,7 @@ import path from 'path'
 
 describe('git:repo', async () => {
   it('build versions', async () => {
-    const {global} = await parseGlobalConfigAsync([path.join(__dirname, 'data', 'global.yaml')])
+    const global = await parseGlobalConfigAsync([path.join(__dirname, 'data', 'global.yaml')])
     const gitConfig = global.gitConnectionMap?.['local']
     if (gitConfig) {
       gitConfig.pathPrefix = path.join(__dirname, 'data', 'repos')
@@ -24,8 +24,8 @@ describe('git:repo', async () => {
     let artifactServiceB = await buildVersions.getArtifactDataAsync('docker', 'service-b')
     let repoServiceA = await buildVersions.getRepoDataAsync('local', 'service-a')
     let repoServiceB = await buildVersions.getRepoDataAsync('local', 'service-b')
-    expect(artifactServiceA.commitMap.master).to.equal('build-aaaaaaaaaaaa')
-    expect(artifactServiceB.commitMap.master).to.equal('build-bbbbbbbbbbbb')
+    expect(artifactServiceA.commitMap.test).to.equal('build-aaaaaaaaaaaa')
+    expect(artifactServiceB.commitMap.test).to.equal('build-bbbbbbbbbbbb')
     expect(repoServiceA.tagPrefixMap[''].release.slice(-1)[0]).to.equal('1.0.1')
     expect(repoServiceB.tagPrefixMap[''].release.slice(-1)[0]).to.equal('1.0.2')
 
@@ -34,8 +34,8 @@ describe('git:repo', async () => {
     const repoServiceDNE = await buildVersions.getRepoDataAsync('local', 'service-dne')
 
     // write
-    artifactServiceA.commitMap.master = 'build-aaaaaaaaaaa0'
-    artifactServiceDNE.commitMap.master = 'build-000000000000'
+    artifactServiceA.commitMap.test = 'build-aaaaaaaaaaa0'
+    artifactServiceDNE.commitMap.test = 'build-000000000000'
     repoServiceA.tagPrefixMap[''].release.push('1.0.2')
     repoServiceDNE.tagPrefixMap[''] = {
       release: ['1.0.0'],
@@ -51,8 +51,8 @@ describe('git:repo', async () => {
     artifactServiceB = await buildVersions.getArtifactDataAsync('docker', 'service-b')
     repoServiceA = await buildVersions.getRepoDataAsync('local', 'service-a')
     repoServiceB = await buildVersions.getRepoDataAsync('local', 'service-b')
-    expect(artifactServiceA.commitMap.master).to.equal('build-aaaaaaaaaaa0')
-    expect(artifactServiceB.commitMap.master).to.equal('build-bbbbbbbbbbbb')
+    expect(artifactServiceA.commitMap.test).to.equal('build-aaaaaaaaaaa0')
+    expect(artifactServiceB.commitMap.test).to.equal('build-bbbbbbbbbbbb')
     expect(repoServiceA.tagPrefixMap[''].release.slice(-1)[0]).to.equal('1.0.2')
     expect(repoServiceB.tagPrefixMap[''].release.slice(-1)[0]).to.equal('1.0.2')
   })

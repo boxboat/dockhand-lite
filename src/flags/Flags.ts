@@ -16,6 +16,15 @@ export const artifactTypeOptionalFlag = {
   }),
 }
 
+export const deploymentRequiredFlag = {
+  deployment: flags.string({
+    name: 'deployment',
+    description: 'deployment',
+    env: 'DHL_DEPLOYMENT',
+    required: true,
+  }),
+}
+
 export const eventOptionalFlag = {
   event: flags.string({
     name: 'event',
@@ -59,5 +68,17 @@ export const globalFlags = {
     default: 'json',
     options: ['table', 'json', 'yaml'],
   }),
+  outputPrefix: flags.string({
+    name: 'outputMap',
+    description: 'prepend keys to output object',
+    env: 'DHL_OUTPUT_PREFIX',
+  }),
 }
 
+export const outputMap = {
+  outputMap: flags.boolean({
+    name: 'outputMap',
+    description: 'convert output from table to map',
+    env: 'DHL_OUTPUT_MAP',
+  }),
+}

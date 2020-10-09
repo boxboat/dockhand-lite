@@ -13,8 +13,3 @@ gitConnectionMap:
     remotePathPrefix: boxboat
     sshUser: git
     sshKeyFile: '~/.ssh/id_rsa'
-repo:
-  common:
-    artifacts:
-      docker:
-        - docker/docker1

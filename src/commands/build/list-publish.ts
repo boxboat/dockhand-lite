@@ -17,8 +17,8 @@ export default class BuildListPublish extends Command {
   async run() {
     const {flags} = this.parse(BuildListPublish)
     const config = await parseConfigAsync(flags.globalConfig, flags.repoConfig)
-    const build = new Build(config.global, config.build, flags.outputType)
+    const build = new Build(config.global, config.build)
     const data = await build.listPublishAsync(flags.artifactType, flags.artifactName, flags.event)
-    output(flags.outputType, data)
+    output(data, flags.outputType, flags.outputPrefix)
   }
 }

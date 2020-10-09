@@ -2,14 +2,7 @@ common:
   artifacts:
     docker:
       - docker/test1
-    helm:
-      - helm/test1
 build:
-  artifacts:
-    docker:
-      - docker/test1
-    helm:
-      - helm/test1
   dependencies:
     artifacts:
       docker:
@@ -27,6 +20,4 @@ promote:
 deploy:
   artifacts:
     docker:
-      - docker/test3
-    helm:
-      - helm/test3
+      - docker/test2

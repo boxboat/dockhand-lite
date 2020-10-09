@@ -1,9 +1,0 @@
-repo:
-  common:
-    artifacts:
-      helm:
-        - helm/test1
-  deploy:
-    artifacts:
-      helm:
-        - helm/test2
