@@ -109,11 +109,14 @@ export class GitRepo {
       }
   }
 
-  public async isBranchTipAsync() {
-    const ref = (await this.gitAsync('symbolic-ref', 'HEAD')).stdout.trim()
-    const local = (await this.gitAsync('ls-remote', '.', ref)).stdout.trim()
-    const remote = (await this.gitAsync('ls-remote', 'origin', ref)).stdout.trim()
-    return local === remote
+  public async isBranchTipAsync(branch?: string) {
+    if (!branch) {
+      branch = await this.branchNameAsync()
+    }
+    const localHash = await this.hashAsync()
+    const remote = (await this.gitAsync('remote')).stdout.split(/\r\n|\r|\n/)[0].trim()
+    const remoteHash = (await this.gitAsync('ls-remote', remote, `refs/heads/${branch}`)).stdout.trim().split(/\s/)[0]
+    return localHash === remoteHash
   }
 
   public async hashAsync() {

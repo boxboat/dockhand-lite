@@ -3,5 +3,6 @@ export interface IArtifact {
   type: string;
   event: string;
   repoKey: string | undefined;
+  repo: any;
   version: string;
 }
