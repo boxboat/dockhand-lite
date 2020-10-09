@@ -72,7 +72,7 @@ export class Resolver {
     }
   }
 
-  public async resolveAsync(artifactPublishEvents: IArtifactPublishEvents[], buildVersions: BuildVersions): Promise<IArtifact[]> {
+  public async resolveAsync(artifactPublishEvents: IArtifactPublishEvents[], artifactRepoMap: Record<string, any> | undefined, buildVersions: BuildVersions): Promise<IArtifact[]> {
     const artifacts: IArtifact[] = []
 
     const promiseMap = new Map<string, Promise<IArtifactData>>()
@@ -111,6 +111,7 @@ export class Resolver {
             type: resolveArtifact.type,
             event: event,
             repoKey: repoKey,
+            repo: artifactRepoMap?.[repoKey],
             version: version,
           }
           return true

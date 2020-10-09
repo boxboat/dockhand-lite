@@ -10,7 +10,7 @@ export function sleepAsync(milliseconds: number) {
 
 export function output(type: string, data: any) {
   if (type !== 'table' && type !== 'json' && type !== 'yaml') {
-    throw new Error(`invalid type '${type}'; should be 'table', 'json', or 'yaml'`)
+    throw new Error(`invalid outputType '${type}'; should be 'table', 'json', or 'yaml'`)
   }
   switch (type) {
   case 'table':
@@ -23,4 +23,8 @@ export function output(type: string, data: any) {
     console.log(YAML.safeDump(data))
     break
   }
+}
+
+export function alphaNumericDash(str: string): string {
+  return str.replace(/[^a-z0-9]/ig, '-')
 }

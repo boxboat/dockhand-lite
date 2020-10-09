@@ -3,7 +3,8 @@ import {IGlobalConfig} from '../../spec/global/IGlobalConfig'
 import {IBuild} from '../../spec/repo/IBuild'
 import {IArtifact} from '../artifact/IArtifact'
 import {BuildVersions} from '../../buildVersions/BuildVersions'
-import {detectGitRepoAsync} from '../../git/GitRepo'
+import {detectGitRepoAsync, GitRepo} from '../../git/GitRepo'
+import {alphaNumericDash} from '../../utils/utils'
 
 export class Build {
   public buildConfig: IBuild
@@ -11,6 +12,8 @@ export class Build {
   public globalConfig: IGlobalConfig
 
   public outputType: string
+
+  private gitRepo: GitRepo | undefined
 
   constructor(globalConfig: IGlobalConfig, buildConfig: IBuild, outputType: string) {
     this.globalConfig = globalConfig
@@ -31,10 +34,10 @@ export class Build {
     await buildVersions.initAsync()
 
     const resolver = new Resolver(this.buildConfig.dependencies, filterArtifactType, filterArtifactName)
-    return resolver.resolveAsync(this.buildConfig.artifactPublishEvents, buildVersions)
+    return resolver.resolveAsync(this.buildConfig.artifactPublishEvents, this.globalConfig.artifactRepoMap, buildVersions)
   }
 
-  public async listPublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, event: string | undefined): Promise<IArtifact[]> {
+  public async listPublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, forceEvent: string | undefined): Promise<IArtifact[]> {
     if (!this.buildConfig.artifacts) {
       console.error('warning: build.artifacts is not set')
       return []
@@ -44,18 +47,13 @@ export class Build {
       return []
     }
 
-    const gitRepo = await detectGitRepoAsync(this.globalConfig, '.')
-    if (event) {
-      const eventSegments = event.split('/')
-      if (eventSegments[0] !== 'commit') {
-        throw new Error("--event must start with 'commit/'")
-      }
-    } else {
-      const branchName = await gitRepo.branchNameAsync()
-      event = `commit/${branchName}`
-    }
+    const gitRepo = await this.gitRepoAsync()
     const hashShort = await gitRepo.hashShortAsync()
-    const version = `build-${hashShort}`
+    const versions: string[] = [`build-${hashShort}`]
+    const {event, branch} = await this.eventBranchAsync(forceEvent)
+    if (await gitRepo.isBranchTipAsync(branch)) {
+      versions.push(`commit-${alphaNumericDash(branch)}`)
+    }
 
     const artifacts: IArtifact[] = []
     for (const [artifactType, artifactNames] of Object.entries(this.buildConfig.artifacts)) {
@@ -68,13 +66,16 @@ export class Build {
             continue
           }
           for (const repoKey of artifactPublishRepoKeys(this.buildConfig.artifactPublishEvents, artifactType, event)) {
-            artifacts.push({
-              name: artifactName,
-              type: artifactType,
-              event: event,
-              repoKey: repoKey,
-              version: version,
-            } as IArtifact)
+            for (const version of versions) {
+              artifacts.push({
+                name: artifactName,
+                type: artifactType,
+                event: event,
+                repoKey: repoKey,
+                repo: this.globalConfig.artifactRepoMap?.[repoKey],
+                version: version,
+              })
+            }
           }
         }
       }
@@ -83,30 +84,59 @@ export class Build {
     return artifacts
   }
 
-  public async completePublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, event: string | undefined): Promise<IArtifact[]> {
+  public async completePublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, forceEvent: string | undefined): Promise<IArtifact[]> {
     const artifactSet = new Set<string>()
-    const artifacts = await this.listPublishAsync(filterArtifactType, filterArtifactName, event)
+    const artifacts = await this.listPublishAsync(filterArtifactType, filterArtifactName, forceEvent)
 
-    const buildVersions = new BuildVersions(this.globalConfig)
-    await buildVersions.initAsync()
+    const gitRepo = await this.gitRepoAsync()
+    const {branch} = await this.eventBranchAsync(forceEvent)
 
-    const promises: Promise<void>[] = []
-    for (const artifact of artifacts) {
-      const key = `${artifact.type}/${artifact.name}`
-      if (artifactSet.has(key)) {
-        continue
+    if (await gitRepo.isBranchTipAsync(branch)) {
+      const buildVersions = new BuildVersions(this.globalConfig)
+      await buildVersions.initAsync()
+
+      const promises: Promise<void>[] = []
+      for (const artifact of artifacts) {
+        const key = `${artifact.type}/${artifact.name}`
+        if (artifactSet.has(key)) {
+          continue
+        }
+        promises.push((async () => {
+          const artifactData = await buildVersions.getArtifactDataAsync(artifact.type, artifact.name)
+          const eventKey = artifact.event.substr('commit/'.length)
+          artifactData.commitMap[eventKey] = artifact.version
+        })())
       }
-      promises.push((async () => {
-        const artifactData = await buildVersions.getArtifactDataAsync(artifact.type, artifact.name)
-        const eventKey = artifact.event.substr('commit/'.length)
-        artifactData.commitMap[eventKey] = artifact.version
-      })())
+
+      await Promise.all(promises)
+      if (await buildVersions.saveAsync()) {
+        await buildVersions.gitRepo.commitAndPushAsync('update build versions')
+      }
     }
 
-    await Promise.all(promises)
-    if (await buildVersions.saveAsync()) {
-      await buildVersions.gitRepo.commitAndPushAsync('update build versions')
-    }
     return artifacts
+  }
+
+  private async gitRepoAsync(): Promise<GitRepo> {
+    if (!this.gitRepo) {
+      this.gitRepo = await detectGitRepoAsync(this.globalConfig, '.')
+    }
+    return this.gitRepo
+  }
+
+  private async eventBranchAsync(event: string | undefined) {
+    const gitRepo = await this.gitRepoAsync()
+    let branch
+    if (event) {
+      const eventSegments = event.split('/')
+      if (eventSegments[0] !== 'commit') {
+        throw new Error("--event must start with 'commit/'")
+      }
+      branch = eventSegments.splice(1).join('/')
+    } else {
+      branch = await gitRepo.branchNameAsync()
+      event = `commit/${branch}`
+    }
+    return {event, branch}
   }
 }

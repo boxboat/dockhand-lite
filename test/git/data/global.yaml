@@ -1,6 +1,11 @@
+artifactRepoMap:
+  default:
+    host: index.docker.io
+
 buildVersionsRepo:
   gitConnectionKey: local
   path: build-versions.git
+
 gitConnectionMap:
   local:
     authorName: dockhand
@@ -13,6 +18,7 @@ gitConnectionMap:
     remoteProtocol: ssh
     remoteUser: git
     pathPrefix: boxboat
+
 repo:
   common:
     artifactPublishEvents:
