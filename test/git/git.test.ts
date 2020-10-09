@@ -29,9 +29,17 @@ describe('git:repo', async () => {
     expect(repoServiceA.tagPrefixMap[''].release.slice(-1)[0]).to.equal('1.0.1')
     expect(repoServiceB.tagPrefixMap[''].release.slice(-1)[0]).to.equal('1.0.2')
 
+    // dne
+    const artifactServiceDNE = await buildVersions.getArtifactDataAsync('docker', 'service-dne')
+    const repoServiceDNE = await buildVersions.getRepoDataAsync('local', 'service-dne')
+
     // write
     artifactServiceA.commitMap.master = 'build-aaaaaaaaaaa0'
+    artifactServiceDNE.commitMap.master = 'build-000000000000'
     repoServiceA.tagPrefixMap[''].release.push('1.0.2')
+    repoServiceDNE.tagPrefixMap[''] = {
+      release: ['1.0.0'],
+    }
     await buildVersions.saveAsync()
 
     // destroy and clone again

@@ -101,6 +101,7 @@ export class Build {
         if (artifactSet.has(key)) {
           continue
         }
+        artifactSet.add(key)
         promises.push((async () => {
           const artifactData = await buildVersions.getArtifactDataAsync(artifact.type, artifact.name)
           const eventKey = artifact.event.substr('commit/'.length)

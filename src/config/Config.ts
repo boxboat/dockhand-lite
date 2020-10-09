@@ -12,7 +12,13 @@ export type Config = {
   deploy: IDeploy;
 }
 
-export async function parseConfigAsync(globalConfig: string[], repoConfig: string[]): Promise<Config> {
+export async function parseConfigAsync(globalConfig: string | string[], repoConfig: string | string[]): Promise<Config> {
+  if (!Array.isArray(globalConfig)) {
+    globalConfig = globalConfig.split(':')
+  }
+  if (!Array.isArray(repoConfig)) {
+    repoConfig = repoConfig.split(':')
+  }
   const {global, globalRepo} = await parseGlobalConfigAsync(globalConfig)
   const repo = await parseRepoConfigAsync(globalRepo, repoConfig)
   return {

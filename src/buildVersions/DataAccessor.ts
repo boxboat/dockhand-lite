@@ -1,6 +1,6 @@
 import {cloneDeep, isEqual} from 'lodash'
 import {parseSingleConfigAsync} from '../config/ConfigReader'
-import {existsAsync, writeYamlAsync} from '../utils/fs'
+import {existsAsync, mkdirAsync, writeYamlAsync} from '../utils/fs'
 import {BuildVersions} from './BuildVersions'
 import path from 'path'
 import {IDataAccessor} from './IDataAccessor'
@@ -26,6 +26,10 @@ export abstract class DataAccessor<T> implements IDataAccessor {
 
   protected abstract initData(): T
 
+  private get dir(): string {
+    return path.join(this.buildVersions.gitRepo.dir, ...this.fileSegments)
+  }
+
   private get filePath(): string {
     return path.join(this.buildVersions.gitRepo.dir, ...this.fileSegments, dataFileName)
   }
@@ -43,6 +47,7 @@ export abstract class DataAccessor<T> implements IDataAccessor {
 
   public async saveAsync(): Promise<boolean> {
     if (!isEqual(this.data, this.original)) {
+      await mkdirAsync(this.dir, {recursive: true})
       await writeYamlAsync(this.filePath, this.data)
       return true
     }

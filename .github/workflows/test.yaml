@@ -1,10 +1,9 @@
-name: main
+name: test
 
 on: [push]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:

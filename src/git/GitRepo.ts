@@ -104,6 +104,9 @@ export class GitRepo {
           await this.gitAsync('stash')
           await this.gitAsync('pull')
           await this.gitAsync('stash', 'pop')
+          if (i === retries - 1) {
+            throw error
+          }
           await sleepAsync(randBetween(1, maxSleepSeconds * 1000))
         }
       }
@@ -148,7 +151,7 @@ function createRemoteUrl(globalConfig: IGlobalConfig, gitConnectionRepo: IGitCon
   if (gc.remoteHost && (gc.remoteProtocol === 'ssh' || gc.remotePasswordEnvVar) && !gc.remoteUser) {
     throw new Error(`gitConnectionMap.${gitConnectionRepo.gitConnectionKey}.remoteUser must be set`)
   }
-  if (gc.remoteHost && gc.remoteProtocol !== 'ssh' && gc.remoteUser) {
+  if (gc.remoteHost && gc.remoteProtocol !== 'ssh' && gc.remoteUser && !gc.remotePasswordEnvVar) {
     throw new Error(`gitConnectionMap.${gitConnectionRepo.gitConnectionKey}.remotePasswordEnvVar must be set`)
   }
   if (gc.remoteHost && gc.remotePasswordEnvVar && !process.env[gc.remotePasswordEnvVar]) {
@@ -160,23 +163,24 @@ function createRemoteUrl(globalConfig: IGlobalConfig, gitConnectionRepo: IGitCon
       `specified by gitConnectionMap.${gitConnectionRepo.gitConnectionKey}.sshKeyFileEnvVar`)
   }
 
-  const pathPrefix = gc.pathPrefix ? gc.pathPrefix.replace(/(\/|\\)$/, '') : ''
+  let pathPrefix = gc.pathPrefix ? gc.pathPrefix.replace(/(\/|\\)$/, '') + (gc.remoteHost ? '/' : path.sep) : ''
 
   if (!gc.remoteHost) {
-    return path.resolve(`${pathPrefix}${path.sep}${gitConnectionRepo.path}`)
+    pathPrefix += path.sep
+    return path.resolve(`${pathPrefix}${gitConnectionRepo.path}`)
   }
 
   if (gc.remoteProtocol === 'ssh') {
-    return `${gc.remoteUser}@${gc.remoteHost}:${pathPrefix}/${gitConnectionRepo.path}`
+    return `${gc.remoteUser}@${gc.remoteHost}:${pathPrefix}${gitConnectionRepo.path}`
   }
 
   let remotePrefix = `${gc.remoteProtocol}://`
   if (gc.remoteUser && gc.remotePasswordEnvVar) {
     const pass = process.env[gc.remotePasswordEnvVar] as string
-    remotePrefix += `${encodeURIComponent(gc.remoteUser)}:${encodeURIComponent(pass)}`
+    remotePrefix += `${encodeURIComponent(gc.remoteUser)}:${encodeURIComponent(pass)}@`
   }
 
-  return `${remotePrefix}/${pathPrefix}/${gitConnectionRepo.path}`
+  return `${remotePrefix}${gc.remoteHost}/${pathPrefix}${gitConnectionRepo.path}`
 }
 
 export async function detectGitRepoAsync(globalConfig: IGlobalConfig, dir: string): Promise<GitRepo> {
