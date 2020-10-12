@@ -1,7 +1,7 @@
 import {artifactPublishRepoKeys, Resolver} from '../artifact/Resolver'
 import {IGlobalConfig} from '../../spec/global/IGlobalConfig'
 import {IBuild} from '../../spec/repo/IBuild'
-import {IArtifact} from '../artifact/IArtifact'
+import {IArtifact} from '../artifact/Artifact'
 import {BuildVersions} from '../../buildVersions/BuildVersions'
 import {detectGitRepoAsync, GitRepo} from '../../git/GitRepo'
 import {alphaNumericDash} from '../../utils/utils'
@@ -11,14 +11,11 @@ export class Build {
 
   public globalConfig: IGlobalConfig
 
-  public outputType: string
-
   private gitRepo: GitRepo | undefined
 
-  constructor(globalConfig: IGlobalConfig, buildConfig: IBuild, outputType: string) {
+  constructor(globalConfig: IGlobalConfig, buildConfig: IBuild) {
     this.globalConfig = globalConfig
     this.buildConfig = buildConfig
-    this.outputType = outputType
   }
 
   public async listDependenciesAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined): Promise<IArtifact[]> {

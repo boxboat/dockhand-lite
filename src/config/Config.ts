@@ -19,10 +19,12 @@ export async function parseConfigAsync(globalConfig: string | string[], repoConf
   if (!Array.isArray(repoConfig)) {
     repoConfig = repoConfig.split(':')
   }
-  const {global, globalRepo} = await parseGlobalConfigAsync(globalConfig)
-  const repo = await parseRepoConfigAsync(globalRepo, repoConfig)
+  const global = await parseGlobalConfigAsync(globalConfig)
+  const repo = await parseRepoConfigAsync(repoConfig)
   return {
     global,
-    ...repo,
+    build: repo.build,
+    promote: repo.promote,
+    deploy: repo.deploy,
   }
 }

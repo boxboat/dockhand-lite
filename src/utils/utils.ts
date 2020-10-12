@@ -8,19 +8,33 @@ export function sleepAsync(milliseconds: number) {
   return new Promise(r => setTimeout(r, milliseconds))
 }
 
-export function output(type: string, data: any) {
+export function output(data: any, type: string, prefix: string | undefined, options?: {
+  map?: boolean;
+  mapFormatter?: (arg0: any) => any;
+}) {
   if (type !== 'table' && type !== 'json' && type !== 'yaml') {
     throw new Error(`invalid outputType '${type}'; should be 'table', 'json', or 'yaml'`)
   }
+  if (options?.map && options?.mapFormatter) {
+    data = options.mapFormatter(data)
+  }
+  if (prefix) {
+    for (const key of prefix.split('.').reverse()) {
+      data = {[key]: data}
+    }
+  }
+
   switch (type) {
   case 'table':
     console.table(data)
     break
   case 'json':
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data, null, 2))
     break
   case 'yaml':
-    console.log(YAML.safeDump(data))
+    process.stdout.write(YAML.safeDump(data, {
+      noRefs: true,
+    }))
     break
   }
 }

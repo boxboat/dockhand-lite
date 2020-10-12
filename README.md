@@ -17,7 +17,7 @@ $ npm install -g dockhand-lite
 $ dhl COMMAND
 running command...
 $ dhl (-v|--version|version)
-dockhand-lite/0.0.1 linux-x64 node-v12.18.4
+dockhand-lite/0.0.1 linux-x64 node-v12.19.0
 $ dhl --help [COMMAND]
 USAGE
   $ dhl COMMAND
@@ -26,9 +26,32 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`dhl build:complete-publish`](#dhl-buildcomplete-publish)
 * [`dhl build:list-dependencies`](#dhl-buildlist-dependencies)
 * [`dhl build:list-publish`](#dhl-buildlist-publish)
+* [`dhl deploy:list-dependencies`](#dhl-deploylist-dependencies)
 * [`dhl help [COMMAND]`](#dhl-help-command)
+
+## `dhl build:complete-publish`
+
+save new versions of published artifacts
+
+```
+USAGE
+  $ dhl build:complete-publish
+
+OPTIONS
+  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig   (required) global config json or yaml file
+  -h, --help                        show CLI help
+  -o, --outputType=table|json|yaml  [default: json] output format
+  --artifactName=artifactName       artifact name
+  --artifactType=artifactType       artifact type
+  --event=event                     event
+  --outputPrefix=outputPrefix       prepend keys to output object
+```
+
+_See code: [src/commands/build/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/complete-publish.ts)_
 
 ## `dhl build:list-dependencies`
 
@@ -43,7 +66,10 @@ OPTIONS
   -g, --globalConfig=globalConfig   (required) global config json or yaml file
   -h, --help                        show CLI help
   -o, --outputType=table|json|yaml  [default: json] output format
+  --artifactName=artifactName       artifact name
   --artifactType=artifactType       artifact type
+  --outputMap                       convert output from table to map
+  --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
 _See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
@@ -61,11 +87,35 @@ OPTIONS
   -g, --globalConfig=globalConfig   (required) global config json or yaml file
   -h, --help                        show CLI help
   -o, --outputType=table|json|yaml  [default: json] output format
+  --artifactName=artifactName       artifact name
   --artifactType=artifactType       artifact type
   --event=event                     event
+  --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
 _See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
+
+## `dhl deploy:list-dependencies`
+
+list of artifacts that are dependencies
+
+```
+USAGE
+  $ dhl deploy:list-dependencies
+
+OPTIONS
+  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig   (required) global config json or yaml file
+  -h, --help                        show CLI help
+  -o, --outputType=table|json|yaml  [default: json] output format
+  --artifactName=artifactName       artifact name
+  --artifactType=artifactType       artifact type
+  --deployment=deployment           (required) deployment
+  --outputMap                       convert output from table to map
+  --outputPrefix=outputPrefix       prepend keys to output object
+```
+
+_See code: [src/commands/deploy/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/deploy/list-dependencies.ts)_
 
 ## `dhl help [COMMAND]`
 

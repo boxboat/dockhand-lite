@@ -6,6 +6,12 @@ buildVersionsRepo:
   gitConnectionKey: local
   path: build-versions.git
 
+environmentMap:
+  nonprod:
+    cluster: nonprod1
+  prod:
+    cluster: prod1
+
 gitConnectionMap:
   local:
     authorName: dockhand
@@ -18,31 +24,3 @@ gitConnectionMap:
     remoteProtocol: ssh
     remoteUser: git
     pathPrefix: boxboat
-
-repo:
-  common:
-    artifactPublishEvents:
-      - artifactType: docker
-        event: commit/master
-        artifactRepoKey: default
-      - artifactType: docker
-        event: commit/develop
-        artifactRepoKey: default
-      - artifactType: docker
-        eventRegex: tag/.*
-        artifactRepoKey: default
-  promote:
-    promotionMap:
-      stage:
-        event: commit/master
-        promoteToEvent: tag/rc
-      prod:
-        event: tag/rc
-        promoteToEvent: tag/release
-  deploy:
-    dev:
-      event: commit/master
-    stage:
-      event: tag/rc
-    prod:
-      event: tag/release

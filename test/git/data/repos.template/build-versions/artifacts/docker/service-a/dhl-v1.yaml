@@ -1,5 +1,6 @@
 commitMap:
   master: build-aaaaaaaaaaaa
+  test: build-aaaaaaaaaaaa
 tagMap:
   rc:
     - 1.0.0-rc.1
