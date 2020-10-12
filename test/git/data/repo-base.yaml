@@ -21,7 +21,10 @@ deploy:
   deploymentMap:
     dev:
       event: commit/master
+      environmentKey: nonprod
     stage:
       event: tag/rc
+      environmentKey: nonprod
     prod:
       event: tag/release
+      environmentKey: prod

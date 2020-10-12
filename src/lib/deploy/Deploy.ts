@@ -14,6 +14,32 @@ export class Deploy {
     this.deployConfig = deployConfig
   }
 
+  public async environmentAsync(deploymentKey: string): Promise<any> {
+    if (!this.deployConfig.deploymentMap) {
+      console.error('warning: deploy.deploymentMap is not set')
+      return {}
+    }
+    const deployment = this.deployConfig.deploymentMap[deploymentKey]
+    if (!deployment) {
+      console.error(`warning: deploy.deploymentMap.${deploymentKey} is not set`)
+      return {}
+    }
+    if (!deployment.environmentKey) {
+      console.error(`warning: deploy.deploymentMap.${deploymentKey}.environmentKey is not set`)
+      return {}
+    }
+    if (!this.globalConfig.environmentMap) {
+      console.error('warning: environmentMap is not set')
+      return {}
+    }
+    const environment = this.globalConfig.environmentMap[deployment.environmentKey]
+    if (!environment) {
+      console.error(`warning: environmentMap.${deployment.environmentKey} is not set`)
+      return {}
+    }
+    return environment
+  }
+
   public async listDependenciesAsync(deploymentKey: string, filterArtifactType: string | undefined, filterArtifactName: string | undefined): Promise<IArtifact[]> {
     if (!this.deployConfig.deploymentMap) {
       console.error('warning: deploy.deploymentMap is not set')
