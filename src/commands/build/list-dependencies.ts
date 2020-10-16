@@ -1,5 +1,5 @@
 import {Command} from '@oclif/command'
-import {artifactNameOptionalFlag, artifactTypeOptionalFlag, globalFlags, outputMap} from '../../flags/Flags'
+import {artifactNameOptionalFlag, artifactTypeOptionalFlag, globalFlags, outputMapFlag} from '../../flags/Flags'
 import {parseConfigAsync} from '../../config/Config'
 import {Build} from '../../lib/build/Build'
 import {output} from '../../utils/utils'
@@ -12,7 +12,7 @@ export default class BuildListDependencies extends Command {
     ...globalFlags,
     ...artifactNameOptionalFlag,
     ...artifactTypeOptionalFlag,
-    ...outputMap,
+    ...outputMapFlag,
   }
 
   async run() {

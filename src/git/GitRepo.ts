@@ -112,13 +112,30 @@ export class GitRepo {
       }
   }
 
-  public async isBranchTipAsync(branch?: string) {
+  public async isBranchTipAsync(opts?: {
+    branch?: string;
+    remote?: string;
+    remoteRef?: string;
+  }) {
+    let branch = opts?.branch
+    let remote = opts?.remote
+    let remoteRef = opts?.remoteRef
     if (!branch) {
       branch = await this.branchNameAsync()
     }
+    if (!remote) {
+      remote = (await this.gitAsync('remote')).stdout.split(/\r\n|\r|\n/)[0].trim()
+    }
+    if (!remoteRef) {
+      if (branch) {
+        remoteRef = `refs/heads/${branch}`
+      } else {
+        console.error('unable to determine git remote ref, supply --git-remote-ref=<ref> flag')
+        remoteRef = ''
+      }
+    }
     const localHash = await this.hashAsync()
-    const remote = (await this.gitAsync('remote')).stdout.split(/\r\n|\r|\n/)[0].trim()
-    const remoteHash = (await this.gitAsync('ls-remote', remote, `refs/heads/${branch}`)).stdout.trim().split(/\s/)[0]
+    const remoteHash = (await this.gitAsync('ls-remote', remote, remoteRef)).stdout.trim().split(/\s/)[0]
     return localHash === remoteHash
   }
 

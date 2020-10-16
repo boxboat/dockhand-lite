@@ -40,6 +40,17 @@ export const eventRequiredFlag = {
   },
 }
 
+export const gitRemoteFlags = {
+  gitRemote: flags.string({
+    description: 'git remote name',
+    env: 'DHL_GIT_REMOTE',
+  }),
+  gitRemoteRef: flags.string({
+    description: 'git remote ref',
+    env: 'DHL_GIT_REMOTE_REF',
+  }),
+}
+
 export const globalFlags = {
   help: flags.help({
     char: 'h',
@@ -75,10 +86,34 @@ export const globalFlags = {
   }),
 }
 
-export const outputMap = {
+export const outputMapFlag = {
   outputMap: flags.boolean({
     name: 'outputMap',
     description: 'convert output from table to map',
     env: 'DHL_OUTPUT_MAP',
+  }),
+}
+
+export const tagFlags = {
+  tag: flags.string({
+    description: 'tag always applied',
+    env: 'DHL_TAG',
+    multiple: true,
+    singleValue: true,
+  }),
+  tagTip: flags.string({
+    description: 'tag only applied if this is the branch tip',
+    env: 'DHL_TAG_TIP',
+    multiple: true,
+    singleValue: true,
+  }),
+}
+
+export const versionPrefixFlag = {
+  versionPrefix: flags.string({
+    name: 'versionPrefix',
+    description: 'version prefix',
+    env: 'DHL_VERSION_PREFIX',
+    default: 'build-',
   }),
 }

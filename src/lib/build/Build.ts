@@ -4,7 +4,6 @@ import {IBuild} from '../../spec/repo/IBuild'
 import {IArtifact} from '../artifact/Artifact'
 import {BuildVersions} from '../../buildVersions/BuildVersions'
 import {detectGitRepoAsync, GitRepo} from '../../git/GitRepo'
-import {alphaNumericDash} from '../../utils/utils'
 
 export class Build {
   public buildConfig: IBuild
@@ -18,7 +17,10 @@ export class Build {
     this.buildConfig = buildConfig
   }
 
-  public async listDependenciesAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined): Promise<IArtifact[]> {
+  public async listDependenciesAsync(
+    filterArtifactType: string | undefined,
+    filterArtifactName: string | undefined,
+  ): Promise<IArtifact[]> {
     if (!this.buildConfig.dependencies) {
       console.error('warning: build.dependencies is not set')
       return []
@@ -34,7 +36,16 @@ export class Build {
     return resolver.resolveAsync(this.buildConfig.artifactPublishEvents, this.globalConfig.artifactRepoMap, buildVersions)
   }
 
-  public async listPublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, forceEvent: string | undefined): Promise<IArtifact[]> {
+  public async listPublishAsync(
+    filterArtifactType: string | undefined,
+    filterArtifactName: string | undefined,
+    forceEvent: string | undefined,
+    versionPrefix: string | undefined,
+    tags: string[] | undefined,
+    tagsTip: string[] | undefined,
+    remote: string | undefined,
+    remoteRef: string | undefined,
+  ): Promise<IArtifact[]> {
     if (!this.buildConfig.artifacts) {
       console.error('warning: build.artifacts is not set')
       return []
@@ -46,10 +57,17 @@ export class Build {
 
     const gitRepo = await this.gitRepoAsync()
     const hashShort = await gitRepo.hashShortAsync()
-    const versions: string[] = [`build-${hashShort}`]
+    const versions: string[] = [`${versionPrefix}${hashShort}`]
+    if (tags) {
+      versions.push(...tags)
+    }
     const {event, branch} = await this.eventBranchAsync(forceEvent)
-    if (await gitRepo.isBranchTipAsync(branch)) {
-      versions.push(`commit-${alphaNumericDash(branch)}`)
+    if (tagsTip && await gitRepo.isBranchTipAsync({
+      branch,
+      remote,
+      remoteRef,
+    })) {
+      versions.push(...tagsTip)
     }
 
     const artifacts: IArtifact[] = []
@@ -81,14 +99,35 @@ export class Build {
     return artifacts
   }
 
-  public async completePublishAsync(filterArtifactType: string | undefined, filterArtifactName: string | undefined, forceEvent: string | undefined): Promise<IArtifact[]> {
+  public async completePublishAsync(
+    filterArtifactType: string | undefined,
+    filterArtifactName: string | undefined,
+    forceEvent: string | undefined,
+    versionPrefix: string | undefined,
+    tags: string[] | undefined,
+    tagsTip: string[] | undefined,
+    remote: string | undefined,
+    remoteRef: string | undefined,
+  ): Promise<IArtifact[]> {
     const artifactSet = new Set<string>()
-    const artifacts = await this.listPublishAsync(filterArtifactType, filterArtifactName, forceEvent)
+    const artifacts = await this.listPublishAsync(
+      filterArtifactType,
+      filterArtifactName,
+      forceEvent,
+      versionPrefix,
+      tags,
+      tagsTip,
+      remote,
+      remoteRef)
 
     const gitRepo = await this.gitRepoAsync()
     const {branch} = await this.eventBranchAsync(forceEvent)
 
-    if (await gitRepo.isBranchTipAsync(branch)) {
+    if (await gitRepo.isBranchTipAsync({
+      branch,
+      remote,
+      remoteRef,
+    })) {
       const buildVersions = new BuildVersions(this.globalConfig)
       await buildVersions.initAsync()
 

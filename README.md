@@ -17,7 +17,7 @@ $ npm install -g dockhand-lite
 $ dhl COMMAND
 running command...
 $ dhl (-v|--version|version)
-dockhand-lite/0.0.1 linux-x64 node-v12.19.0
+dockhand-lite/0.0.1 linux-x64 node-v12.16.1
 $ dhl --help [COMMAND]
 USAGE
   $ dhl COMMAND
@@ -29,6 +29,7 @@ USAGE
 * [`dhl build:complete-publish`](#dhl-buildcomplete-publish)
 * [`dhl build:list-dependencies`](#dhl-buildlist-dependencies)
 * [`dhl build:list-publish`](#dhl-buildlist-publish)
+* [`dhl deploy:environment`](#dhl-deployenvironment)
 * [`dhl deploy:list-dependencies`](#dhl-deploylist-dependencies)
 * [`dhl help [COMMAND]`](#dhl-help-command)
 
@@ -48,7 +49,12 @@ OPTIONS
   --artifactName=artifactName       artifact name
   --artifactType=artifactType       artifact type
   --event=event                     event
+  --gitRemote=gitRemote             git remote name
+  --gitRemoteRef=gitRemoteRef       git remote ref
   --outputPrefix=outputPrefix       prepend keys to output object
+  --tag=tag                         tag always applied
+  --tagTip=tagTip                   tag only applied if this is the branch tip
+  --versionPrefix=versionPrefix     [default: build-] version prefix
 ```
 
 _See code: [src/commands/build/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/complete-publish.ts)_
@@ -90,10 +96,34 @@ OPTIONS
   --artifactName=artifactName       artifact name
   --artifactType=artifactType       artifact type
   --event=event                     event
+  --gitRemote=gitRemote             git remote name
+  --gitRemoteRef=gitRemoteRef       git remote ref
   --outputPrefix=outputPrefix       prepend keys to output object
+  --tag=tag                         tag always applied
+  --tagTip=tagTip                   tag only applied if this is the branch tip
+  --versionPrefix=versionPrefix     [default: build-] version prefix
 ```
 
 _See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
+
+## `dhl deploy:environment`
+
+list of artifacts that are dependencies
+
+```
+USAGE
+  $ dhl deploy:environment
+
+OPTIONS
+  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig   (required) global config json or yaml file
+  -h, --help                        show CLI help
+  -o, --outputType=table|json|yaml  [default: json] output format
+  --deployment=deployment           (required) deployment
+  --outputPrefix=outputPrefix       prepend keys to output object
+```
+
+_See code: [src/commands/deploy/environment.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/deploy/environment.ts)_
 
 ## `dhl deploy:list-dependencies`
 
