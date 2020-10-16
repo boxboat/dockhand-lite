@@ -1,5 +1,5 @@
 import {Command} from '@oclif/command'
-import {artifactNameOptionalFlag, artifactTypeOptionalFlag, deploymentRequiredFlag, globalFlags, outputMap} from '../../flags/Flags'
+import {artifactNameOptionalFlag, artifactTypeOptionalFlag, deploymentRequiredFlag, globalFlags, outputMapFlag} from '../../flags/Flags'
 import {parseConfigAsync} from '../../config/Config'
 import {Deploy} from '../../lib/deploy/Deploy'
 import {output} from '../../utils/utils'
@@ -13,7 +13,7 @@ export default class DeployListDependencies extends Command {
     ...deploymentRequiredFlag,
     ...artifactNameOptionalFlag,
     ...artifactTypeOptionalFlag,
-    ...outputMap,
+    ...outputMapFlag,
   }
 
   async run() {

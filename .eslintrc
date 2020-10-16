@@ -6,6 +6,9 @@
   "rules": {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "complexity": "off",
+    "max-depth": "off",
+    "max-params": "off",
     "no-await-in-loop": "off",
     "no-useless-constructor": "off",
     "unicorn/filename-case": "off"
