@@ -45,5 +45,5 @@ RUN ln -s /opt/dhl/bin/run /usr/local/bin/dhl
 
 ENV NODE_ENV=production
 USER node:node
-ENTRYPOINT ["fixuid", "-q", "dhl"]
+ENTRYPOINT ["fixuid", "-q"]
 WORKDIR /workspace
