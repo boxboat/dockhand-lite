@@ -2,9 +2,10 @@ artifactRepoMap:
   default:
     host: index.docker.io
 
-buildVersionsRepo:
-  gitConnectionKey: local
-  path: build-versions.git
+buildVersions:
+  gitRepo:
+    gitConnectionKey: local
+    path: build-versions.git
 
 environmentMap:
   nonprod:

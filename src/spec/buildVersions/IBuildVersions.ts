@@ -12,7 +12,7 @@ export interface IRepoData {
   tagPrefixMap: ITagPrefixMap;
 }
 
-export type ICommitVersionMap = Record<string, string>         // branch      : version
+export type ICommitVersionMap = Record<string, string>     // branch      : version
 
 export type ITagVersionMap = Record<string, string[]>      // releaseType : versions
 

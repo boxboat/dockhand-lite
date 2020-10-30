@@ -1,9 +1,10 @@
 artifactRepoMap:
   dev: dev
   stage: stage
-buildVersionsRepo:
-  gitConnectionKey: gitHub
-  path: build-versions
+buildVersions:
+  gitRepo:
+    gitConnectionKey: gitHub
+    path: build-versions
 environmentMap:
   dev: dev
   stage: stage

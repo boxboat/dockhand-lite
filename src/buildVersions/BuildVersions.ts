@@ -16,10 +16,10 @@ export class BuildVersions {
 
   constructor(globalConfig: IGlobalConfig) {
     this.globalConfig = globalConfig
-    if (!globalConfig.buildVersionsRepo) {
-      throw new Error('buildVersionsRepo is required')
+    if (!globalConfig.buildVersions?.gitRepo) {
+      throw new Error('buildVersions.gitRepo is required')
     }
-    this.gitRepo = new GitRepo(globalConfig, globalConfig.buildVersionsRepo)
+    this.gitRepo = new GitRepo(globalConfig, globalConfig.buildVersions.gitRepo)
   }
 
   public async initAsync() {

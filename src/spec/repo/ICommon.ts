@@ -1,12 +1,12 @@
 import {IArtifacts, IArtifactType} from '../base/IArtifacts'
 import {IEvent, IEventRegex} from '../base/IEvent'
+import {ITrigger} from '../base/ITrigger'
 
-export interface ICommon extends IArtifacts {
+type ICommonBase = IArtifacts & ITrigger;
+
+export interface ICommon extends ICommonBase {
   artifactPublishEvents: IArtifactPublishEvents[] | undefined;
-  ciProvider: IGitLabCiProvider | undefined;
-  defaultBranch: string | undefined;
   name: string | undefined;
-  updateMethod: IFileUpdateMethod | IOrphanBranchUpdateMethod | undefined;
 }
 
 type IArtifactPublishEventsBase = IArtifactType & IEvent & IEventRegex;
