@@ -10,8 +10,8 @@ describe('git:repo', async () => {
     if (gitConfig) {
       gitConfig.pathPrefix = path.join(__dirname, 'data', 'repos')
     }
-    if (!global.buildVersionsRepo) {
-      throw new Error('buildVersionsRepo must be set')
+    if (!global.buildVersions?.gitRepo) {
+      throw new Error('buildVersions.gitRepo must be set')
     }
 
     // clone

@@ -1,6 +1,7 @@
-buildVersionsRepo:
-  gitConnectionKey: gitHub
-  path: build-versions
+buildVersions:
+  gitRepo:
+    gitConnectionKey: gitHub
+    path: build-versions
 gitConnectionMap:
   gitHub:
     authorEmail: test

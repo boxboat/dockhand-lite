@@ -1,6 +1,6 @@
 export interface IGlobalConfig {
   artifactRepoMap: Record<string, any> | undefined;
-  buildVersionsRepo: IGitConnectionRepo | undefined;
+  buildVersions: IBuildVersionsGitRepo | undefined;
   environmentMap: Record<string, any> | undefined;
   gitConnectionMap: Record<string, IGitConnection> | undefined;
 }
@@ -15,6 +15,10 @@ export interface IGitConnection {
   remotePasswordEnvVar: string;
   sshKeyFile: string;
   sshKeyFileEnvVar: string;
+}
+
+interface IBuildVersionsGitRepo {
+  gitRepo: IGitConnectionRepo;
 }
 
 export interface IGitConnectionRepo {

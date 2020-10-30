@@ -106,12 +106,6 @@
                 "artifacts": {
                     "$ref": "#/definitions/Record<string,string[]>"
                 },
-                "ciProvider": {
-                    "$ref": "#/definitions/IGitLabCiProvider"
-                },
-                "defaultBranch": {
-                    "type": "string"
-                },
                 "dependencies": {
                     "allOf": [
                         {
@@ -134,15 +128,14 @@
                 "name": {
                     "type": "string"
                 },
-                "updateMethod": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/IFileUpdateMethod"
-                        },
-                        {
-                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
-                        }
-                    ]
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
+                "triggerBranch": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -154,6 +147,14 @@
                 },
                 "repos": {
                     "$ref": "#/definitions/Record<string,IRepoData>"
+                }
+            },
+            "type": "object"
+        },
+        "IBuildVersionsGitRepo": {
+            "properties": {
+                "gitRepo": {
+                    "$ref": "#/definitions/IGitConnectionRepo"
                 }
             },
             "type": "object"
@@ -172,24 +173,17 @@
                 "artifacts": {
                     "$ref": "#/definitions/Record<string,string[]>"
                 },
-                "ciProvider": {
-                    "$ref": "#/definitions/IGitLabCiProvider"
-                },
-                "defaultBranch": {
-                    "type": "string"
-                },
                 "name": {
                     "type": "string"
                 },
-                "updateMethod": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/IFileUpdateMethod"
-                        },
-                        {
-                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
-                        }
-                    ]
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
+                "triggerBranch": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -204,12 +198,6 @@
                 },
                 "artifacts": {
                     "$ref": "#/definitions/Record<string,string[]>"
-                },
-                "ciProvider": {
-                    "$ref": "#/definitions/IGitLabCiProvider"
-                },
-                "defaultBranch": {
-                    "type": "string"
                 },
                 "deploymentMap": {
                     "$ref": "#/definitions/Record<string,IDeployment>"
@@ -233,15 +221,14 @@
                     },
                     "type": "array"
                 },
-                "updateMethod": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/IFileUpdateMethod"
-                        },
-                        {
-                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
-                        }
-                    ]
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
+                "triggerBranch": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -295,6 +282,9 @@
                 "trigger": {
                     "type": "boolean"
                 },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
                 "triggerBranch": {
                     "type": "string"
                 }
@@ -347,25 +337,6 @@
             },
             "type": "object"
         },
-        "IFile": {
-            "properties": {
-                "branch": {
-                    "type": "string"
-                },
-                "fileNameTemplate": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "IFileUpdateMethod": {
-            "properties": {
-                "orphanBranch": {
-                    "$ref": "#/definitions/IFile"
-                }
-            },
-            "type": "object"
-        },
         "IGitConnection": {
             "properties": {
                 "authorEmail": {
@@ -412,54 +383,19 @@
             },
             "type": "object"
         },
-        "IGitLab": {
-            "properties": {
-                "ciFile": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "IGitLabCiProvider": {
-            "properties": {
-                "gitLab": {
-                    "$ref": "#/definitions/IGitLab"
-                }
-            },
-            "type": "object"
-        },
         "IGlobalConfig": {
             "properties": {
                 "artifactRepoMap": {
                     "$ref": "#/definitions/Record<string,any>"
                 },
-                "buildVersionsRepo": {
-                    "$ref": "#/definitions/IGitConnectionRepo"
+                "buildVersions": {
+                    "$ref": "#/definitions/IBuildVersionsGitRepo"
                 },
                 "environmentMap": {
                     "$ref": "#/definitions/Record<string,any>"
                 },
                 "gitConnectionMap": {
                     "$ref": "#/definitions/Record<string,IGitConnection>"
-                }
-            },
-            "type": "object"
-        },
-        "IOrphanBranch": {
-            "properties": {
-                "branchNameTemplate": {
-                    "type": "string"
-                },
-                "imageVersionsFile": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "IOrphanBranchUpdateMethod": {
-            "properties": {
-                "orphanBranch": {
-                    "$ref": "#/definitions/IOrphanBranch"
                 }
             },
             "type": "object"
@@ -475,12 +411,6 @@
                 "artifacts": {
                     "$ref": "#/definitions/Record<string,string[]>"
                 },
-                "ciProvider": {
-                    "$ref": "#/definitions/IGitLabCiProvider"
-                },
-                "defaultBranch": {
-                    "type": "string"
-                },
                 "gitTagDisable": {
                     "type": "boolean"
                 },
@@ -493,15 +423,14 @@
                 "promotionMap": {
                     "$ref": "#/definitions/Record<string,IPromotion>"
                 },
-                "updateMethod": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/IFileUpdateMethod"
-                        },
-                        {
-                            "$ref": "#/definitions/IOrphanBranchUpdateMethod"
-                        }
-                    ]
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
+                "triggerBranch": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -575,8 +504,35 @@
                 "trigger": {
                     "type": "boolean"
                 },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
                 "triggerBranch": {
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ITriggerAction": {
+            "properties": {
+                "clone": {
+                    "type": "boolean"
+                },
+                "cloneRef": {
+                    "type": "string"
+                },
+                "script": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 }
             },
             "type": "object"
