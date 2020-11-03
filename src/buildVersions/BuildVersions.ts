@@ -2,8 +2,9 @@ import {IGlobalConfig} from '../spec/global/IGlobalConfig'
 import {GitRepo} from '../git/GitRepo'
 import {ArtifactDataAccessor} from './ArtifactDataAccessor'
 import {RepoDataAccessor} from './RepoDataAccessor'
-import {IArtifactData, IRepoData} from '../spec/buildVersions/IBuildVersions'
+import {IArtifactData, IRepoData, IRepoTriggers} from '../spec/buildVersions/IBuildVersions'
 import {IDataAccessor} from './IDataAccessor'
+import {RepoTriggersAccessor} from './TriggersAccessor'
 
 export class BuildVersions {
   public gitRepo: GitRepo
@@ -13,6 +14,8 @@ export class BuildVersions {
   private artifactDataAccessorMap: Map<string, ArtifactDataAccessor> = new Map<string, ArtifactDataAccessor>()
 
   private repoDataAccessorMap: Map<string, RepoDataAccessor> = new Map<string, RepoDataAccessor>()
+
+  private repoTriggersAccessorMap: Map<string, RepoTriggersAccessor> = new Map<string, RepoTriggersAccessor>()
 
   constructor(globalConfig: IGlobalConfig) {
     this.globalConfig = globalConfig
@@ -48,10 +51,22 @@ export class BuildVersions {
     return dataAccessor.data
   }
 
+  public async getRepoTriggersAsync(gitConnectionKey: string, gitRepoPath: string, triggerType: string, triggerName: string|undefined): Promise<IRepoTriggers> {
+    const key = `${gitConnectionKey}/${gitRepoPath}/${triggerType}/${triggerName}`
+    let dataAccessor = this.repoTriggersAccessorMap.get(key)
+    if (!dataAccessor) {
+      dataAccessor = new RepoTriggersAccessor(this, gitConnectionKey, gitRepoPath, triggerType, triggerName)
+      await dataAccessor.initAsync()
+      this.repoTriggersAccessorMap.set(key, dataAccessor)
+    }
+    return dataAccessor.data
+  }
+
   public async saveAsync(message = 'update build versions'): Promise<boolean> {
     const dataAccessors: IDataAccessor[] = [
       ...this.artifactDataAccessorMap.values(),
       ...this.repoDataAccessorMap.values(),
+      ...this.repoTriggersAccessorMap.values(),
     ]
     const promises: Promise<boolean>[] = []
     for (const dataAccessor of dataAccessors) {

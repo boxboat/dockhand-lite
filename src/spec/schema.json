@@ -125,9 +125,6 @@
                         }
                     ]
                 },
-                "name": {
-                    "type": "string"
-                },
                 "trigger": {
                     "type": "boolean"
                 },
@@ -135,6 +132,9 @@
                     "$ref": "#/definitions/ITriggerAction"
                 },
                 "triggerBranch": {
+                    "type": "string"
+                },
+                "triggerName": {
                     "type": "string"
                 }
             },
@@ -173,9 +173,6 @@
                 "artifacts": {
                     "$ref": "#/definitions/Record<string,string[]>"
                 },
-                "name": {
-                    "type": "string"
-                },
                 "trigger": {
                     "type": "boolean"
                 },
@@ -183,6 +180,9 @@
                     "$ref": "#/definitions/ITriggerAction"
                 },
                 "triggerBranch": {
+                    "type": "string"
+                },
+                "triggerName": {
                     "type": "string"
                 }
             },
@@ -201,9 +201,6 @@
                 },
                 "deploymentMap": {
                     "$ref": "#/definitions/Record<string,IDeployment>"
-                },
-                "name": {
-                    "type": "string"
                 },
                 "overrides": {
                     "items": {
@@ -228,6 +225,9 @@
                     "$ref": "#/definitions/ITriggerAction"
                 },
                 "triggerBranch": {
+                    "type": "string"
+                },
+                "triggerName": {
                     "type": "string"
                 }
             },
@@ -286,6 +286,9 @@
                     "$ref": "#/definitions/ITriggerAction"
                 },
                 "triggerBranch": {
+                    "type": "string"
+                },
+                "triggerName": {
                     "type": "string"
                 }
             },
@@ -417,9 +420,6 @@
                 "gitTagDisable": {
                     "type": "boolean"
                 },
-                "name": {
-                    "type": "string"
-                },
                 "promotionMap": {
                     "$ref": "#/definitions/Record<string,IPromotion>"
                 },
@@ -433,6 +433,9 @@
                     "$ref": "#/definitions/ITriggerAction"
                 },
                 "triggerBranch": {
+                    "type": "string"
+                },
+                "triggerName": {
                     "type": "string"
                 }
             },
@@ -496,6 +499,63 @@
             },
             "type": "object"
         },
+        "IRepoTrigger": {
+            "properties": {
+                "artifacts": {
+                    "$ref": "#/definitions/Record<string,string[]>"
+                },
+                "deployment": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "eventRegex": {
+                    "type": "string"
+                },
+                "gitRepo": {
+                    "$ref": "#/definitions/IGitConnectionRepo"
+                },
+                "promotion": {
+                    "type": "string"
+                },
+                "trigger": {
+                    "type": "boolean"
+                },
+                "triggerAction": {
+                    "$ref": "#/definitions/ITriggerAction"
+                },
+                "triggerBranch": {
+                    "type": "string"
+                },
+                "triggerName": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "IRepoTriggerBase": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/IArtifacts"
+                },
+                {
+                    "$ref": "#/definitions/IEvent"
+                },
+                {
+                    "$ref": "#/definitions/IEventRegex"
+                },
+                {
+                    "$ref": "#/definitions/ITrigger"
+                }
+            ]
+        },
+        "IRepoTriggers": {
+            "items": {
+                "$ref": "#/definitions/IRepoTrigger"
+            },
+            "type": "array"
+        },
         "ITagPrefixMap": {
             "type": "object"
         },
@@ -512,6 +572,9 @@
                 },
                 "triggerBranch": {
                     "type": "string"
+                },
+                "triggerName": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -520,9 +583,6 @@
             "properties": {
                 "clone": {
                     "type": "boolean"
-                },
-                "cloneRef": {
-                    "type": "string"
                 },
                 "script": {
                     "anyOf": [

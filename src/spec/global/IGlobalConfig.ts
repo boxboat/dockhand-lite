@@ -1,3 +1,5 @@
+import {IGitConnectionRepo} from '../base/IGitConnectionRepo'
+
 export interface IGlobalConfig {
   artifactRepoMap: Record<string, any> | undefined;
   buildVersions: IBuildVersionsGitRepo | undefined;
@@ -17,12 +19,6 @@ export interface IGitConnection {
   sshKeyFileEnvVar: string;
 }
 
-interface IBuildVersionsGitRepo {
+export interface IBuildVersionsGitRepo {
   gitRepo: IGitConnectionRepo;
-}
-
-export interface IGitConnectionRepo {
-  gitConnectionKey: string | undefined;
-  path: string | undefined;
-  ref: string | undefined;
 }

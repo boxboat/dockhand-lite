@@ -6,7 +6,6 @@ type ICommonBase = IArtifacts & ITrigger;
 
 export interface ICommon extends ICommonBase {
   artifactPublishEvents: IArtifactPublishEvents[] | undefined;
-  name: string | undefined;
 }
 
 type IArtifactPublishEventsBase = IArtifactType & IEvent & IEventRegex;

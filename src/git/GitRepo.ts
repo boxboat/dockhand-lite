@@ -1,8 +1,9 @@
-import {IGlobalConfig, IGitConnectionRepo, IGitConnection} from '../spec/global/IGlobalConfig'
+import {IGlobalConfig, IGitConnection} from '../spec/global/IGlobalConfig'
 import {execFileAsync} from '../utils/child_process'
 import {existsAsync, mkdirAsync} from '../utils/fs'
 import {randBetween, sleepAsync} from '../utils/utils'
 import path from 'path'
+import {IGitConnectionRepo} from '../spec/base/IGitConnectionRepo'
 
 export class GitRepo {
   private globalConfig: IGlobalConfig
