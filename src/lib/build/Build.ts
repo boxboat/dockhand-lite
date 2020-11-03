@@ -119,6 +119,9 @@ export class Build {
       tagsTip,
       remote,
       remoteRef)
+    if (artifacts.length === 0) {
+      return artifacts
+    }
 
     const gitRepo = await this.gitRepoAsync()
     const {branch} = await this.eventBranchAsync(forceEvent)

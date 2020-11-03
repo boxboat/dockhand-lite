@@ -40,6 +40,17 @@ export const eventRequiredFlag = {
   },
 }
 
+export const gitConnectionFlags = {
+  gitConnectionKey: flags.string({
+    description: 'git connection key',
+    env: 'DHL_GIT_CONNECTION_KEY',
+  }),
+  gitConnectionPath: flags.string({
+    description: 'git connection path',
+    env: 'DHL_GIT_CONNECTION_PATH',
+  }),
+}
+
 export const gitRemoteFlags = {
   gitRemote: flags.string({
     description: 'git remote name',
@@ -94,6 +105,15 @@ export const outputMapFlag = {
   }),
 }
 
+export const promotionRequiredFlag = {
+  promotion: flags.string({
+    name: 'promotion',
+    description: 'promotion',
+    env: 'DHL_PROMOTION',
+    required: true,
+  }),
+}
+
 export const tagFlags = {
   tag: flags.string({
     description: 'tag always applied',
@@ -106,6 +126,14 @@ export const tagFlags = {
     env: 'DHL_TAG_TIP',
     multiple: true,
     singleValue: true,
+  }),
+}
+
+export const versionOptionalFlag = {
+  version: flags.string({
+    name: 'version',
+    description: 'version',
+    env: 'DHL_VERSION',
   }),
 }
 

@@ -15,6 +15,12 @@ function repoConfigMerge(...configs: IRepoConfig[]): IRepoConfig {
   base.promote = merge(cloneDeep(base.common), base.promote)
   base.deploy = merge(cloneDeep(base.common), base.deploy)
 
+  if (base.promote.artifacts && base.promote.promotionMap) {
+    for (const [key, promotion] of Object.entries(base.promote.promotionMap)) {
+      const promoteArtifacts = promotion.artifacts ?? {}
+      base.promote.promotionMap[key].artifacts = merge(cloneDeep(base.deploy.artifacts), promoteArtifacts)
+    }
+  }
   if (base.deploy.artifacts && base.deploy.deploymentMap) {
     for (const [key, deployment] of Object.entries(base.deploy.deploymentMap)) {
       const deployArtifacts = deployment.artifacts ?? {}

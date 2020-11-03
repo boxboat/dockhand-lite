@@ -72,7 +72,14 @@ export class Resolver {
     }
   }
 
-  public async resolveAsync(artifactPublishEvents: IArtifactPublishEvents[], artifactRepoMap: Record<string, any> | undefined, buildVersions: BuildVersions): Promise<IArtifact[]> {
+  public async resolveAsync(
+    artifactPublishEvents: IArtifactPublishEvents[],
+    artifactRepoMap: Record<string, any> | undefined,
+    buildVersions: BuildVersions,
+    options?: {
+      forceVersion?: string;
+    },
+  ): Promise<IArtifact[]> {
     const artifacts: IArtifact[] = []
 
     const promiseMap = new Map<string, Promise<IArtifactData>>()
@@ -118,12 +125,12 @@ export class Resolver {
         }
 
         if (eventSegments[0] === 'repoVersion' && eventSegments.length === 3) {
-          if (createArtifact(eventSegments[2], eventSegments[1])) {
+          if (createArtifact(options?.forceVersion ?? eventSegments[2], eventSegments[1])) {
             break
           }
         } else if (eventSegments[0] === 'commit' && eventSegments.length >= 2) {
           const branch = eventSegments.splice(1).join('/')
-          const version = artifactData?.commitMap?.[branch]
+          const version = options?.forceVersion ?? artifactData?.commitMap?.[branch]
           if (version) {
             if (createArtifact(version)) {
               break
@@ -131,12 +138,11 @@ export class Resolver {
           }
         } else if (eventSegments[0] === 'tag' && eventSegments.length >= 2 && eventSegments.length <= 3) {
           const tagType = eventSegments[1]
-          let versionRange = eventSegments.length > 2 ? eventSegments[2] : '*.*.*'
+          const versionRange = eventSegments.length > 2 ? eventSegments[2] : '*.*.*'
           const versions = []
           const semverOptions: semver.Options = {}
           if (tagType !== 'release') {
             semverOptions.includePrerelease = true
-            versionRange += `-${tagType}`
             const rcVersions = artifactData?.tagMap?.[tagType]
             if (rcVersions) {
               versions.push(...rcVersions)
@@ -146,7 +152,7 @@ export class Resolver {
           if (releaseVersion) {
             versions.push(...releaseVersion)
           }
-          const version = semver.maxSatisfying(versions, versionRange, semverOptions)
+          const version = options?.forceVersion ?? semver.maxSatisfying(versions, versionRange, semverOptions)
           if (version) {
             if (createArtifact(version)) {
               break

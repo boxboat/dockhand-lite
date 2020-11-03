@@ -16,4 +16,4 @@ export type ICommitVersionMap = Record<string, string>     // branch      : vers
 
 export type ITagVersionMap = Record<string, string[]>      // releaseType : versions
 
-export type ITagPrefixMap = Record<string, ITagVersionMap> // tagPrefix   : IReleaseVersionMap
+export type ITagPrefixMap = Record<string, ITagVersionMap> // tagPrefix   : ITagVersionMap

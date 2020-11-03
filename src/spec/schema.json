@@ -411,17 +411,20 @@
                 "artifacts": {
                     "$ref": "#/definitions/Record<string,string[]>"
                 },
+                "baseVersion": {
+                    "type": "string"
+                },
                 "gitTagDisable": {
                     "type": "boolean"
-                },
-                "gitTagPrefix": {
-                    "type": "string"
                 },
                 "name": {
                     "type": "string"
                 },
                 "promotionMap": {
                     "$ref": "#/definitions/Record<string,IPromotion>"
+                },
+                "tagPrefix": {
+                    "type": "string"
                 },
                 "trigger": {
                     "type": "boolean"
@@ -548,7 +551,6 @@
             "type": "object"
         },
         "Record<string,IPromotion>": {
-            "description": "Construct a type with a set of properties K of type T",
             "type": "object"
         },
         "Record<string,IRepoData>": {

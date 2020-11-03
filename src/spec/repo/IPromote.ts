@@ -2,9 +2,10 @@ import {IArtifactsResolver} from '../base/IArtifacts'
 import {ICommon} from './ICommon'
 
 export interface IPromote extends ICommon {
-  gitTagDisable: boolean;
-  gitTagPrefix: string;
-  promotionMap: Record<string, IPromotion>;
+  baseVersion: string | undefined;
+  gitTagDisable: boolean | undefined;
+  promotionMap: Record<string, IPromotion> | undefined;
+  tagPrefix: string | undefined;
 }
 
 export interface IPromotion extends IArtifactsResolver {
