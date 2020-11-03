@@ -40,7 +40,11 @@ export class Deploy {
     return environment
   }
 
-  public async listDependenciesAsync(deploymentKey: string, filterArtifactType: string | undefined, filterArtifactName: string | undefined): Promise<IArtifact[]> {
+  public async listDependenciesAsync(
+    deploymentKey: string,
+    filterArtifactType: string | undefined,
+    filterArtifactName: string | undefined,
+  ): Promise<IArtifact[]> {
     if (!this.deployConfig.deploymentMap) {
       console.error('warning: deploy.deploymentMap is not set')
       return []

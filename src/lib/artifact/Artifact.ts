@@ -7,6 +7,13 @@ export interface IArtifact {
   version: string;
 }
 
+export interface IArtifactPromotion extends IArtifact {
+  promoteToEvent: string;
+  promoteToRepoKey: string;
+  promoteToRepo: any;
+  promoteToVersion: any;
+}
+
 export type IArtifactMap = Record<string, Record<string, IArtifact>>
 
 export function artifactMapToList(artifactMap: IArtifactMap): IArtifact[] {

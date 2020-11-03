@@ -7,7 +7,7 @@ import path from 'path'
 export class GitRepo {
   private globalConfig: IGlobalConfig
 
-  private gitConnectionRepo: IGitConnectionRepo
+  public gitConnectionRepo: IGitConnectionRepo
 
   public dir: Readonly<string>
 
@@ -153,6 +153,24 @@ export class GitRepo {
 
   public async destroyAsync() {
     return execFileAsync('rm', ['-rf', this.dir])
+  }
+
+  public async tagAndPushAsync(tag: string, opts?: {
+    remote?: string;
+    commitOrObject?: string;
+  }) {
+    const tagArgs = []
+    tagArgs.push(tag)
+    if (opts?.commitOrObject) {
+      tagArgs.push(opts.commitOrObject)
+    }
+    await this.gitAsync('tag', ...tagArgs)
+
+    let remote = opts?.remote
+    if (!remote) {
+      remote = (await this.gitAsync('remote')).stdout.split(/\r\n|\r|\n/)[0].trim()
+    }
+    await this.gitAsync('push', remote, tag)
   }
 }
 

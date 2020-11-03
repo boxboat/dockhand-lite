@@ -8,3 +8,15 @@ build:
       docker:
         - service-a
     event: tag/release
+promote:
+  baseVersion: '1.0'
+  promotionMap:
+    beta:
+      event: commit/master
+      promoteToEvent: tag/beta
+    rc:
+      event: commit/master
+      promoteToEvent: tag/rc
+    release:
+      event: tag/rc
+      promoteToEvent: tag/release

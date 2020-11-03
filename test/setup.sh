@@ -33,6 +33,12 @@ for i in $(ls -1 repos.template); do
 done
 unset $IFS
 
+pushd repos/service-b
+# tags used for promotions
+git tag bbbbbbbbbbbb
+git push origin bbbbbbbbbbbb
+popd
+
 popd
 
 # done
