@@ -10,11 +10,11 @@ export class RepoDataAccessor extends DataAccessor<IRepoData> {
   constructor(buildVersions: BuildVersions, gitConnectionKey: string, gitRepoPath: string) {
     super(buildVersions)
     this.gitConnectionKey = gitConnectionKey
-    this.gitRepoPath = gitRepoPath.replace(/\.git$/, '')
+    this.gitRepoPath = gitRepoPath
   }
 
   protected get fileSegments(): string[] {
-    return ['repos', this.gitConnectionKey, ...this.gitRepoPath.split('/')]
+    return ['repos', this.gitConnectionKey, ...this.gitRepoPath.split(/\/|\\/)]
   }
 
   protected get schemaRef(): string {
