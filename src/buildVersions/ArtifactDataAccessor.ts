@@ -14,7 +14,7 @@ export class ArtifactDataAccessor extends DataAccessor<IArtifactData> {
   }
 
   protected get fileSegments(): string[] {
-    return ['artifacts', this.artifactType, ...this.artifactName.split('/')]
+    return ['artifacts', this.artifactType, ...this.artifactName.split(/\/|\\/)]
   }
 
   protected get schemaRef(): string {
