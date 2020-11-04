@@ -23,7 +23,7 @@ export class BuildVersions {
   }
 
   public async initAsync() {
-    await this.gitRepo.ensureClonedAsync()
+    await this.gitRepo.ensureClonedAsync('--depth=1')
   }
 
   public async getArtifactDataAsync(artifactType: string, artifactName: string): Promise<IArtifactData> {

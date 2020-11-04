@@ -66,22 +66,22 @@ export class GitRepo {
     }
   }
 
-  private async cloneAsync() {
+  private async cloneAsync(...cloneArgs: string[]) {
     await mkdirAsync(this.dir, {recursive: true})
     const args = ['clone']
     if (this.gitConnectionRepo.ref) {
       args.push(`--branch=${this.gitConnectionRepo.ref}`)
     }
-    args.push('--depth=1')
+    args.push(...cloneArgs)
     const remoteUrl = createRemoteUrl(this.globalConfig, this.gitConnectionRepo)
     args.push(remoteUrl)
     args.push('.')
     await this.gitAsync(...args)
   }
 
-  public async ensureClonedAsync() {
+  public async ensureClonedAsync(...cloneArgs: string[]) {
     if (!await existsAsync(this.dir) || !await existsAsync(path.join(this.dir, '.git'))) {
-      await this.cloneAsync()
+      await this.cloneAsync(...cloneArgs)
     }
   }
 

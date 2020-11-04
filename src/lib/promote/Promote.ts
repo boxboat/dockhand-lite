@@ -171,13 +171,13 @@ export class Promote {
       } else if (gitTagCommitObjectSet.size > 1) {
         console.error(`not tagging git repo; found multiple commits/objects to tag: ${[...gitTagCommitObjectSet].join(', ')}`)
       } else {
-        const writeableClone = new GitRepo(this.globalConfig, {
+        const fullClone = new GitRepo(this.globalConfig, {
           gitConnectionKey: await this.gitConnectionKeyAsync(gitConnectionKey),
           path: await this.gitConnectionPathAsync(gitConnectionPath),
           ref: undefined,
         })
-        await writeableClone.ensureClonedAsync()
-        await writeableClone.tagAndPushAsync(`${this.promoteConfig.tagPrefix ?? ''}${promoteToVersion}`, {commitOrObject: [...gitTagCommitObjectSet][0]})
+        await fullClone.ensureClonedAsync()
+        await fullClone.tagAndPushAsync(`${this.promoteConfig.tagPrefix ?? ''}${promoteToVersion}`, {commitOrObject: [...gitTagCommitObjectSet][0]})
       }
     }
 
