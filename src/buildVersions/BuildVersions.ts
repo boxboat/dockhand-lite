@@ -31,10 +31,9 @@ export class BuildVersions {
     let dataAccessor = this.artifactDataAccessorMap.get(key)
     if (!dataAccessor) {
       dataAccessor = new ArtifactDataAccessor(this, artifactType, artifactName)
-      await dataAccessor.initAsync()
       this.artifactDataAccessorMap.set(key, dataAccessor)
     }
-    return dataAccessor.data
+    return dataAccessor.dataAsync()
   }
 
   public async getRepoDataAsync(gitConnectionKey: string, gitRepoPath: string): Promise<IRepoData> {
@@ -42,10 +41,9 @@ export class BuildVersions {
     let dataAccessor = this.repoDataAccessorMap.get(key)
     if (!dataAccessor) {
       dataAccessor = new RepoDataAccessor(this, gitConnectionKey, gitRepoPath)
-      await dataAccessor.initAsync()
       this.repoDataAccessorMap.set(key, dataAccessor)
     }
-    return dataAccessor.data
+    return dataAccessor.dataAsync()
   }
 
   public async saveAsync(message = 'update build versions'): Promise<boolean> {

@@ -1,3 +1,4 @@
+import {isArray} from 'lodash'
 import {IGlobalConfig} from '../spec/global/IGlobalConfig'
 import {IBuild} from '../spec/repo/IBuild'
 import {IDeploy} from '../spec/repo/IDeploy'
@@ -13,10 +14,10 @@ export type Config = {
 }
 
 export async function parseConfigAsync(globalConfig: string | string[], repoConfig: string | string[]): Promise<Config> {
-  if (!Array.isArray(globalConfig)) {
+  if (!isArray(globalConfig)) {
     globalConfig = globalConfig.split(':')
   }
-  if (!Array.isArray(repoConfig)) {
+  if (!isArray(repoConfig)) {
     repoConfig = repoConfig.split(':')
   }
   const global = await parseGlobalConfigAsync(globalConfig)

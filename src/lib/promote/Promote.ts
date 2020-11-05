@@ -6,6 +6,7 @@ import {BuildVersions} from '../../buildVersions/BuildVersions'
 import {detectGitRepoAsync, GitRepo} from '../../git/GitRepo'
 import semver from 'semver'
 import {IRepoData} from '../../spec/buildVersions/IBuildVersions'
+import {isArray, isObject} from 'lodash'
 
 export class Promote {
   public promoteConfig: IPromote
@@ -139,7 +140,10 @@ export class Promote {
       artifactSet.add(key)
       promises.push((async () => {
         const artifactData = await buildVersions.getArtifactDataAsync(artifactPromotion.type, artifactPromotion.name)
-        artifactData.tagMap[promoteToData.releaseType] = artifactPromotion.promoteToVersion
+        if (!isArray(artifactData.tagMap[promoteToData.releaseType])) {
+          artifactData.tagMap[promoteToData.releaseType] = []
+        }
+        artifactData.tagMap[promoteToData.releaseType].push(promoteToData.version)
       })())
 
       if (!this.promoteConfig.gitTagDisable) {
@@ -154,10 +158,10 @@ export class Promote {
     if (promoteToData) {
       promises.push((async () => {
         const repoData = await buildVersions.getRepoDataAsync(await this.gitConnectionKeyAsync(gitConnectionKey), await this.gitConnectionPathAsync(gitConnectionPath))
-        if (!repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? '']) {
+        if (!isObject(repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''])) {
           repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''] = {}
         }
-        if (!repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType]) {
+        if (!isArray(repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType])) {
           repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType] = []
         }
         repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType].push(promoteToData.version)

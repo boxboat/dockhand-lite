@@ -16,6 +16,10 @@ export async function existsAsync(file: string): Promise<boolean> {
   }
 }
 
+export async function readYamlAsync(file: string): Promise<any> {
+  return YAML.safeLoad(await readFileAsync(file, 'utf8')) as any
+}
+
 export async function writeYamlAsync(file: string, data: any) {
   await writeFileAsync(file, YAML.safeDump(data, {indent: 2}), 'utf8')
 }

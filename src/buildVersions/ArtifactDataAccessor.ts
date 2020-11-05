@@ -1,3 +1,4 @@
+import {isObject} from 'lodash'
 import {IArtifactData} from '../spec/buildVersions/IBuildVersions'
 import {BuildVersions} from './BuildVersions'
 import {DataAccessor} from './DataAccessor'
@@ -17,14 +18,19 @@ export class ArtifactDataAccessor extends DataAccessor<IArtifactData> {
     return ['artifacts', this.artifactType, ...this.artifactName.split(/\/|\\/)]
   }
 
-  protected get schemaRef(): string {
-    return '#/definitions/IArtifactData'
-  }
-
-  protected initData(): IArtifactData {
-    return {
-      commitMap: {},
-      tagMap: {},
+  protected initData(data: IArtifactData | undefined): IArtifactData {
+    if (!isObject(data)) {
+      return {
+        commitMap: {},
+        tagMap: {},
+      }
     }
+    if (!isObject(data.commitMap)) {
+      data.commitMap = {}
+    }
+    if (!isObject(data.tagMap)) {
+      data.tagMap = {}
+    }
+    return data
   }
 }
