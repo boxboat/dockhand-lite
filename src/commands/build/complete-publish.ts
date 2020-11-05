@@ -38,6 +38,8 @@ export default class BuildCompletePublish extends Command {
       flags.tagTip,
       flags.gitRemote,
       flags.gitRemoteRef)
-    output(data, flags.outputType, flags.outputPrefix)
+    output(data, flags.outputType, flags.outputPrefix, {
+      tableExcludeKeys: ['repo'],
+    })
   }
 }

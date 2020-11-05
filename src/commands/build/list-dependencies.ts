@@ -23,6 +23,7 @@ export default class BuildListDependencies extends Command {
     output(data, flags.outputType, flags.outputPrefix, {
       map: flags.outputMap,
       mapFormatter: artifactListToMap,
+      tableExcludeKeys: ['repo'],
     })
   }
 }

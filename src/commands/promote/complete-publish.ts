@@ -41,6 +41,8 @@ export default class PromoteCompletePublish extends Command {
       flags.gitConnectionPath,
       flags.tag,
       flags.tagTip)
-    output(data, flags.outputType, flags.outputPrefix)
+    output(data, flags.outputType, flags.outputPrefix, {
+      tableExcludeKeys: ['repo', 'promoteToRepo']
+    })
   }
 }
