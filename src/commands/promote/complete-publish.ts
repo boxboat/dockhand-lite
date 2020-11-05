@@ -42,7 +42,7 @@ export default class PromoteCompletePublish extends Command {
       flags.tag,
       flags.tagTip)
     output(data, flags.outputType, flags.outputPrefix, {
-      tableExcludeKeys: ['repo', 'promoteToRepo']
+      tableExcludeKeys: ['repo', 'promoteToRepo'],
     })
   }
 }

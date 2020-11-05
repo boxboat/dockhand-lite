@@ -119,8 +119,10 @@ export class Promote {
     await buildVersions.initAsync()
 
     const gitTagCommitObjectSet = new Set<string>()
-    let promoteToEvent: string | undefined
-    let promoteToVersion: string | undefined
+    let promoteToData: {
+      releaseType: string;
+      version: string;
+    } | undefined
 
     const promises: Promise<void>[] = []
     for (const artifactPromotion of artifactPromotions) {
@@ -128,15 +130,18 @@ export class Promote {
       if (artifactSet.has(key)) {
         continue
       }
+
+      promoteToData = {
+        releaseType: artifactPromotion.promoteToEvent.split('/')[1],
+        version: artifactPromotion.promoteToVersion,
+      }
+
       artifactSet.add(key)
       promises.push((async () => {
         const artifactData = await buildVersions.getArtifactDataAsync(artifactPromotion.type, artifactPromotion.name)
-        const eventKey = artifactPromotion.promoteToEvent.substr('tag/'.length)
-        artifactData.tagMap[eventKey] = artifactPromotion.promoteToVersion
+        artifactData.tagMap[promoteToData.releaseType] = artifactPromotion.promoteToVersion
       })())
 
-      promoteToEvent = artifactPromotion.promoteToEvent
-      promoteToVersion = artifactPromotion.promoteToVersion
       if (!this.promoteConfig.gitTagDisable) {
         if (artifactPromotion.event.startsWith('commit/')) {
           gitTagCommitObjectSet.add(artifactPromotion.version.substr(-12))
@@ -146,17 +151,16 @@ export class Promote {
       }
     }
 
-    if (promoteToEvent && promoteToVersion) {
+    if (promoteToData) {
       promises.push((async () => {
         const repoData = await buildVersions.getRepoDataAsync(await this.gitConnectionKeyAsync(gitConnectionKey), await this.gitConnectionPathAsync(gitConnectionPath))
-        const eventKey = promoteToEvent.substr('tag/'.length)
         if (!repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? '']) {
           repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''] = {}
         }
-        if (!repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][eventKey]) {
-          repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][eventKey] = []
+        if (!repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType]) {
+          repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType] = []
         }
-        repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][eventKey].push(promoteToVersion)
+        repoData.tagPrefixMap[this.promoteConfig.tagPrefix ?? ''][promoteToData.releaseType].push(promoteToData.version)
       })())
     }
 
@@ -165,7 +169,7 @@ export class Promote {
       await buildVersions.gitRepo.commitAndPushAsync('update build versions')
     }
 
-    if (!this.promoteConfig.gitTagDisable && promoteToVersion) {
+    if (!this.promoteConfig.gitTagDisable && promoteToData) {
       if (gitTagCommitObjectSet.size === 0) {
         console.error('not tagging git repo; unable to detect commit/object to tag')
       } else if (gitTagCommitObjectSet.size > 1) {
@@ -177,7 +181,7 @@ export class Promote {
           ref: undefined,
         })
         await fullClone.ensureClonedAsync()
-        await fullClone.tagAndPushAsync(`${this.promoteConfig.tagPrefix ?? ''}${promoteToVersion}`, {commitOrObject: [...gitTagCommitObjectSet][0]})
+        await fullClone.tagAndPushAsync(`${this.promoteConfig.tagPrefix ?? ''}${promoteToData.version}`, {commitOrObject: [...gitTagCommitObjectSet][0]})
       }
     }
 

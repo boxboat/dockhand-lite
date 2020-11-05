@@ -39,7 +39,7 @@ export default class BuildListPublish extends Command {
       flags.gitRemote,
       flags.gitRemoteRef)
     output(data, flags.outputType, flags.outputPrefix, {
-      tableExcludeKeys: ['repo']
+      tableExcludeKeys: ['repo'],
     })
   }
 }

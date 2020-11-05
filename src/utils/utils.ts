@@ -20,7 +20,7 @@ export function output(data: any, type: string, prefix: string | undefined, opti
   data = cloneDeep(data)
   if (type === 'table' && options?.tableExcludeKeys && isObject(data) && Symbol.iterator in data) {
     for (const item of data as any) {
-      if (isObject(item)){
+      if (isObject(item)) {
         for (const key of options.tableExcludeKeys) {
           delete (item as any)[key]
         }
