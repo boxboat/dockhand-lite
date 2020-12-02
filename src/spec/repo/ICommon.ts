@@ -1,8 +1,7 @@
 import {IArtifacts, IArtifactType} from '../base/IArtifacts'
 import {IEvent, IEventRegex} from '../base/IEvent'
-import {ITrigger} from '../base/ITrigger'
 
-type ICommonBase = IArtifacts & ITrigger;
+type ICommonBase = IArtifacts;
 
 export interface ICommon extends ICommonBase {
   artifactPublishEvents: IArtifactPublishEvents[] | undefined;

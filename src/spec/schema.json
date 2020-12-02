@@ -119,22 +119,10 @@
                         },
                         {
                             "$ref": "#/definitions/IArtifactsResolverOverrides"
-                        },
-                        {
-                            "$ref": "#/definitions/ITrigger"
                         }
                     ]
                 },
                 "name": {
-                    "type": "string"
-                },
-                "trigger": {
-                    "type": "boolean"
-                },
-                "triggerAction": {
-                    "$ref": "#/definitions/ITriggerAction"
-                },
-                "triggerBranch": {
                     "type": "string"
                 }
             },
@@ -175,15 +163,6 @@
                 },
                 "name": {
                     "type": "string"
-                },
-                "trigger": {
-                    "type": "boolean"
-                },
-                "triggerAction": {
-                    "$ref": "#/definitions/ITriggerAction"
-                },
-                "triggerBranch": {
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -220,15 +199,6 @@
                         ]
                     },
                     "type": "array"
-                },
-                "trigger": {
-                    "type": "boolean"
-                },
-                "triggerAction": {
-                    "$ref": "#/definitions/ITriggerAction"
-                },
-                "triggerBranch": {
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -278,15 +248,6 @@
                         ]
                     },
                     "type": "array"
-                },
-                "trigger": {
-                    "type": "boolean"
-                },
-                "triggerAction": {
-                    "$ref": "#/definitions/ITriggerAction"
-                },
-                "triggerBranch": {
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -307,9 +268,6 @@
                 },
                 {
                     "$ref": "#/definitions/IEventRegex"
-                },
-                {
-                    "$ref": "#/definitions/ITrigger"
                 }
             ]
         },
@@ -425,15 +383,6 @@
                 },
                 "tagPrefix": {
                     "type": "string"
-                },
-                "trigger": {
-                    "type": "boolean"
-                },
-                "triggerAction": {
-                    "$ref": "#/definitions/ITriggerAction"
-                },
-                "triggerBranch": {
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -500,44 +449,6 @@
             "type": "object"
         },
         "ITagVersionMap": {
-            "type": "object"
-        },
-        "ITrigger": {
-            "properties": {
-                "trigger": {
-                    "type": "boolean"
-                },
-                "triggerAction": {
-                    "$ref": "#/definitions/ITriggerAction"
-                },
-                "triggerBranch": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "ITriggerAction": {
-            "properties": {
-                "clone": {
-                    "type": "boolean"
-                },
-                "cloneRef": {
-                    "type": "string"
-                },
-                "script": {
-                    "anyOf": [
-                        {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
-                }
-            },
             "type": "object"
         },
         "Record<string,IArtifactData>": {
