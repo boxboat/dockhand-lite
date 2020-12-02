@@ -1,5 +1,5 @@
 {
-  "name": "dockhand-lite",
+  "name": "@boxboat/dockhand-lite",
   "version": "0.0.1",
   "author": "BoxBoat",
   "bin": {

@@ -1,0 +1,27 @@
+name: npm
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: https://registry.npmjs.org
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Publish
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

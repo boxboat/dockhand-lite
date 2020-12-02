@@ -1,5 +1,5 @@
 # build image
-FROM node:12-alpine AS build
+FROM node:14-alpine AS build
 
 RUN apk add --no-cache \
         git \
@@ -18,7 +18,7 @@ COPY --chown=node:node . /opt/dhl
 
 RUN yarn pack \
     && yarn install --production \
-    && tar -xzf dockhand-lite-*.tgz \
+    && tar -xzf boxboat-dockhand-lite-*.tgz \
     && mv node_modules package
 
 # final image
