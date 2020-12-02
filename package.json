@@ -3,7 +3,7 @@
   "version": "0.1.0-rc.0",
   "author": "BoxBoat",
   "bin": {
-    "dockhand-lite": "./bin/run"
+    "dhl": "./bin/run"
   },
   "bugs": "https://github.com/boxboat/dockhand-lite/issues",
   "dependencies": {
