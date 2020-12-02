@@ -22,7 +22,7 @@ RUN yarn pack \
     && mv node_modules package
 
 # final image
-FROM node:12-alpine
+FROM node:14-alpine
 
 RUN apk add --no-cache \
         curl \
