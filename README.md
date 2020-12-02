@@ -17,7 +17,7 @@ $ npm install -g @boxboat/dockhand-lite
 $ dhl COMMAND
 running command...
 $ dhl (-v|--version|version)
-@boxboat/dockhand-lite/0.1.0-rc.0 linux-x64 node-v14.15.0
+@boxboat/dockhand-lite/0.1.0-rc.1 linux-x64 node-v14.15.0
 $ dhl --help [COMMAND]
 USAGE
   $ dhl COMMAND
@@ -59,7 +59,7 @@ OPTIONS
   --versionPrefix=versionPrefix     [default: build-] version prefix
 ```
 
-_See code: [src/commands/build/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/build/complete-publish.ts)_
+_See code: [src/commands/build/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/build/complete-publish.ts)_
 
 ## `dhl build:list-dependencies`
 
@@ -80,7 +80,7 @@ OPTIONS
   --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
-_See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/build/list-dependencies.ts)_
+_See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/build/list-dependencies.ts)_
 
 ## `dhl build:list-publish`
 
@@ -106,7 +106,7 @@ OPTIONS
   --versionPrefix=versionPrefix     [default: build-] version prefix
 ```
 
-_See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/build/list-publish.ts)_
+_See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/build/list-publish.ts)_
 
 ## `dhl deploy:environment`
 
@@ -125,7 +125,7 @@ OPTIONS
   --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
-_See code: [src/commands/deploy/environment.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/deploy/environment.ts)_
+_See code: [src/commands/deploy/environment.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/deploy/environment.ts)_
 
 ## `dhl deploy:list-dependencies`
 
@@ -147,7 +147,7 @@ OPTIONS
   --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
-_See code: [src/commands/deploy/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/deploy/list-dependencies.ts)_
+_See code: [src/commands/deploy/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/deploy/list-dependencies.ts)_
 
 ## `dhl help [COMMAND]`
 
@@ -191,7 +191,7 @@ OPTIONS
   --version=version                      version
 ```
 
-_See code: [src/commands/promote/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/promote/complete-publish.ts)_
+_See code: [src/commands/promote/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/promote/complete-publish.ts)_
 
 ## `dhl promote:list-publish`
 
@@ -218,5 +218,5 @@ OPTIONS
   --version=version                      version
 ```
 
-_See code: [src/commands/promote/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.0/src/commands/promote/list-publish.ts)_
+_See code: [src/commands/promote/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.1/src/commands/promote/list-publish.ts)_
 <!-- commandsstop -->
