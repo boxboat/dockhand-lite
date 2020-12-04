@@ -1,6 +1,6 @@
 {
   "name": "@boxboat/dockhand-lite",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0",
   "author": "BoxBoat",
   "bin": {
     "dhl": "./bin/run"
