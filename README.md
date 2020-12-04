@@ -13,11 +13,11 @@ dockhand-lite
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g dockhand-lite
+$ npm install -g @boxboat/dockhand-lite
 $ dhl COMMAND
 running command...
 $ dhl (-v|--version|version)
-dockhand-lite/0.0.1 linux-x64 node-v14.15.0
+@boxboat/dockhand-lite/0.1.0-rc.2 linux-x64 node-v14.15.0
 $ dhl --help [COMMAND]
 USAGE
   $ dhl COMMAND
@@ -59,7 +59,7 @@ OPTIONS
   --versionPrefix=versionPrefix     [default: build-] version prefix
 ```
 
-_See code: [src/commands/build/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/complete-publish.ts)_
+_See code: [src/commands/build/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/build/complete-publish.ts)_
 
 ## `dhl build:list-dependencies`
 
@@ -80,7 +80,7 @@ OPTIONS
   --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
-_See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-dependencies.ts)_
+_See code: [src/commands/build/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/build/list-dependencies.ts)_
 
 ## `dhl build:list-publish`
 
@@ -106,7 +106,7 @@ OPTIONS
   --versionPrefix=versionPrefix     [default: build-] version prefix
 ```
 
-_See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/build/list-publish.ts)_
+_See code: [src/commands/build/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/build/list-publish.ts)_
 
 ## `dhl deploy:environment`
 
@@ -125,7 +125,7 @@ OPTIONS
   --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
-_See code: [src/commands/deploy/environment.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/deploy/environment.ts)_
+_See code: [src/commands/deploy/environment.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/deploy/environment.ts)_
 
 ## `dhl deploy:list-dependencies`
 
@@ -147,7 +147,7 @@ OPTIONS
   --outputPrefix=outputPrefix       prepend keys to output object
 ```
 
-_See code: [src/commands/deploy/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/deploy/list-dependencies.ts)_
+_See code: [src/commands/deploy/list-dependencies.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/deploy/list-dependencies.ts)_
 
 ## `dhl help [COMMAND]`
 
@@ -175,21 +175,23 @@ USAGE
   $ dhl promote:complete-publish
 
 OPTIONS
-  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
-  -g, --globalConfig=globalConfig   (required) global config json or yaml file
-  -h, --help                        show CLI help
-  -o, --outputType=table|json|yaml  [default: json] output format
-  --artifactName=artifactName       artifact name
-  --artifactType=artifactType       artifact type
-  --event=event                     event
-  --outputPrefix=outputPrefix       prepend keys to output object
-  --promotion=promotion             (required) promotion
-  --tag=tag                         tag always applied
-  --tagTip=tagTip                   tag only applied if this is the branch tip
-  --version=version                 version
+  -c, --repoConfig=repoConfig            (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig        (required) global config json or yaml file
+  -h, --help                             show CLI help
+  -o, --outputType=table|json|yaml       [default: json] output format
+  --artifactName=artifactName            artifact name
+  --artifactType=artifactType            artifact type
+  --event=event                          event
+  --gitConnectionKey=gitConnectionKey    git connection key
+  --gitConnectionPath=gitConnectionPath  git connection path
+  --outputPrefix=outputPrefix            prepend keys to output object
+  --promotion=promotion                  (required) promotion
+  --tag=tag                              tag always applied
+  --tagTip=tagTip                        tag only applied if this is the branch tip
+  --version=version                      version
 ```
 
-_See code: [src/commands/promote/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/promote/complete-publish.ts)_
+_See code: [src/commands/promote/complete-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/promote/complete-publish.ts)_
 
 ## `dhl promote:list-publish`
 
@@ -200,19 +202,21 @@ USAGE
   $ dhl promote:list-publish
 
 OPTIONS
-  -c, --repoConfig=repoConfig       (required) repo config json or yaml file
-  -g, --globalConfig=globalConfig   (required) global config json or yaml file
-  -h, --help                        show CLI help
-  -o, --outputType=table|json|yaml  [default: json] output format
-  --artifactName=artifactName       artifact name
-  --artifactType=artifactType       artifact type
-  --event=event                     event
-  --outputPrefix=outputPrefix       prepend keys to output object
-  --promotion=promotion             (required) promotion
-  --tag=tag                         tag always applied
-  --tagTip=tagTip                   tag only applied if this is the branch tip
-  --version=version                 version
+  -c, --repoConfig=repoConfig            (required) repo config json or yaml file
+  -g, --globalConfig=globalConfig        (required) global config json or yaml file
+  -h, --help                             show CLI help
+  -o, --outputType=table|json|yaml       [default: json] output format
+  --artifactName=artifactName            artifact name
+  --artifactType=artifactType            artifact type
+  --event=event                          event
+  --gitConnectionKey=gitConnectionKey    git connection key
+  --gitConnectionPath=gitConnectionPath  git connection path
+  --outputPrefix=outputPrefix            prepend keys to output object
+  --promotion=promotion                  (required) promotion
+  --tag=tag                              tag always applied
+  --tagTip=tagTip                        tag only applied if this is the branch tip
+  --version=version                      version
 ```
 
-_See code: [src/commands/promote/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.0.1/src/commands/promote/list-publish.ts)_
+_See code: [src/commands/promote/list-publish.ts](https://github.com/boxboat/dockhand-lite/blob/v0.1.0-rc.2/src/commands/promote/list-publish.ts)_
 <!-- commandsstop -->

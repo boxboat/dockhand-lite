@@ -3,7 +3,7 @@
 /.idea
 /.nyc_output
 /dist
-/dockhand-lite-*.tgz
+/boxboat-dockhand-lite-*.tgz
 /lib
 /oclif.manifest.json
 /package
@@ -11,3 +11,10 @@
 /repos
 /tmp
 node_modules
+
+# vscode
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
+!/.vscode/extensions.json

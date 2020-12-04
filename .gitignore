@@ -3,7 +3,7 @@
 /.idea
 /.nyc_output
 /dist
-/dockhand-lite-*.tgz
+/boxboat-dockhand-lite-*.tgz
 /lib
 /oclif.manifest.json
 /package
