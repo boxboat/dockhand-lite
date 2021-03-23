@@ -1,7 +1,7 @@
 title: Dockhand Lite
 description: >-
-  Dockhand Lite is a CLI meant to be used by CI/CD build pipelines
-  to manage the builing, promotiong, and deploying of Docker images.
+  Dockhand Lite is a CLI meant to be used by CI/CD pipelines
+  to facilitate builing, promotiong, and deploying artifacts.
 twitter_username: boxboat
 github_username:  boxboat
 
