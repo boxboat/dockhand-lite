@@ -46,3 +46,24 @@ environmentMap:
   prod:
     cluster: prod1
 ```
+
+# Schema for Global Dockhand Config
+
+The following table lists all the parameters you can set in your dockhand repo config yaml file.
+
+| Parameter                                | Description                                             |
+|------------------------------------------|---------------------------------------------------------|
+| `artifactRepoMap.[]<ARTIFACT_REPO_NAME>.<host:<HOSTNAME>>`                   | The artifact repo map gives dockhand the hostname of each artifact repo you're using. |                            
+| `buildVersions.gitRepo.gitConnectionKey`       | Specifies what git connection you want to use from the gitConnectionMap for build versions repo. |
+| `buildVersions.gitRepo.path`   | The path in your git repository to build versions       | 
+| `buildVersions.gitRepo.ref`    |                             | 
+| `environmentMap.[]<ENVIRONMENT_NAME>.{}<String,String>`       |  Define environments and key value pairs associated with those environments.  | 
+| `gitConnectionMap.<REPO>.authorEmail`      | Email associated with the git connection.  | 
+| `gitConnectionMap.<REPO>.authorName`     | Author of git connection (associated with commits for new build-versions)    | 
+| `gitConnectionMap.<REPO>.remotePathPrefix`     | Path prefix to append to all git repos being used with the connection        | 
+| `gitConnectionMap.<REPO>.remoteHost`    | The hostname of the remote git repository           | 
+| `gitConnectionMap.<REPO>.remotePasswordEnvVar`   | Env var of password to use when dockhand interacts with remote repo      |
+| `gitConnectionMap.<REPO>.remoteProtocol`     | Protocol to use interfacing with repo (https or ssh)   | 
+| `gitConnectionMap.<REPO>.remoteUser`   | The remote user for dockhand to use when interacting with the git repo          | 
+| `gitConnectionMap.<REPO>.sshKeyFile`   | Path to the ssh private key for dockhand to use interating with git     | 
+| `gitConnectionMap.<REPO>.sshKeyFileEnvVar`      | Env var containing private key for dockhand to use interacting with the git repository   |
