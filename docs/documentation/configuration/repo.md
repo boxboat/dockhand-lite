@@ -78,15 +78,12 @@ The following table lists all the parameters you can set in your dockhand repo c
 
 | Parameter                                | Description                                             |
 |------------------------------------------|---------------------------------------------------------|
-
-
 | `common.artifactPublishEvents.artifactRepoKey`  | This is your artifact repo configured in the global dockhand config |
 | `common.artifactPublishEvents.artifactType`  | This is the type of artifact you plan on having dockhand track | 
 | `common.artifactPublishEvents.event`  | This is an event in git for dockhand to watch for. (ex. event commiting to deveop: `commit/develop`) | 
 | `common.artifactPublishEvents.eventRegex`                   | This is an regular expression representing a set of events for dockhand to watch for |
 | `common.[]<ARTIFACT_NAME>.{}<String,String>`                   | This represents artifacts you want dockhand to track for build promote and deploy | 
 | `common.name`                   | The name of your common configuration |
-
 | `build.artifactPublishEvents`   | The git events dockhand should use to identify when to publish the build artifact | 
 | `build.[]<ARTIFACT_NAME>.{}<String,String>`  | This represents artifacts you want dockhand to track for build   |
 | `build.dependencies.[]<ARTIFACT_NAME>.{}<String,String>`   | This represents artifacts of dependencies you want dockhand to track for build |

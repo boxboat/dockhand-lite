@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Build Versions
+title: How it Works
 nav_order: 1
 parent: Documentation
 ---
