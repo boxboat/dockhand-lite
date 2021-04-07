@@ -6,6 +6,8 @@ grand_parent: Documentation
 nav_order: 1
 ---
 
+# Gobal Configuration
+
 Artifact repository configuration, build version git repository configuration, environment mapping configuration, and git connection configuration are specified in the global configuration file.
 
 Dockhand Lite reads global configuration from the file path specified in the required environment variable `DHL_GLOBAL_CONFIG`. Dockhand Lite global configuration can be specified in JSON or YAML formats.

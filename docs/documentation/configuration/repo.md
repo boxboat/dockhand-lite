@@ -6,33 +6,37 @@ grand_parent: Documentation
 nav_order: 2
 ---
 
+# Repo Configuration
+
 Common, build, promote, and deploy configuration are specified in the repo configuration file.
 
 Dockhand Lite reads repo configuration from the file path specified in the required environment variable `DHL_REPO_CONFIG`. Dockhand Lite repo configuration can be specified in JSON or YAML formats.
 
 Multiple repo configuration files can be specified in the `DHL_REPO_CONFIG` using a `:` delimiter.
 
-# [](#header-1) Common
+## [](#header-1) Common
 
 Artifacts and Artifact Publish Events are specified in common repo configuration. Common configuration is shared amongst the Build, Promote, and Deploy stages.
 
 Artifacts will be pushed to matching registries during the build stage, promoted during the promote stage and tags for the artifacts will be computed during the deploy stage.
 
-# [](#header-1) Build
+## [](#header-1) Build
 
 Artifact dependencies needed to build or test the target artifact can be specified in the Build Repo configuration.
 
-# [](#header-1) Promote
+## [](#header-1) Promote
 
 Base Version, Tag Prefix, Promotion Map and Disable Tagging configurations can be specified in the Promote Repo configuration.
 
 The Promotion mapping specifies and event that should happen and a promote event to perform for deployment environments.
 
-# [](#header-1) Deploy
+## [](#header-1) Deploy
 
 A Deployment Mapping must be specified in the Deploy Repo configuration. The mapping specifies what event triggers a deployment to an environment.
 
-## [](#header-1) Artifact Publish Events
+## [](#header-1) Config Explanations and Examples
+
+### [](#header-1) Artifact Publish Events
 
 Artifact Publish Events specify an artifact type, artifact repo key and an event or event regex. Artifacts of the specified type are retrieved from the specified artifact repo when an event occurs that matches the specified regex. Setting this enables dockhand to give you the correct hostname corresponding to the artifacts location according to the event that was last triggered related to that artifact.
 
@@ -49,7 +53,7 @@ common:
       artifactRepoKey: default-npm-key
 ```
 
-## [](#header-1) Artifacts
+### [](#header-1) Artifacts
  
 Artifacts allow you to define one or more artifacts under a series of artifactTypes. An example of this would be the following.
 
@@ -70,7 +74,7 @@ common:
       - package/a
 ```
 
-## [](#header-1) Events and Event Fallbacks
+### [](#header-1) Events and Event Fallbacks
 
 Dockhand uses events often in its configuration as a result of its event driven design to interact with git. Although event appears often in configuration under different sections its expected values are univesal across its use. Events can be commonly used to follow to triggers in git a commit or a tag. The below examples use both regex and non regex.
 
@@ -98,7 +102,7 @@ deploy:
       environmentKey: prod
 ```
 
-## [](#header-1) PromotionMap
+### [](#header-1) PromotionMap
 
 The promotion map in the config is where you should specify events to promote an artifact to a new environment. It generates what should be the new tag of the artifact for the environment it is promoted to. It applies to every artifact defined in common, promotion and the promotionMap artifact overrides section of your repo config. Below is an example of a promotionMap that will promote an artifact based on a commit to stage branch in git.
 
@@ -119,7 +123,7 @@ promote:
       promoteToEvent: tag/rc
 ```
 
-## [](#header-1) DeploymentMap
+### [](#header-1) DeploymentMap
 
 The deployment map in git is where you define the events in git that should trigger a deployment to a certain environment. The environmentKey variable allows you to map the environment to one defined in the global config specifying the name of the environment artifacts should be deployed to. The following shows an example of a stage and prod environment(Assume those are defined in global config).
 
@@ -143,7 +147,7 @@ deploy:
       environmentKey: prod
 ```
 
-# [](#header-1) Example
+### [](#header-1) Example
 
 ```yaml
 common:
@@ -156,7 +160,7 @@ common:
       artifactRepoKey: default
     - artifactType: docker
       eventRegex: tag/.*
-      artifactRepoKey: default
+      artifactRepoKey: 
 
 promote:
   promotionMap:
