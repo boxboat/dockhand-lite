@@ -18,7 +18,7 @@
 
 • **gitConnectionKey**: *undefined* \| *string*
 
-Defined in: [global/IGlobalConfig.ts:25](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L25)
+Defined in: [global/IGlobalConfig.ts:25](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L25)
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 • **path**: *undefined* \| *string*
 
-Defined in: [global/IGlobalConfig.ts:26](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L26)
+Defined in: [global/IGlobalConfig.ts:26](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L26)
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 • **ref**: *undefined* \| *string*
 
-Defined in: [global/IGlobalConfig.ts:27](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L27)
+Defined in: [global/IGlobalConfig.ts:27](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L27)

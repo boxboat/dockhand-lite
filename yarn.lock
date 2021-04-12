@@ -5202,6 +5202,11 @@ typedoc-default-themes@^0.12.9:
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.12.10.tgz#614c4222fe642657f37693ea62cad4dafeddf843"
   integrity sha512-fIS001cAYHkyQPidWXmHuhs8usjP5XVJjWB8oZGqkTowZaz3v7g3KDZeeqE82FBrmkAnIBOY3jgy7lnPnqATbA==
 
+typedoc-plugin-jekyll@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-jekyll/-/typedoc-plugin-jekyll-0.1.0.tgz#9ac24a26ff7a42a7c5d9a539775abcfcafb4e86e"
+  integrity sha512-fqSFpqgjOYc3VV5MKXA0Jdse5nGTVFC9YLHEbv5FJeP2XUKwmzhOXhT59oUITAvAFAvMGNXhzjs14ylwbD1gNw==
+
 typedoc-plugin-markdown@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-3.6.1.tgz#b3e708606b2a8517d350b875b680490e77b88a5e"

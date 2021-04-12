@@ -17,30 +17,30 @@
 
 ### build
 
-• **build**: *IBuild*
+• **build**: [*IBuild*](repo_ibuild.ibuild.md)
 
-Defined in: [repo/IRepoConfig.ts:8](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/repo/IRepoConfig.ts#L8)
+Defined in: [repo/IRepoConfig.ts:8](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/repo/IRepoConfig.ts#L8)
 
 ___
 
 ### common
 
-• **common**: *ICommon*
+• **common**: [*ICommon*](repo_icommon.icommon.md)
 
-Defined in: [repo/IRepoConfig.ts:7](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/repo/IRepoConfig.ts#L7)
+Defined in: [repo/IRepoConfig.ts:7](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/repo/IRepoConfig.ts#L7)
 
 ___
 
 ### deploy
 
-• **deploy**: *IDeploy*
+• **deploy**: [*IDeploy*](repo_ideploy.ideploy.md)
 
-Defined in: [repo/IRepoConfig.ts:10](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/repo/IRepoConfig.ts#L10)
+Defined in: [repo/IRepoConfig.ts:10](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/repo/IRepoConfig.ts#L10)
 
 ___
 
 ### promote
 
-• **promote**: *IPromote*
+• **promote**: [*IPromote*](repo_ipromote.ipromote.md)
 
-Defined in: [repo/IRepoConfig.ts:9](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/repo/IRepoConfig.ts#L9)
+Defined in: [repo/IRepoConfig.ts:9](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/repo/IRepoConfig.ts#L9)

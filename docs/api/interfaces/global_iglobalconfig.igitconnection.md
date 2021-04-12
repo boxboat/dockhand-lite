@@ -24,7 +24,7 @@
 
 • **authorEmail**: *string*
 
-Defined in: [global/IGlobalConfig.ts:9](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L9)
+Defined in: [global/IGlobalConfig.ts:9](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L9)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **authorName**: *string*
 
-Defined in: [global/IGlobalConfig.ts:10](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L10)
+Defined in: [global/IGlobalConfig.ts:10](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L10)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **pathPrefix**: *string*
 
-Defined in: [global/IGlobalConfig.ts:11](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L11)
+Defined in: [global/IGlobalConfig.ts:11](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L11)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **remoteHost**: *string*
 
-Defined in: [global/IGlobalConfig.ts:12](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L12)
+Defined in: [global/IGlobalConfig.ts:12](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L12)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **remotePasswordEnvVar**: *string*
 
-Defined in: [global/IGlobalConfig.ts:15](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L15)
+Defined in: [global/IGlobalConfig.ts:15](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L15)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **remoteProtocol**: *string*
 
-Defined in: [global/IGlobalConfig.ts:13](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L13)
+Defined in: [global/IGlobalConfig.ts:13](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L13)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **remoteUser**: *string*
 
-Defined in: [global/IGlobalConfig.ts:14](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L14)
+Defined in: [global/IGlobalConfig.ts:14](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L14)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **sshKeyFile**: *string*
 
-Defined in: [global/IGlobalConfig.ts:16](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L16)
+Defined in: [global/IGlobalConfig.ts:16](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L16)
 
 ___
 
@@ -88,4 +88,4 @@ ___
 
 • **sshKeyFileEnvVar**: *string*
 
-Defined in: [global/IGlobalConfig.ts:17](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L17)
+Defined in: [global/IGlobalConfig.ts:17](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L17)

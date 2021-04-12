@@ -187,46 +187,4 @@ deploy:
 
 # Schema for Repo Dockhand Config
 
-The following table lists all the parameters you can set in your dockhand repo config yaml file.
-
-| Parameter                                | Description                                             |
-|------------------------------------------|---------------------------------------------------------|
-| `common.[]artifactPublishEvents.artifactRepoKey`  | This is your artifact repo configured in the global dockhand config |
-| `common.[]artifactPublishEvents.artifactType`  | This is the type of artifact you plan on having dockhand track | 
-| `common.[]artifactPublishEvents.event`  | This is an event in git for dockhand to watch for. (ex. event commiting to deveop: `commit/develop`) | 
-| `common.[]artifactPublishEvents.eventRegex`                   | This is an regular expression representing a set of events for dockhand to watch for |
-| `common.artifacts.[]<ARTIFACT_TYPE_NAME>.{}<String,String>`                   | This represents artifacts you want dockhand to track for build promote and deploy | 
-| `common.name`                   | The name of your common configuration |
-| `build.artifactPublishEvents`   | The git events dockhand should use to identify when to publish the build artifact | 
-| `build.artifacts.[]<ARTIFACT_NAME>.{}<String,String>`  | This represents artifacts you want dockhand to track for build   |
-| `build.dependencies.[]<ARTIFACT_NAME>.{}<String,String>`   | This represents artifacts of dependencies you want dockhand to track for build |
-| `build.dependencies.event`   | The event dockhand should track for a build dependency  |
-| `build.dependencies.eventFallback`   | If the main event for a dependency does not occur dockhand should look for this event for the dependency |
-| `build.dependencies.ArtifactsResolverOverrides`(ASK CALEB)   | ? |
-| `build.name`   | The name of the build section in your repo config |
-| `promote.artifactPublishEvents`   | The git events dockhand should use to identify when to promote the artifact |
-| `promote.artifacts.[]<ARTIFACT_NAME>.{}<String,String>`   | This represents artifacts of dependencies you want dockhand to track for promotions |
-| `promote.baseVersion`   | ? |
-| `promote.gitTagDisable`   | ? |
-| `promote.name`   | The name of your promote section config  |
-| `promote.promotionMap.[]<ARTIFACT_NAME>.{}<String,String>`   | Map of artifacts to promote with event data specific to each artifact |
-| `promote.promotionMap.[]<DEPLOYMENT_NAME>.event`   | Events for dockhand to watch for to know when to promote the artifact |
-| `promote.promotionMap.[]<DEPLOYMENT_NAME>.eventFallback`   | If the main event for a artifact to be promoted does not occur dockhand should look for this event for the artifact   |
-| `promote.promotionMap.[]<DEPLOYMENT_NAME>.eventFallback.overrides.artifacts.[]<ARTIFACT_NAME>.{}<String,String>` | artifacts to override the artifact to be promoted with.  |
-| `promote.promotionMap.[]<DEPLOYMENT_NAME>.eventFallback.overrides.event` | Event for dockhand to watch for the overriden artifact. |
-| `promote.promotionMap.[]<DEPLOYMENT_NAME>.eventFallback.overrides.eventFallback` | If the main event for an override artifact to be promoted does not occur dockhand should look for this event for the artifact |
-| `promote.tagPrefix`   |  |
-| `deploy.artifactPublishEvents`   |   |
-| `deploy.artifacts.[]<ARTIFACT_NAME>.{}<String,String>`   |   |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.artifacts.[]<ARTIFACT_NAME>.{}<String,String>`   | Map of artifacts to promote with event data specific to each artifact. |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.environmentKey`  | Environment key of the artifact to deploy (identifier for cluster of that environment) |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.event`  |  Event for dockhand to follow to determine deploying a new release. |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.eventFallback`  |  If the main event for a dependency does not occur dockhand should look for this event for the dependency  |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.eventRegex`  |  Regular expression representing a set of events for dockhand to watch for for a deployment |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.group`  |    |
-| `deploy.deploymentMap.[]<DEPLOYMENT_NAME>.overrides`  |  Overrides for a deployment.  |
-| `deploy.name`   | The name of the deployment  |
-| `deploy.overrides.artifacts.[]<ARTIFACT_NAME>.{}<String,String>`   | service type for Airflow UI    |
-| `deploy.overrides.event` | Event for dockhand to follow for the override artifacts |
-| `deploy.overrides.event` | Fallback event for dockhand to follow for the override artifacts |
-
+The Repo Schema API documentation can be found [here](https://github.com/boxboat/dockhand-lite/blob/master/docs/api/interfaces/repo_irepoconfig.irepoconfig.md).

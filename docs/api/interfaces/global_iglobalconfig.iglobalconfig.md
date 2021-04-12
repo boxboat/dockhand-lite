@@ -19,7 +19,7 @@
 
 • **artifactRepoMap**: *undefined* \| *Record*<string, any\>
 
-Defined in: [global/IGlobalConfig.ts:2](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L2)
+Defined in: [global/IGlobalConfig.ts:2](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L2)
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 • **buildVersions**: *undefined* \| IBuildVersionsGitRepo
 
-Defined in: [global/IGlobalConfig.ts:3](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L3)
+Defined in: [global/IGlobalConfig.ts:3](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L3)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • **environmentMap**: *undefined* \| *Record*<string, any\>
 
-Defined in: [global/IGlobalConfig.ts:4](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L4)
+Defined in: [global/IGlobalConfig.ts:4](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L4)
 
 ___
 
@@ -43,4 +43,4 @@ ___
 
 • **gitConnectionMap**: *undefined* \| *Record*<string, [*IGitConnection*](global_iglobalconfig.igitconnection.md)\>
 
-Defined in: [global/IGlobalConfig.ts:5](https://github.com/boxboat/dockhand-lite/blob/73e28dc/src/spec/global/IGlobalConfig.ts#L5)
+Defined in: [global/IGlobalConfig.ts:5](https://github.com/boxboat/dockhand-lite/blob/cfc9e3a/src/spec/global/IGlobalConfig.ts#L5)
