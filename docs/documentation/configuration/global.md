@@ -51,4 +51,4 @@ environmentMap:
 
 # Schema for Global Dockhand Config
 
-The Global Schema API documentation can be found [here](https://github.com/boxboat/dockhand-lite/blob/master/docs/api/interfaces/global_iglobalconfig.iglobalconfig.md).
+The Global Schema API documentation can be found [here](https://github.com/boxboat/dockhand-lite/blob/feature/tsdocs/docs/api/interfaces/global_iglobalconfig.iglobalconfig.md).

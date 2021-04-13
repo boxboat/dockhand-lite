@@ -187,4 +187,4 @@ deploy:
 
 # Schema for Repo Dockhand Config
 
-The Repo Schema API documentation can be found [here](https://github.com/boxboat/dockhand-lite/blob/master/docs/api/interfaces/repo_irepoconfig.irepoconfig.md).
+The Repo Schema API documentation can be found [here](https://github.com/boxboat/dockhand-lite/blob/feature/tsdocs/docs/api/interfaces/repo_irepoconfig.irepoconfig.md).
