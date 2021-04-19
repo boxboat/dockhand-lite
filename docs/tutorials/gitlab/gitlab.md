@@ -7,7 +7,7 @@ parent: Tutorials
 
 # Gitlab Tutorial
 
-This tutorial will teach you how to use Dockhand Lite to manage build versions in Gitlab CI/CD pipelines.
+This tutorial will teach you how to use Dockhand Lite to manage build versions in Gitlab CI/CD pipelines. Link to resources can be found [here](https://gitlab.com/boxboat/dockhand/dhl-tutorial).
 
 ## Create Custom Dockhand Lite Image
 
