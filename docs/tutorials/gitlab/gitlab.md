@@ -86,7 +86,7 @@ With the two base gitlab ci jobs above you have what you need to start working o
 
 We will delve into those four here.
 
-### build
+### Build
 
 The build job is pretty simple just run docker within docker and simply run docker build then push to a local registry. We simplify this and take advantage of caching using [Moby](https://mobyproject.org/). The stage just consists of running the moby docker image inside of the jobs container and executing the docker command within it. Keep in mind the possibility of a possible artifact strictly for testing with all the needed dependencies to test with. 
 
@@ -126,7 +126,7 @@ build:
     fi
 ```
 
-### publish
+### Publish
 
 The publish stage is where you push these images to your official container repository. Dockhand comes really gets put to use here as it provides you with all the correct image names to push. It provides a unique version of the image using the commit SHA from the apps commit that triggered the pipeline.
 
@@ -282,7 +282,7 @@ deploy-stage:
     CLUSTER: nonprod
     DEPLOYMENT: stage
   rules:
-    - if: $CI_COMMIT_BRANCH == "deploy/nonprod"
+    - if: $CI_COMMIT_BRANCH == "deploy/stage"
 
 deploy-prod:
   extends: .deploy
