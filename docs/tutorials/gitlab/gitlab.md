@@ -244,3 +244,53 @@ tag-prod-release:
 ```
 
 Notice we make a base tag stage. This enables us to easily create stages for promotion to different environments. We could do and have a stage to promote from say a dev environment to a nonprod one. The key modifiers of the tag stage are the variables.
+
+### Deploy
+
+For deploying it will vary definitely with your deployment tool whether it be helm, or another one. There will also be a varying amount of jobs depending on how many possible environments/clusters you are deploying to. For this example we are just going to have a deploy to nonprod and prod example.
+
+```yaml
+.deploy:
+  extends: .dhl
+  environment:
+    name: $DEPLOYMENT
+  variables:
+    HELM_TIMEOUT: 5m
+  script:
+    - |
+      deployment_add_overrides "$DEPLOYMENT"
+      
+      mkdir -p ~/.kube
+      echo $GITLAB_KUBECONFIG_TARGET > ~/.kube/config
+      export KUBECONFIG=~/.kube/config
+
+      helm upgrade \
+        --atomic \
+        --create-namespace \
+        --install \
+        --timeout "$HELM_TIMEOUT" \
+        -f versions.yaml \
+        -f values.yaml \
+        $HELM_ADDITIONAL_OPTS \
+        -n "$DEPLOYMENT" \
+        "$DEPLOYMENT" \
+        ./pokergo
+
+deploy-stage:
+  extends: .deploy
+  variables:
+    CLUSTER: nonprod
+    DEPLOYMENT: stage
+  rules:
+    - if: $CI_COMMIT_BRANCH == "deploy/nonprod"
+
+deploy-prod:
+  extends: .deploy
+  variables:
+    CLUSTER: prod
+    DEPLOYMENT: prod
+    HELM_TIMEOUT: 10m
+  rules:
+    - if: $CI_COMMIT_BRANCH == "deploy/prod"
+      when: manual
+```
